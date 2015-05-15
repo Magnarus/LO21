@@ -1,32 +1,22 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2015-05-11T13:51:25
-#
-#-------------------------------------------------
+QT += widgets
 
-QT       += core gui
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
-TARGET = ProjectCalendar
-TEMPLATE = app
-
-
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    projet.cpp \
-    tache.cpp \
-    tache_unitaire.cpp \
-    tache_composite.cpp \
-    tmanager.cpp \
-    tachemanager.cpp
-
-HEADERS  += mainwindow.h \
+HEADERS += \
+    ajouteur.h \
+    ajouteurtachecomposite.h \
+    ajouteurtacheunitaire.h \
     projet.h \
     tache.h \
-    tache_unitaire.h \
     tache_composite.h \
-    tmanager.h \
-    tachemanager.h
+    tache_unitaire.h \
+    tmanager.h
 
-FORMS    += mainwindow.ui
+SOURCES += \
+    ajouteur.cpp \
+    ajouteurtachecomposite.cpp \
+    ajouteurtacheunitaire.cpp \
+    main.cpp \
+    projet.cpp \
+    tache.cpp \
+    tache_composite.cpp \
+    tache_unitaire.cpp \
+    tmanager.cpp

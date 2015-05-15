@@ -16,6 +16,7 @@ public:
           dispo, const QDate& deadline, const QTime& dur)
          :titre(id),dateDispo(dispo),dateEcheance(deadline),duree(dur)
     {}
+    QString getTitre()const {return titre;}
     void ajouterPrecedence(Tache* pred);
     virtual void afficher() = 0;
 };

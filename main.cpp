@@ -1,11 +1,17 @@
-#include "mainwindow.h"
-#include <QApplication>
-
+#include "ajouteurtachecomposite.h"
+#include "ajouteurtacheunitaire.h"
+#include "tmanager.h"
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();
+    Ajouteur* atu = new AjouteurTacheUnitaire();
+    Ajouteur* atc = new AjouteurTacheComposite();
+    TManager<Tache> t;
+    t.addAjouteur(atu,"Unitaire");
+    t.addAjouteur(atc,"Composite");
+    QDate dispo, deadline;
+    QTime duree(12,0);
+    AjouteurTacheUnitaire* au = dynamic_cast<AjouteurTacheUnitaire*>(t.getAjouteur("Unitaire"));
+    au->ajout(t.getTaches(),"1",dispo,deadline,duree,true);
+    std::cout << t.getItem("1").getTitre().toStdString() << std::endl;
+    return 0;
 }

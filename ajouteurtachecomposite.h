@@ -1,0 +1,21 @@
+#ifndef AJOUTEURTACHECOMPOSITE_H
+#define AJOUTEURTACHECOMPOSITE_H
+#include "ajouteur.h"
+#include "tache_composite.h"
+#include <QString>
+#include <QDate>
+class AjouteurTacheComposite : public Ajouteur
+{
+public:
+    AjouteurTacheComposite();
+    virtual void afficher()const override{ std::cout << "Je suis une tache composite\n";}
+    void ajout(std::vector<Tache*> conteneur, const QString& id, const QDate&
+                            dispo, const QDate& deadline, const QTime& dur,
+                            const std::vector<Tache*>& st = std::vector<Tache*>())
+    {
+        Tache_Composite* t = new Tache_Composite(id,dispo,deadline,dur,st);
+        conteneur.push_back(t);
+    }
+};
+
+#endif // AJOUTEURTACHECOMPOSITE_H
