@@ -17,14 +17,14 @@ public:
     }
 
     std::vector<T*>& getTaches() {return managable;}
-    T& getItem(const QString& id)
+    T& getItem(const int id)
     {
         typename std::vector<T*>::iterator it = managable.begin();
-        while(it!=managable.end() && id!=(*it)->getTitre())
+        while(it!=managable.end() && id!=(*it)->getId())
             ++it;
         return **it;
     }
-    const T& getItem(const QString& id) const
+    const T& getItem(const int id) const
     {
             typename std::vector<T*>::const_iterator it = managable.cbegin();
             while(it!=managable.cend() && id!=(*it)->getTitre())

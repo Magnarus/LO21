@@ -1,7 +1,7 @@
 #include "ajouteurtachecomposite.h"
 #include "ajouteurtacheunitaire.h"
 #include "tmanager.h"
-int main(int argc, char *argv[])
+int main()
 {
     Ajouteur* atu = new AjouteurTacheUnitaire();
     Ajouteur* atc = new AjouteurTacheComposite();
@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QDate dispo, deadline;
     QTime duree(12,0);
     AjouteurTacheUnitaire* au = dynamic_cast<AjouteurTacheUnitaire*>(t.getAjouteur("Unitaire"));
-    au->ajout(t.getTaches(),"1",dispo,deadline,duree,true);
-    std::cout << t.getItem("1").getTitre().toStdString() << std::endl;
+    au->ajout(t.getTaches(),1,"premiere tache",dispo,deadline,duree,true);
+    std::cout << t.getItem(1).getTitre().toStdString() << std::endl;
     return 0;
 }

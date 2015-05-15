@@ -9,13 +9,9 @@ class AjouteurTacheComposite : public Ajouteur
 public:
     AjouteurTacheComposite();
     virtual void afficher()const override{ std::cout << "Je suis une tache composite\n";}
-    void ajout(std::vector<Tache*> conteneur, const QString& id, const QDate&
+    void ajout(std::vector<Tache*> conteneur, const int id,const QString& titre, const QDate&
                             dispo, const QDate& deadline, const QTime& dur,
-                            const std::vector<Tache*>& st = std::vector<Tache*>())
-    {
-        Tache_Composite* t = new Tache_Composite(id,dispo,deadline,dur,st);
-        conteneur.push_back(t);
-    }
+                            const std::vector<Tache*>& st = std::vector<Tache*>());
 };
 
 #endif // AJOUTEURTACHECOMPOSITE_H
