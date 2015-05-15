@@ -7,7 +7,7 @@ class Projet
 {
     QDate dateDispo;
     QDate dateEcheance;
-    std::vector<Tache> taches;
+    std::vector<Tache*> taches;
 public:
     Projet();
 };
