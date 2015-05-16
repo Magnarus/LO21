@@ -16,7 +16,7 @@ public:
         if(capacity > 0) managable.reserve(capacity);
     }
 
-    std::vector<T*>& getTaches() {return managable;}
+    std::vector<T*>& getT() {return managable;}
     T& getItem(const int id)
     {
         typename std::vector<T*>::iterator it = managable.begin();

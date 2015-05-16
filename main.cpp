@@ -11,7 +11,7 @@ int main()
     QDate dispo, deadline;
     QTime duree(12,0);
     AjouteurTacheUnitaire* au = dynamic_cast<AjouteurTacheUnitaire*>(t.getAjouteur("Unitaire"));
-    au->ajout(t.getTaches(),1,"premiere tache",dispo,deadline,duree,true);
+    au->ajout(t.getT(),1,"premiere tache",dispo,deadline,duree,true);
     std::cout << t.getItem(1).getTitre().toStdString() << std::endl;
     return 0;
 }
