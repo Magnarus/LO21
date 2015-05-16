@@ -1,22 +1,35 @@
 #ifndef TMANAGER_H
 #define TMANAGER_H
-#include "ajouteur.h"
 #include<vector>
 #include<QString>
 #include<map>
-template<typename T>
+template<typename U>
+class Ajouteur;
+template<typename T, typename U>
 class TManager
 {
+    friend class Ajouteur<T>;
+
 protected:
-    std::map<QString,Ajouteur*> ajouts;
     std::vector<T*> managable;
+    std::map<QString, U*> ajouteurs;
+    void addItem(T* i){managable.push_back(i);}
+    TManager(TManager* t);
+    TManager& operator=(TManager* t);
+
+    struct Handler{
+            TManager* instance;
+            Handler():instance(0){}
+            // destructeur appelé à la fin du programme
+            ~Handler(){ if (instance) delete instance; }
+    };
+    static Handler handler;
+
 public:
     TManager(size_t capacity=0)
     {
         if(capacity > 0) managable.reserve(capacity);
     }
-
-    std::vector<T*>& getT() {return managable;}
     T& getItem(const int id)
     {
         typename std::vector<T*>::iterator it = managable.begin();
@@ -31,9 +44,26 @@ public:
                 ++it;
             return **it;
     }
-    void addAjouteur(Ajouteur* a,QString nom){ ajouts[nom]=a;}
-    Ajouteur* getAjouteur(QString nom)const{return ajouts.at(nom);}
-
+    virtual void afficher()const{}
+    static TManager* getInstance();
+    static void libererInstance();
+    void addAjouteur(QString nom,U* a){ ajouteurs[nom]=a;}
+    U* getAjouteur(const QString& nom)const{return ajouteurs.at(nom);}
 };
+
+template<typename T,typename U>
+typename TManager<T,U>::Handler TManager<T,U>::handler=TManager<T,U>::Handler();
+
+template<typename T,typename U>
+TManager<T,U>* TManager<T,U>::getInstance(){
+    if (handler.instance==0) handler.instance =new TManager;
+    return handler.instance;
+}
+
+template<typename T,typename U>
+void TManager<T,U>::libererInstance(){
+    if (handler.instance!=0) delete handler.instance;
+    handler.instance=0;
+}
 /*#include "tmanager.tpl"*/ ///On verra plus tard.
 #endif // TMANAGER_H

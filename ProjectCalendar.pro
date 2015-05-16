@@ -8,7 +8,9 @@ HEADERS += \
     tache.h \
     tache_composite.h \
     tache_unitaire.h \
-    tmanager.h
+    tmanager.h \
+    tachemanager.h \
+    ajouteurtache.h
 
 SOURCES += \
     ajouteur.cpp \
@@ -19,4 +21,6 @@ SOURCES += \
     tache.cpp \
     tache_composite.cpp \
     tache_unitaire.cpp \
-    tmanager.cpp
+    tmanager.cpp \
+    tachemanager.cpp \
+    ajouteurtache.cpp
