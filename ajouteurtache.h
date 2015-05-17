@@ -4,8 +4,12 @@
 #include "tache.h"
 class AjouteurTache : public Ajouteur<Tache*>
 {
+    friend class TacheManager;
+protected:
+    AjouteurTache():Ajouteur(){}
+    AjouteurTache(const AjouteurTache&);
+    AjouteurTache& operator=(const AjouteurTache&);
 public:
-    AjouteurTache(){}
     virtual void afficher()const = 0;
 };
 

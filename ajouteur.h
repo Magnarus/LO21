@@ -2,16 +2,20 @@
 #define AJOUTEUR_H
 #include <iostream>
 #include "tmanager.h"
-template<typename T>
+template<typename U>
 class Ajouteur
 {
-public:
+protected:
     Ajouteur(){}
-    virtual void afficher()const = 0;
-    void ajouter(T u)const
+    Ajouteur(const Ajouteur&);
+    Ajouteur& operator=(const Ajouteur&);
+protected:
+    void ajouter(TManager<U,Ajouteur*>* m,U u)const
     {
-        TManager<T,Ajouteur*>::getInstance()->addItem(&u);
+        m->addItem(u);
     }
+public:
+    virtual void afficher()const = 0;
 };
 
 #endif // AJOUTEUR_H

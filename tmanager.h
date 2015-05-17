@@ -11,19 +11,19 @@ class TManager
     friend class Ajouteur<T>;
 
 protected:
-    std::vector<T*> managable;
-    std::map<QString, U*> ajouteurs;
-    void addItem(T* i){managable.push_back(i);}
+    std::vector<T> managable;
+    std::map<QString, U> ajouteurs;
+    void addItem(T i){managable.push_back(i);}
     TManager(TManager* t);
     TManager& operator=(TManager* t);
 
-    struct Handler{
+    struct HandlerTM{
             TManager* instance;
-            Handler():instance(0){}
+            HandlerTM():instance(0){}
             // destructeur appelé à la fin du programme
-            ~Handler(){ if (instance) delete instance; }
+            ~HandlerTM(){ if (instance) delete instance; }
     };
-    static Handler handler;
+    static HandlerTM handler;
 
 public:
     TManager(size_t capacity=0)
@@ -32,14 +32,14 @@ public:
     }
     T& getItem(const int id)
     {
-        typename std::vector<T*>::iterator it = managable.begin();
+        typename std::vector<T>::iterator it = managable.begin();
         while(it!=managable.end() && id!=(*it)->getId())
             ++it;
         return **it;
     }
     const T& getItem(const int id) const
     {
-            typename std::vector<T*>::const_iterator it = managable.cbegin();
+            typename std::vector<T>::const_iterator it = managable.cbegin();
             while(it!=managable.cend() && id!=(*it)->getTitre())
                 ++it;
             return **it;
@@ -47,12 +47,12 @@ public:
     virtual void afficher()const{}
     static TManager* getInstance();
     static void libererInstance();
-    void addAjouteur(QString nom,U* a){ ajouteurs[nom]=a;}
-    U* getAjouteur(const QString& nom)const{return ajouteurs.at(nom);}
+    U getAjouteur(const QString& nom)const{return ajouteurs.at(nom);}
+    inline int nbItem()const {return managable.size();}
 };
 
 template<typename T,typename U>
-typename TManager<T,U>::Handler TManager<T,U>::handler=TManager<T,U>::Handler();
+typename TManager<T,U>::HandlerTM TManager<T,U>::handler=TManager<T,U>::HandlerTM();
 
 template<typename T,typename U>
 TManager<T,U>* TManager<T,U>::getInstance(){
