@@ -9,7 +9,7 @@ class AjouteurTacheUnitaire : public AjouteurTache
 {
     friend class TacheManager;
 protected:
-    AjouteurTacheUnitaire(){}
+
     AjouteurTacheUnitaire(const AjouteurTacheUnitaire&);
     AjouteurTacheUnitaire& operator=(const AjouteurTacheUnitaire&);
 public:
@@ -21,6 +21,7 @@ public:
         Tache* tu = new Tache_Unitaire(id,titre,dispo,deadline,dur,preemptive);
         ajouter(m,tu);
     }
+    AjouteurTacheUnitaire(){}
 };
 
 #endif // AJOUTEURTACHEUNITAIRE_H

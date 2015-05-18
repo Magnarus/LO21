@@ -4,13 +4,16 @@
 
 int main()
 {
-    QString titre = "God save the Queen";
+   /* QString titre = "God save the Queen";
     QDate dispo, deadline;
     QTime dur(12,0);
     bool ok = true;
     TManager<Tache*,Ajouteur<Tache*>*>* m = TacheManager::getInstance();
     AjouteurTacheUnitaire* atu = dynamic_cast<AjouteurTacheUnitaire*>(m->getAjouteur("UNITAIRE"));
     atu->ajout(1,titre,dispo,deadline,dur,m,ok);
-    std::cout << "nombre de taches : " << m->nbItem() << std::endl;
+    std::cout << "nombre de taches : " << m->nbItem() << std::endl;*/
+
+    AjouteurTacheUnitaire * atu = new AjouteurTacheUnitaire;
+    Ajouteur<Tache*>* test = atu;
     return 0;
 }
