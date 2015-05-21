@@ -5,15 +5,13 @@
 template<typename U>
 class Ajouteur
 {
+    friend class TManager<U>; // Pour que seuls les manager puissent créer des objets (principe du Manager ! )
 protected:
     Ajouteur(){}
     Ajouteur(const Ajouteur&);
     Ajouteur& operator=(const Ajouteur&);
 protected:
-    void ajouter(TManager<U,Ajouteur*>* m,U u)const
-    {
-        m->addItem(u);
-    }
+    virtual U construire(std::map<QString,QVariant>& params)const = 0;
 public:
     virtual void afficher()const = 0;
 };

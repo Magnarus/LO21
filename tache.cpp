@@ -2,7 +2,7 @@
 
 Tache* Tache::getPrecedence(int id)
 {
-    std::vector<Tache*>::iterator it = precedence.begin();
+    QList<Tache*>::iterator it = precedence.begin();
     while(it!=precedence.end() && id!=(*it)->getId())
         ++it;
     return *it;
@@ -11,7 +11,7 @@ Tache* Tache::getPrecedence(int id)
 bool Tache::estPredecence(int id)
 {
     bool ok;
-    std::vector<Tache*>::iterator it = this->precedence.begin();
+    QList<Tache*>::iterator it = this->precedence.begin();
     while(it!=precedence.end() && ok)
     {
         ok = id!=(*it)->getId();

@@ -4,22 +4,21 @@
 #include "tache_composite.h"
 #include <QString>
 #include <QDate>
+#include <iostream>
 #include "tachemanager.h"
+Q_DECLARE_METATYPE( QList<Tache*> ) // Sert à indiquer au QVariant que ce type existe
 class AjouteurTacheComposite : public AjouteurTache
 {
-    friend class TacheManager;
 protected:
-    AjouteurTacheComposite(){}
     AjouteurTacheComposite(const AjouteurTacheComposite&);
     AjouteurTacheComposite& operator=(const AjouteurTacheComposite&);
+    virtual Tache* construire(std::map<QString,QVariant>& params)const override;
+
 public:
     virtual void afficher()const override{ std::cout << "Je suis un ajouteur de tache composite\n";}
-    void ajout(const int id,const QString& titre, const QDate&
-                dispo, const QDate& deadline, const QTime& dur,
-                TManager<Tache*,Ajouteur<Tache*>*>* m, const std::vector<Tache*>& st = std::vector<Tache*>())
+    AjouteurTacheComposite():AjouteurTache()
     {
-        Tache* tc = new Tache_Composite(id,titre,dispo,deadline,dur,st);
-        ajouter(m,tc);
+        types.insert("list");
     }
 };
 

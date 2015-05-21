@@ -3,7 +3,7 @@
 bool Tache_Composite::estSousTache(int id)
 {
     bool ok;
-    std::vector<Tache*>::iterator it = sousTaches.begin();
+    QList<Tache*>::iterator it = sousTaches.begin();
     while(it!=sousTaches.end() && ok)
     {
         ok = id!=(*it)->getId();

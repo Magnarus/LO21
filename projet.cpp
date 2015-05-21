@@ -14,6 +14,9 @@ Tache& Projet::getTache(int id)
 
 void Projet::ajouterTache(Tache *t)
 {
+    //On vérifie que la tâche n'existe pas.
+    //TODO : créer un compteur d'instance pour id automatique et virer le test
+    //Mais flemme ce soir.
     int id = t->getId();
     std::vector<Tache*>::iterator it = taches.begin();
     bool ok;

@@ -3,11 +3,11 @@
 #include "tache.h"
 class Tache_Composite : public Tache
 {
-    std::vector<Tache*> sousTaches;
+    QList<Tache*> sousTaches;
     bool estSousTache(int id);
 public:
     Tache_Composite(const int id, const QString& titre, const QDate&
-                    dispo, const QDate& deadline, const QTime& dur,const std::vector<Tache*>& st = std::vector<Tache*>()):
+                    dispo, const QDate& deadline, const QTime& dur,const QList<Tache*>& st = QList<Tache*>()):
     Tache(id,titre,dispo,deadline,dur),sousTaches(st)
     {}
     void ajouterSousTache(Tache *st);

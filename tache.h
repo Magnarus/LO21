@@ -1,7 +1,7 @@
 #ifndef TACHE_H
 #define TACHE_H
 #include<QString>
-#include<vector>
+#include<QList>
 #include<QDate>
 #include<QTime>
 #include<iostream>
@@ -10,7 +10,7 @@ class Tache
 protected:
     int id;
     QString titre;
-    std::vector<Tache*> precedence;
+    QList<Tache*> precedence;
     QDate dateDispo;
     QDate dateEcheance;
     QTime duree;

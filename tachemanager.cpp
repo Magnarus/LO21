@@ -7,7 +7,7 @@ TacheManager::TacheManager()
     ajouteurs["UNITAIRE"] = atu;
     ajouteurs["COMPOSITE"] = atc;
 }
-TManager<Tache *, Ajouteur<Tache *> *> *TacheManager::getInstance(){
+TManager<Tache*> *TacheManager::getInstance(){
     if (handler.instance==0) handler.instance =new TacheManager;
     return handler.instance;
 }

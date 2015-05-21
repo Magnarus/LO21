@@ -3,12 +3,12 @@
 #include "tmanager.h"
 #include "ajouteurtache.h"
 #include<iostream>
-class TacheManager : public TManager<Tache*,Ajouteur<Tache*>*>
+class TacheManager : public TManager<Tache*>
 {
 public:
     TacheManager();
     virtual void afficher()const {std::cout << "Je suis un manager de tâches\n";}
-    static TManager<Tache *, Ajouteur<Tache*> *> *getInstance();
+    static TManager<Tache *> *getInstance();
 };
 
 #endif // TACHEMANAGER_H
