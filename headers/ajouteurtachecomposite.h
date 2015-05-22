@@ -6,12 +6,9 @@
 #include <QDate>
 #include <iostream>
 #include "tachemanager.h"
-Q_DECLARE_METATYPE( QList<Tache*> ) // Sert à indiquer au QVariant que ce type existe
 class AjouteurTacheComposite : public AjouteurTache
 {
 protected:
-    AjouteurTacheComposite(const AjouteurTacheComposite&);
-    AjouteurTacheComposite& operator=(const AjouteurTacheComposite&);
     virtual Tache* construire(std::map<QString,QVariant>& params)const override;
 
 public:
@@ -20,6 +17,8 @@ public:
     {
         types.insert("list");
     }
+    AjouteurTacheComposite(const AjouteurTacheComposite&);
+    AjouteurTacheComposite& operator=(const AjouteurTacheComposite&);
 };
 
 #endif // AJOUTEURTACHECOMPOSITE_H

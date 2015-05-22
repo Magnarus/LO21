@@ -1,5 +1,5 @@
-#include "ajouteurtacheunitaire.h"
-#include "ajouteurtachecomposite.h"
+#include "../headers/ajouteurtacheunitaire.h"
+#include "../headers/ajouteurtachecomposite.h"
 TacheManager::TacheManager()
 {
     AjouteurTacheUnitaire* atu = new AjouteurTacheUnitaire();

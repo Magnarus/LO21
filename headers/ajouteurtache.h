@@ -2,10 +2,15 @@
 #define AJOUTEURTACHE_H
 #include "ajouteur.h"
 #include "tache.h"
-#include <set>
+Q_DECLARE_METATYPE( QList<Tache*> ) // Sert à indiquer au QVariant que ce type existe
 class AjouteurTache : public Ajouteur<Tache*>
 {
 protected:
+    virtual Tache* construire(std::map<QString,QVariant>& params)const = 0;
+public:
+    virtual void afficher()const = 0;
+    AjouteurTache(const AjouteurTache&){}
+    AjouteurTache& operator=(const AjouteurTache&){}
     AjouteurTache():Ajouteur()
     {
         types.insert("id");
@@ -14,12 +19,6 @@ protected:
         types.insert("deadline");
         types.insert("dur");
     }
-    AjouteurTache(const AjouteurTache&);
-    AjouteurTache& operator=(const AjouteurTache&);
-    virtual Tache* construire(std::map<QString,QVariant>& params)const = 0;
-    std::set<QString> types; //Sert à indiquer les champs requis dans l'ajouteur
-public:
-    virtual void afficher()const = 0;
 };
 
 #endif // AJOUTEURTACHE_H

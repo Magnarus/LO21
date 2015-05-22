@@ -1,12 +1,12 @@
-#include "projet.h"
+#include "../headers/projet.h"
 
-Projet::Projet()
+Projet::Projet(QString &t, QDate &dispo, QDate &echeance):titre(t),dateDispo(dispo),dateEcheance(echeance)
 {
 }
 
 Tache& Projet::getTache(int id)
 {
-    std::vector<Tache*>::iterator it = taches.begin();
+    QList<Tache*>::iterator it = taches.begin();
     while(it!=taches.end() && id!=(*it)->getId())
         ++it;
     return **it;
@@ -18,7 +18,7 @@ void Projet::ajouterTache(Tache *t)
     //TODO : créer un compteur d'instance pour id automatique et virer le test
     //Mais flemme ce soir.
     int id = t->getId();
-    std::vector<Tache*>::iterator it = taches.begin();
+    QList<Tache*>::iterator it = taches.begin();
     bool ok;
     while(it!=taches.end() && ok)
     {

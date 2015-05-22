@@ -1,7 +1,8 @@
-#include "ajouteurtacheunitaire.h"
-Tache* AjouteurTacheUnitaire::construire(std::map<QString,QVariant>& params)const
+#include "../headers/ajouteurprojet.h"
+
+Projet *AjouteurProjet::construire(std::map<QString,QVariant>& params)const
 {
-    //On vérifie que les paramètres passés correspondent bien à une tache composite
+    //On vérifie que les paramètres passés correspondent bien à un projet
     for(std::map<QString,QVariant>::const_iterator it = params.begin(); it!=params.end();++it)
     {
         std::cout << it->first.toStdString() << std::endl;
@@ -13,13 +14,9 @@ Tache* AjouteurTacheUnitaire::construire(std::map<QString,QVariant>& params)cons
         }
     }
     //On récup les param de la tâche
-    int id = params["id"].toInt();
     QString titre = params["titre"].toString();
     QDate dispo(params["dispo"].toDate());
-    QDate deadline(params["deadline"].toDate());
-    QTime duree(params["dur"].toTime());
-    bool preempt = params["list"].toBool();
+    QDate echeance(params["echeance"].toDate());
 
-    return new Tache_Unitaire(id,titre,dispo,deadline,duree,preempt);
+    return new Projet(titre,dispo,echeance);
 }
-

@@ -1,4 +1,4 @@
-#include "tache.h"
+#include "../headers/tache.h"
 
 Tache* Tache::getPrecedence(int id)
 {

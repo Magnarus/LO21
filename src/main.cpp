@@ -1,6 +1,6 @@
-#include "ajouteurtachecomposite.h"
-#include "ajouteurtacheunitaire.h"
-#include "tachemanager.h"
+#include "../headers/ajouteurtachecomposite.h"
+#include "../headers/ajouteurtacheunitaire.h"
+#include "../headers/tachemanager.h"
 
 int main()
 {

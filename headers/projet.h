@@ -2,16 +2,16 @@
 #define PROJET_H
 #include<QDate>
 #include<QString>
-#include<vector>
+#include<QList>
 #include"tache.h"
 class Projet
 {
     QDate dateDispo;
     QDate dateEcheance;
     QString titre;
-    std::vector<Tache*> taches;
+    QList<Tache*> taches;
 public:
-    Projet();
+    Projet(QString& t, QDate& dispo, QDate& echeance);
     inline QDate getDateDispo()const{return dateDispo;}
     inline QDate getDateEcheance()const{return dateEcheance;}
     inline QString getTitre()const{return titre;}

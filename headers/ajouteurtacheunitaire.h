@@ -8,8 +8,6 @@
 class AjouteurTacheUnitaire : public AjouteurTache
 {
 protected:
-    AjouteurTacheUnitaire(const AjouteurTacheUnitaire&);
-    AjouteurTacheUnitaire& operator=(const AjouteurTacheUnitaire&);
     virtual Tache* construire(std::map<QString,QVariant>& params)const override;
 public:
     virtual void afficher()const override {std::cout << "j'ajoute des tâches unitaires\n";}
@@ -17,6 +15,8 @@ public:
     {
         types.insert("preempt");
     }
+    AjouteurTacheUnitaire(const AjouteurTacheUnitaire&);
+    AjouteurTacheUnitaire& operator=(const AjouteurTacheUnitaire&);
 };
 
 #endif // AJOUTEURTACHEUNITAIRE_H
