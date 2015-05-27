@@ -16,9 +16,8 @@ Tache* AjouteurTacheComposite::construire(std::map<QString,QVariant>& params)con
     QString titre = params["titre"].toString();
     QDate dispo(params["dispo"].toDate());
     QDate deadline(params["deadline"].toDate());
-    QTime duree(params["dur"].toTime());
     QList<Tache*> list = params["list"].value<QList<Tache*> >();
 
-    return new Tache_Composite(id,titre,dispo,deadline,duree,list);
+    return new Tache_Composite(id,titre,dispo,deadline,list);
 }
 

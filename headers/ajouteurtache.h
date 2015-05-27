@@ -17,7 +17,6 @@ public:
         types.insert("titre");
         types.insert("dispo");
         types.insert("deadline");
-        types.insert("dur");
     }
 };
 

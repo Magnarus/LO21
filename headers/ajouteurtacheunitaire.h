@@ -13,6 +13,7 @@ public:
     virtual void afficher()const override {std::cout << "j'ajoute des tâches unitaires\n";}
     AjouteurTacheUnitaire():AjouteurTache()
     {
+        types.insert("dur");
         types.insert("preempt");
     }
     AjouteurTacheUnitaire(const AjouteurTacheUnitaire&);
