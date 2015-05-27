@@ -12,7 +12,9 @@ HEADERS += \
     headers/tache_composite.h \
     headers/tache_unitaire.h \
     headers/tachemanager.h \
-    headers/tmanager.h
+    headers/tmanager.h \
+    headers/programmation.h \
+    headers/activite.h
 
 SOURCES += \
     src/ajouteur.cpp \
@@ -27,4 +29,6 @@ SOURCES += \
     src/tache_composite.cpp \
     src/tache_unitaire.cpp \
     src/tachemanager.cpp \
-    src/tmanager.cpp
+    src/tmanager.cpp \
+    src/programmation.cpp \
+    src/activite.cpp
