@@ -14,7 +14,13 @@ HEADERS += \
     headers/tachemanager.h \
     headers/tmanager.h \
     headers/programmation.h \
-    headers/activite.h
+    headers/activite.h \
+    headers/progTUnit.h \
+    headers/progActivite.h \
+    headers/ajouteurprogrammation.h \
+    headers/ajouteurprogtunit.h \
+    headers/ajouteurprogactivite.h \
+    headers/progmanager.h
 
 SOURCES += \
     src/ajouteur.cpp \
