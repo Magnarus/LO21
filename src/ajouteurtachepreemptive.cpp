@@ -1,21 +1,21 @@
 #include "../headers/ajouteurtachepreemptive.h"
-Tache* AjouteurTachePreemptive::construire(std::map<QString,QVariant>& params)const
+Tache* AjouteurTachePreemptive::construire(QMap<QString, QVariant> &params)const
 {
+    int id;
+    QString titre;
+    QDate dispo;
+    QDate deadline;
+    QTime duree;
     //On vérifie que les paramètres passés correspondent bien à une tache composite
-    for(std::map<QString,QVariant>::const_iterator it = params.begin(); it!=params.end();++it)
+    if(verifTypes(params.keys()))
     {
-        std::cout << it->first.toStdString() << std::endl;
-        if(types.find(it->first) == types.end())
-        {
-            throw AgendaException("Paramètre passé incorrect");
-        }
+        //On récup les param de la tâche
+        id = params["id"].toInt();
+        titre = params["titre"].toString();
+        dispo = params["dispo"].toDate();
+        deadline = params["deadline"].toDate();
+        duree = params["dur"].toTime();
     }
-    //On récup les param de la tâche
-    int id = params["id"].toInt();
-    QString titre = params["titre"].toString();
-    QDate dispo(params["dispo"].toDate());
-    QDate deadline(params["deadline"].toDate());
-    QTime duree(params["dur"].toTime());
-
+    else throw AgendaException("Paramètre passés invalides");
     return new TachePreemptive(id,titre,dispo,deadline,duree);
 }

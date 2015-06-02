@@ -6,11 +6,11 @@ Q_DECLARE_METATYPE( QList<Tache*> ) // Sert à indiquer au QVariant que ce type 
 class AjouteurTache : public Ajouteur<Tache*>
 {
 protected:
-    virtual Tache* construire(std::map<QString,QVariant>& params)const = 0;
+    virtual Tache* construire(QMap<QString,QVariant>& params)const = 0;
+    AjouteurTache(const AjouteurTache&);
+    AjouteurTache& operator=(const AjouteurTache&);
 public:
     virtual void afficher()const = 0;
-    AjouteurTache(const AjouteurTache&){}
-    AjouteurTache& operator=(const AjouteurTache&){}
     AjouteurTache():Ajouteur()
     {
         types.insert("id");

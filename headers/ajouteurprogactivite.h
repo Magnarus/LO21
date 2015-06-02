@@ -5,11 +5,11 @@
 class AjouteurProgActivite : public AjouteurProgrammation
 {
 protected:
-    virtual Programmation* construire(std::map<QString,QVariant>& params)const override;
+    virtual Programmation* construire(QMap<QString,QVariant>& params)const override;
+    AjouteurProgActivite(const AjouteurProgActivite&);
+    AjouteurProgActivite& operator=(const AjouteurProgActivite&);
 public:
     virtual void afficher()const override {std::cout << "j'ajoute des tâches unitaires\n";}
     AjouteurProgActivite():AjouteurProgrammation(){}
-    AjouteurProgActivite(const AjouteurProgActivite&);
-    AjouteurProgActivite& operator=(const AjouteurProgActivite&);
 };
 #endif // AJOUTEURPROGACTIVITE_H

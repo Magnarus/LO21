@@ -1,5 +1,6 @@
 #ifndef ACTIVITE_H
 #define ACTIVITE_H
+#include <iostream>
 #include <QDate>
 #include <QTime>
 #include <QString>
@@ -17,7 +18,7 @@ public:
     inline void setDate(QDate& d){date = d;}
     inline void setDuree(QTime& d){duree = d;}
     inline void setNom(QString& n){nom = n;}
-
+    inline void afficher(){std::cout << nom.toStdString() << std::endl;}
 };
 #include<QVariant>
 // Nous enregistrons le type Activite pour son utilisation avec QVariant

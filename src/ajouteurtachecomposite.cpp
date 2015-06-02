@@ -1,13 +1,13 @@
 #include "../headers/ajouteurtachecomposite.h"
-Tache* AjouteurTacheComposite::construire(std::map<QString,QVariant>& params)const
+Tache* AjouteurTacheComposite::construire(QMap<QString,QVariant>& params)const
 {
     bool aSousTaches = false;
     //On vérifie que les paramètres passés correspondent bien à une tache composite
-    for(std::map<QString,QVariant>::const_iterator it = params.begin(); it!=params.end();++it)
+    for(QMap<QString,QVariant>::const_iterator it = params.begin(); it!=params.end();++it)
     {
-        if(types.find(it->first) == types.end())
+        if(types.find(it.key()) == types.end())
         {
-            if (it->first == "list")
+            if (it.key() == "list")
             {
                 aSousTaches = true;
             }

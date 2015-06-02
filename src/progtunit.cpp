@@ -7,7 +7,7 @@ ProgTUnit::ProgTUnit(const int id, const QDate& d, const QTime& dur, Tache_Unita
 
 void ProgTUnit::setDate(QDate &d)
 {
-    if(d > this->programme->getDate())
+    if(d < this->programme->getDateDispo()|| d > this->programme->getEcheance())
         throw AgendaException("Impossible de programmer une activite à une autre date que celle voulue");
     date=d;
 }

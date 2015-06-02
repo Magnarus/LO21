@@ -1,21 +1,20 @@
 #include "../headers/ajouteurprojet.h"
 
-Projet *AjouteurProjet::construire(std::map<QString,QVariant>& params)const
+Projet *AjouteurProjet::construire(QMap<QString, QVariant> &params)const
 {
+    int id;
+    QString titre;
+    QDate dispo;
+    QDate echeance;
     //On vérifie que les paramètres passés correspondent bien à un projet
-    for(std::map<QString,QVariant>::const_iterator it = params.begin(); it!=params.end();++it)
+    if(verifTypes(params.keys()))
     {
-        std::cout << it->first.toStdString() << std::endl;
-        if(types.find(it->first) == types.end())
-        {
-            throw AgendaException("Paramètre passé incorrect");
-        }
+        //On récup les param de la tâche
+        id = params["id"].toInt();
+        titre = params["titre"].toString();
+        dispo = params["dispo"].toDate();
+        echeance = params["echeance"].toDate();
     }
-    //On récup les param de la tâche
-    int id = params["id"].toInt();
-    QString titre = params["titre"].toString();
-    QDate dispo(params["dispo"].toDate());
-    QDate echeance(params["echeance"].toDate());
-
+    else throw AgendaException("Paramètre passés incorrects");
     return new Projet(id,titre,dispo,echeance);
 }

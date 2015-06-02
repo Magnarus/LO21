@@ -5,11 +5,11 @@
 class AjouteurProjet : public Ajouteur<Projet*>
 {
 protected:
-    virtual Projet* construire(std::map<QString,QVariant>& params)const;
+    virtual Projet* construire(QMap<QString,QVariant>& params)const override;
+    AjouteurProjet(const AjouteurProjet&);
+    AjouteurProjet& operator=(const AjouteurProjet&);
 public:
-    virtual void afficher()const {std::cout << "je suis un ajouteur de projet\n";}
-    AjouteurProjet(const AjouteurProjet&){}
-    AjouteurProjet& operator=(const AjouteurProjet&){}
+    virtual void afficher()const override {std::cout << "je suis un ajouteur de projet\n";}
     AjouteurProjet():Ajouteur()
     {
         types.insert("id");

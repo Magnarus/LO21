@@ -1,22 +1,20 @@
 #include "../headers/ajouteurprogactivite.h"
-Programmation* AjouteurProgActivite::construire(std::map<QString,QVariant>& params)const
+Programmation* AjouteurProgActivite::construire(QMap<QString, QVariant> &params)const
 {
+    int id;
+    QDate date;
+    QTime duree;
+    Activite* act;
     //On vérifie que les paramètres passés correspondent bien à une tache composite
-    for(std::map<QString,QVariant>::const_iterator it = params.begin(); it!=params.end();++it)
+    if(verifTypes(params.keys()))
     {
-        std::cout << it->first.toStdString() << std::endl;
-        if(types.find(it->first) == types.end())
-        {
-            throw AgendaException("Paramètre passé incorrect");
-            break;
-        }
+        //On récup les param de la prog
+        id = params["id"].toInt();
+        date = params["date"].toDate();
+        duree = params["dur"].toTime();
+        act = params["programme"].value<Activite*>();
     }
-    //On récup les param de la prog
-    int id = params["id"].toInt();
-    QDate date(params["date"].toDate());
-    QTime duree(params["dur"].toTime());
-    Activite* act = params["programme"].value<Activite*>();
-
+    else throw AgendaException("les paramètres passés ne correspondent pas");
     return new ProgActivite(id,date,duree,act);
 }
 

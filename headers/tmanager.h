@@ -23,7 +23,7 @@ protected:
     }
 
     struct HandlerTM{
-            TManager* instance;
+            TManager<T>* instance;
             HandlerTM():instance(0){}
             // destructeur appelé à la fin du programme
             ~HandlerTM(){ if (instance) delete instance; }

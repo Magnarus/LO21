@@ -13,6 +13,8 @@ int main()
     QString nom("bonjour toi");
     Activite a(dispo,dur,nom);
     QVariant var = QVariant::fromValue(&a);
+    Activite *a2 = var.value<Activite*>();
+    a2->afficher();
     /*ProgManager::getInstance()->ajouterItem("ACTIVITE",params);
     int i = ProgManager::getInstance()->nbItem();
     std::cout << "nombre de taches : " << i << std::endl;

@@ -8,15 +8,15 @@
 class AjouteurTacheUnitaire : public AjouteurTache
 {
 protected:
-    virtual Tache* construire(std::map<QString,QVariant>& params)const = 0;
+    virtual Tache* construire(QMap<QString,QVariant>& params)const = 0;
+    AjouteurTacheUnitaire(const AjouteurTacheUnitaire&);
+    AjouteurTacheUnitaire& operator=(const AjouteurTacheUnitaire&);
 public:
     virtual void afficher()const =0;
     AjouteurTacheUnitaire():AjouteurTache()
     {
         types.insert("dur");
     }
-    AjouteurTacheUnitaire(const AjouteurTacheUnitaire&);
-    AjouteurTacheUnitaire& operator=(const AjouteurTacheUnitaire&);
 };
 
 #endif // AJOUTEURTACHEUNITAIRE_H
