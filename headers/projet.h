@@ -14,9 +14,10 @@ class Projet
     QList<Tache*> taches;
 public:
     Projet(int id,QString& t, QDate& dispo, QDate& echeance);
-    inline QDate getDateDispo()const{return dateDispo;}
-    inline QDate getDateEcheance()const{return dateEcheance;}
-    inline QString getTitre()const{return titre;}
+    inline const int getId()const {return id;}
+    inline const QDate& getDateDispo()const{return dateDispo;}
+    inline const QDate& getDateEcheance()const{return dateEcheance;}
+    inline const QString& getTitre()const{return titre;}
     inline void setTitre(QString& t){titre=t;}
     inline void setDateDispo(QDate& d){dateDispo = d;}
     inline void setDateEcheance(QDate& d){dateEcheance = d;}

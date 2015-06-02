@@ -23,9 +23,9 @@ public:
          :id(id),titre(titre),dateDispo(dispo),dateEcheance(deadline)
     {}
     inline int getId()const { return id;}
-    inline QString getTitre()const {return titre;}
-    inline QDate getDateDispo()const {return dateDispo;}
-    inline QDate getEcheance()const {return dateEcheance;}
+    inline const QString& getTitre()const {return titre;}
+    inline const QDate& getDateDispo()const {return dateDispo;}
+    inline const QDate& getEcheance()const {return dateEcheance;}
 
     inline void setTitre(QString& t){titre=t;}
     inline void setDateDispo(QDate& d){dateDispo =d;}

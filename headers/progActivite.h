@@ -6,8 +6,10 @@ class ProgActivite : public Programmation
 {
     Activite* programme;
 public:
-    ProgActivite(const int id, const QDate& d, const QTime& dur, Activite* p):Programmation(id,d,dur),programme(p){}
-    const inline Activite* getProgramme(){return programme;}
+    ProgActivite(const int id, const QDate& d, const QTime& dur, Activite* p);
+    inline const Activite* getProgramme()const{return programme;}
+    void setDate(QDate& d)override;
+    void setDuree(QTime &d)override;
     inline void setProgramme(Activite* t){programme = t;}
     inline void afficher(){ std::cout << "Je suis une programmation d'activité \n";}
 };

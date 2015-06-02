@@ -49,4 +49,6 @@ SOURCES += \
     src/ajouteurtachenonpreemptive.cpp \
     src/ajouteurprogactivite.cpp \
     src/ajouteurprogtunit.cpp \
-    src/progmanager.cpp
+    src/progmanager.cpp \
+    src/progactivite.cpp \
+    src/progtunit.cpp
