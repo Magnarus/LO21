@@ -1,6 +1,5 @@
 #include "../headers/projet.h"
-
-Projet::Projet(QString &t, QDate &dispo, QDate &echeance):titre(t),dateDispo(dispo),dateEcheance(echeance)
+Projet::Projet(int id, QString &t, QDate &dispo, QDate &echeance):id(id),titre(t),dateDispo(dispo),dateEcheance(echeance)
 {
 }
 
@@ -14,9 +13,7 @@ Tache& Projet::getTache(int id)
 
 void Projet::ajouterTache(Tache *t)
 {
-    //On vérifie que la tâche n'existe pas.
-    //TODO : créer un compteur d'instance pour id automatique et virer le test
-    //Mais flemme ce soir.
+    //On vérifie qu'on ajoute une tache non présente dans le projet
     int id = t->getId();
     QList<Tache*>::iterator it = taches.begin();
     bool ok;
@@ -25,5 +22,8 @@ void Projet::ajouterTache(Tache *t)
         ok = id!=(*it)->getId();
         ++it;
     }
+    if(ok) ok = t->getDateDispo() >= this->dateDispo && t->getEcheance() <= this->dateEcheance;
+    else throw AgendaException("La tâche est déjà dans le projet");
     if(ok) taches.push_back(t);
+    else throw AgendaException("La tâche a des dates incompatibles avec le projet");
 }

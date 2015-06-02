@@ -14,9 +14,7 @@ protected:
 public:
     virtual void afficher()const override{ std::cout << "Je suis un ajouteur de tache composite\n";}
     AjouteurTacheComposite():AjouteurTache()
-    {
-        types.insert("list");
-    }
+    {}
     AjouteurTacheComposite(const AjouteurTacheComposite&);
     AjouteurTacheComposite& operator=(const AjouteurTacheComposite&);
 };

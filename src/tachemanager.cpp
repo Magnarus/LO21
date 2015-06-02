@@ -1,10 +1,13 @@
-#include "../headers/ajouteurtacheunitaire.h"
+#include "../headers/ajouteurtachepreemptive.h"
+#include "../headers/ajouteurtachenonpreemptive.h"
 #include "../headers/ajouteurtachecomposite.h"
 TacheManager::TacheManager()
 {
-    AjouteurTacheUnitaire* atu = new AjouteurTacheUnitaire();
+    AjouteurTachePreemptive* atp = new AjouteurTachePreemptive();
+    AjouteurTacheNonPreemptive* atnp = new AjouteurTacheNonPreemptive();
     AjouteurTacheComposite* atc = new AjouteurTacheComposite();
-    ajouteurs["UNITAIRE"] = atu;
+    ajouteurs["PREEMPTIVE"] = atp;
+    ajouteurs["NON_PREEMPTIVE"] = atnp;
     ajouteurs["COMPOSITE"] = atc;
 }
 TManager<Tache*> *TacheManager::getInstance(){

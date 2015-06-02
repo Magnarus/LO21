@@ -4,20 +4,20 @@
 #include<QTime>
 class Tache_Unitaire : public Tache
 {
-    static const QTime* MAXNONPREEMPTIVE;
+protected:
     QTime duree;
-    bool estPreemptive;
 public:
+    Tache_Unitaire():Tache(){}
     Tache_Unitaire(const int id, const QString& titre, const QDate&
-                   dispo, const QDate& deadline, const QTime& dur,bool preemptive):
-        Tache(id,titre,dispo,deadline),duree(dur),estPreemptive(preemptive)
+                   dispo, const QDate& deadline, const QTime& dur):
+        Tache(id,titre,dispo,deadline),duree(dur)
     {}
-    inline bool preemptive()const {return estPreemptive;}
-    inline void setPreemptive(bool p){estPreemptive = p;}
-    inline virtual void afficher()const override {std::cout << "je suis une tâche unitaire\n";}
+    virtual void afficher()const = 0;
     inline QTime getDuree()const {return duree;}
     inline void setDuree(QTime& d){duree=d;}
 
 };
+#include<QVariant>
+Q_DECLARE_METATYPE(Tache_Unitaire*)
 
 #endif // TACHE_UNITAIRE_H

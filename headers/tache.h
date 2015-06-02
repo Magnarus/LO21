@@ -5,6 +5,7 @@
 #include<QDate>
 #include<QTime>
 #include<iostream>
+#include "../headers/agendaexception.h"
 class Tache
 {
 protected:
@@ -16,6 +17,7 @@ protected:
 
     bool estPredecence(int id);
 public:
+    Tache();
     Tache(const int id, const QString& titre, const QDate&
           dispo, const QDate& deadline)
          :id(id),titre(titre),dateDispo(dispo),dateEcheance(deadline)

@@ -11,8 +11,7 @@ protected:
 public:
     virtual void afficher()const override {std::cout << "j'ajoute des tâches unitaires\n";}
     AjouteurProgTUnit():AjouteurProgrammation()
-    {
-    }
+    {}
     AjouteurProgTUnit(const AjouteurProgTUnit&);
     AjouteurProgTUnit& operator=(const AjouteurProgTUnit&);
 };

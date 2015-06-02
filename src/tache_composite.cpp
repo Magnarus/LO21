@@ -26,5 +26,8 @@ void Tache_Composite::ajouterSousTache(Tache *st)
         {
             sousTaches.push_back(st);
         }
+        else if(ok) throw AgendaException("Les dates ne correspondent pas");
+        else throw AgendaException("Impossible d'être sous tâches mutuelles");
     }
+    else throw AgendaException("Sous tâche déjà existante");
 }

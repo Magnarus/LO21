@@ -3,6 +3,7 @@
 #include <iostream>
 #include <set>
 #include "tmanager.h"
+#include "agendaexception.h"
 template<typename U>
 class Ajouteur
 {

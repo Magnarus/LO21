@@ -1,8 +1,7 @@
-#include "../headers/ajouteurprojet.h"
-
-Projet *AjouteurProjet::construire(std::map<QString,QVariant>& params)const
+#include "../headers/ajouteurtachenonpreemptive.h"
+Tache* AjouteurTacheNonPreemptive::construire(std::map<QString,QVariant>& params)const
 {
-    //On vérifie que les paramètres passés correspondent bien à un projet
+    //On vérifie que les paramètres passés correspondent bien à une tache composite
     for(std::map<QString,QVariant>::const_iterator it = params.begin(); it!=params.end();++it)
     {
         std::cout << it->first.toStdString() << std::endl;
@@ -15,7 +14,8 @@ Projet *AjouteurProjet::construire(std::map<QString,QVariant>& params)const
     int id = params["id"].toInt();
     QString titre = params["titre"].toString();
     QDate dispo(params["dispo"].toDate());
-    QDate echeance(params["echeance"].toDate());
+    QDate deadline(params["deadline"].toDate());
+    QTime duree(params["dur"].toTime());
 
-    return new Projet(id,titre,dispo,echeance);
+    return new TacheNonPreemptive(id,titre,dispo,deadline,duree);
 }

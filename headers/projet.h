@@ -4,14 +4,16 @@
 #include<QString>
 #include<QList>
 #include"tache.h"
+#include "agendaexception.h"
 class Projet
 {
+    int id;
     QDate dateDispo;
     QDate dateEcheance;
     QString titre;
     QList<Tache*> taches;
 public:
-    Projet(QString& t, QDate& dispo, QDate& echeance);
+    Projet(int id,QString& t, QDate& dispo, QDate& echeance);
     inline QDate getDateDispo()const{return dateDispo;}
     inline QDate getDateEcheance()const{return dateEcheance;}
     inline QString getTitre()const{return titre;}

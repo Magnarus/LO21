@@ -26,5 +26,7 @@ void Tache::ajouterPrecedence(Tache *pred)
     if(!this->estPredecence(id))
        if(!pred->estPredecence(this->id))
            precedence.push_back(pred);
+       else throw AgendaException("Impossible d'avoir des précédences mutuelles");
+    else throw AgendaException("Précédence déjà existante");
 
 }

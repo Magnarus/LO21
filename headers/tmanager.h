@@ -14,7 +14,7 @@ class TManager
 protected:
     std::vector<T> managable; //L'ensemble des objets du Manager
     std::map<QString, Ajouteur<T>*> ajouteurs; //Les ajouteurs : ressemble au design pattern Factory !
-    void addItem(T i){managable.push_back(i);}
+    void addItem(T i){managable.push_back(i); idDispo++;}
     TManager(TManager* t);
     TManager& operator=(TManager* t);
     TManager(size_t capacity=0)
@@ -29,6 +29,7 @@ protected:
             ~HandlerTM(){ if (instance) delete instance; }
     };
     static HandlerTM handler;
+    int idDispo;
 
 public:
     T& getItem(const int id)
@@ -45,13 +46,15 @@ public:
                 ++it;
             return *it;
     }
-    virtual void afficher()const{}
+    virtual void afficher()const = 0;
     static TManager* getInstance();
     static void libererInstance();
+    const int getIdDispo()const {return idDispo;}
     inline int nbItem()const {return managable.size();}
     inline int nbAjouteurs()const {return ajouteurs.size();}
-    inline void ajouterItem(QString AjouteurType, std::map<QString,QVariant> params)
+    inline void ajouterItem(const QString& AjouteurType, std::map<QString,QVariant>& params)
     {
+        params["id"] = idDispo;
         //Jdois vérifier que AjouteurType existe mais pour l'instant j'ai la flemme, jsuis fatigué XD
         this->addItem(ajouteurs[AjouteurType]->construire(params));
     }
@@ -72,5 +75,6 @@ void TManager<T>::libererInstance(){
     if (handler.instance!=0) delete handler.instance;
     handler.instance=0;
 }
+
 /*#include "tmanager.tpl"*/ ///On verra plus tard.
 #endif // TMANAGER_H

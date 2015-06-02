@@ -12,6 +12,7 @@ public:
     AjouteurProgrammation& operator=(const AjouteurProgrammation&){}
     AjouteurProgrammation():Ajouteur()
     {
+        types.insert("id");
         types.insert("date");
         types.insert("duree");
         types.insert("programme");

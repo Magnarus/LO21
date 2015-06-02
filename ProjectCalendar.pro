@@ -1,3 +1,4 @@
+CONFIG += C++11
 QT += widgets
 
 HEADERS += \
@@ -15,12 +16,17 @@ HEADERS += \
     headers/tmanager.h \
     headers/programmation.h \
     headers/activite.h \
-    headers/progTUnit.h \
-    headers/progActivite.h \
     headers/ajouteurprogrammation.h \
     headers/ajouteurprogtunit.h \
     headers/ajouteurprogactivite.h \
-    headers/progmanager.h
+    headers/progmanager.h \
+    headers/progactivite.h \
+    headers/progtunit.h \
+    headers/tachepreemptive.h \
+    headers/tachenonpreemptive.h \
+    headers/ajouteurtachepreemptive.h \
+    headers/ajouteurtachenonpreemptive.h \
+    headers/agendaexception.h
 
 SOURCES += \
     src/ajouteur.cpp \
@@ -37,4 +43,10 @@ SOURCES += \
     src/tachemanager.cpp \
     src/tmanager.cpp \
     src/programmation.cpp \
-    src/activite.cpp
+    src/activite.cpp \
+    src/tachenonpreemptive.cpp \
+    src/ajouteurtachepreemptive.cpp \
+    src/ajouteurtachenonpreemptive.cpp \
+    src/ajouteurprogactivite.cpp \
+    src/ajouteurprogtunit.cpp \
+    src/progmanager.cpp

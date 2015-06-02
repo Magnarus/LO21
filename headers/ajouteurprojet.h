@@ -1,6 +1,5 @@
 #ifndef AJOUTEURPROJET_H
 #define AJOUTEURPROJET_H
-
 #include "ajouteur.h"
 #include "projet.h"
 class AjouteurProjet : public Ajouteur<Projet*>
@@ -13,6 +12,7 @@ public:
     AjouteurProjet& operator=(const AjouteurProjet&){}
     AjouteurProjet():Ajouteur()
     {
+        types.insert("id");
         types.insert("titre");
         types.insert("dispo");
         types.insert("echeance");

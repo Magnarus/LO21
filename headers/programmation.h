@@ -3,10 +3,11 @@
 #include<QDate>
 #include<QTime>
 class Programmation{
+    int id;
     QDate date;
     QTime duree;
 public:
-    Programmation(const QDate& d, const QTime& dur, const P& p):date(d),duree(dur){}
+    Programmation(const int id,const QDate& d, const QTime& dur):id(id),date(d),duree(dur){}
     const inline QDate& getDate()const{return date;}
     const inline QTime& getDuree()const{return duree;}
     inline void setDate(QDate& d){date = d;}
