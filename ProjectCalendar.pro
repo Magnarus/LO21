@@ -26,7 +26,8 @@ HEADERS += \
     headers/tachenonpreemptive.h \
     headers/ajouteurtachepreemptive.h \
     headers/ajouteurtachenonpreemptive.h \
-    headers/agendaexception.h
+    headers/agendaexception.h \
+    headers/etats.h
 
 SOURCES += \
     src/ajouteur.cpp \

@@ -6,6 +6,7 @@
 #include<QTime>
 #include<iostream>
 #include "../headers/agendaexception.h"
+#include "../headers/etats.h"
 class Tache
 {
 protected:
@@ -14,6 +15,7 @@ protected:
     QList<Tache*> precedence;
     QDate dateDispo;
     QDate dateEcheance;
+    Etats etat;
 
     bool estPredecence(int id);
     Tache(const Tache&);
@@ -28,10 +30,12 @@ public:
     inline const QString& getTitre()const {return titre;}
     inline const QDate& getDateDispo()const {return dateDispo;}
     inline const QDate& getEcheance()const {return dateEcheance;}
+    inline const Etats getEtat()const {return etat;}
 
     inline void setTitre(QString& t){titre=t;}
     inline void setDateDispo(QDate& d){dateDispo =d;}
     inline void setEcheance(QDate& d){dateEcheance=d;}
+    inline void setEtat(Etats e){etat = e;}
 
     Tache* getPrecedence(int id);
     void ajouterPrecedence(Tache* pred);
