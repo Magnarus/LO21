@@ -4,6 +4,15 @@
 #include<QTime>
 #include "agendaexception.h"
 #include <iostream>
+/**
+ * \class       Programmation programmation.h "headers/programmation.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe programmation
+ *
+ * \details     Les programmations définissent quand l'utilisateur doit faire une tache ou une activite.
+ */
 class Programmation{
 protected:
     int id;

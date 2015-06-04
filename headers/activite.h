@@ -4,6 +4,16 @@
 #include <QDate>
 #include <QTime>
 #include <QString>
+/**
+ * \class       Activite activite.h "headers/activite.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe des activités classique
+ *
+ * \details    Cette classe définit les activités classiques, qui sont des activités non
+ *                  liées à des projets.
+ */
 class Activite
 {
     QDate date;

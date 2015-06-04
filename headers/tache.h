@@ -7,6 +7,14 @@
 #include<iostream>
 #include "../headers/agendaexception.h"
 #include "../headers/etats.h"
+/**
+ * \class       Tache tache.h "headers/tache.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe Tache
+ * \details     Une tâche est un évènement qui doit être réalisé durant un interval de dates donné.
+ */
 class Tache
 {
 protected:
@@ -41,5 +49,4 @@ public:
     void ajouterPrecedence(Tache* pred);
     virtual void afficher()const = 0;
 };
-
 #endif // TACHE_H

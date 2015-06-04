@@ -2,6 +2,18 @@
 #define AJOUTEURPROGRAMMATION_H
 #include "ajouteur.h"
 #include "programmation.h"
+/**
+ * \class       AjouteurProgrammation ajouteurprogrammation.h "headers/ajouteurprogrammation.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe AjouteurProgrammation
+ * \extends     Ajouteur<Programmation*>
+ * \details    Cette classe définit les ajouteurs de programmation
+ *             Les ajouteurs sont des objets qui servent à construire des objets d'un type données.
+ *             Ils sont utiles pour que les managers puissent gérer de nouveaux types d'objets sans
+ *             avoir à tout recompiler.
+ */
 class AjouteurProgrammation : public Ajouteur<Programmation*>
 {
 protected:

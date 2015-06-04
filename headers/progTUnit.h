@@ -2,6 +2,14 @@
 #define PROGTUNIT_H
 #include "programmation.h"
 #include "tache_unitaire.h"
+/**
+ * \class       ProgTUnit progtunit.h "headers/progtunit.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe ProgTUnit
+ * \extends     Programmation
+ */
 class ProgTUnit : public Programmation
 {
     Tache_Unitaire* programme;

@@ -3,6 +3,7 @@
 ProjetManager::ProjetManager()
 {
     AjouteurProjet* ap = new AjouteurProjet();
+    cles.insert("PROJET");
     ajouteurs["PROJET"] = ap;
 }
 TManager<Projet*> *ProjetManager::getInstance(){

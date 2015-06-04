@@ -1,7 +1,16 @@
 #ifndef TACHENONPREEMPTIVE_H
 #define TACHENONPREEMPTIVE_H
 #include "tache_unitaire.h"
-
+/**
+ * \class       TacheNonPreemptive tachenonpreemptive.h "headers/tachenonpreemptive.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe Tache non Preemptive
+ * \extends     Tache_Unitaire
+ * \details     Une tâche Unitaire non Preemptive est un évènement qui doit être réalisé durant un interval de dates donné.
+ *              Elle doit être programmée du début à la fin et ne peut pas durer plus de 12h
+ */
 class TacheNonPreemptive : public Tache_Unitaire
 {
     static const QTime* MAXNONPREEMPTIVE;

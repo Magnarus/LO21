@@ -2,6 +2,16 @@
 #define TACHE_UNITAIRE_H
 #include"tache.h"
 #include<QTime>
+/**
+ * \class       Tache_Unitare tache_Unitaire.h "headers/tache_unitaire.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe Tache Unitaire
+ * \extends     Tache
+ * \details     Une tâche Unitaire est un évènement qui doit être réalisé durant un interval de dates donné.
+ *              Elle peut être préemptive ou non.
+ */
 class Tache_Unitaire : public Tache
 {
 protected:

@@ -6,6 +6,9 @@ TacheManager::TacheManager()
     AjouteurTachePreemptive* atp = new AjouteurTachePreemptive();
     AjouteurTacheNonPreemptive* atnp = new AjouteurTacheNonPreemptive();
     AjouteurTacheComposite* atc = new AjouteurTacheComposite();
+    cles.insert("PREEMPTIVE");
+    cles.insert("NON_PREEMPTIVE");
+    cles.insert("COMPOSITE");
     ajouteurs["PREEMPTIVE"] = atp;
     ajouteurs["NON_PREEMPTIVE"] = atnp;
     ajouteurs["COMPOSITE"] = atc;

@@ -6,6 +6,18 @@
 #include <QList>
 #include "tmanager.h"
 #include "agendaexception.h"
+/**
+ * \class Ajouteur ajouteur.h "headers/ajouteur.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe ajouteur
+ *
+ * \details    Cette classe définit les ajouteurs génériques
+ *             Les ajouteurs sont des objets qui servent à construire des objets d'un type données.
+ *             Ils sont utiles pour que les managers puissent gérer de nouveaux types d'objets sans
+ *             avoir à tout recompiler.
+ */
 template<typename U>
 class Ajouteur
 {
@@ -33,5 +45,4 @@ bool Ajouteur<U>::verifTypes(QList<QString> set) const
     }
     return true;
 }
-
 #endif // AJOUTEUR_H

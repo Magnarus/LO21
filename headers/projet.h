@@ -5,6 +5,15 @@
 #include<QList>
 #include"tache.h"
 #include "agendaexception.h"
+/**
+ * \class       Projet projet.h "headers/projet.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe Projet
+ * \details     Le projet est un ensemble de tâches qui doivent être commencé à partir d'une date
+ *              et terminés avant une autre
+ */
 class Projet
 {
     int id;

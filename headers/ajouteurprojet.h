@@ -2,6 +2,18 @@
 #define AJOUTEURPROJET_H
 #include "ajouteur.h"
 #include "projet.h"
+/**
+ * \class       AjouteurProjet ajouteurprojet.h "headers/ajouteurprojet.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe AjouteurProjet
+ * \extends     Ajouteur<Projet*>
+ * \details    Cette classe définit les ajouteurs de projet
+ *             Les ajouteurs sont des objets qui servent à construire des objets d'un type données.
+ *             Ils sont utiles pour que les managers puissent gérer de nouveaux types d'objets sans
+ *             avoir à tout recompiler.
+ */
 class AjouteurProjet : public Ajouteur<Projet*>
 {
 protected:

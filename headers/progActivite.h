@@ -2,6 +2,14 @@
 #define PROGACTIVITE_H
 #include "programmation.h"
 #include "activite.h"
+/**
+ * \class       ProgActivite progactivite.h "headers/progactivite.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe ProgActivite
+ * \extends     Programmation
+ */
 class ProgActivite : public Programmation
 {
     Activite* programme;

@@ -1,6 +1,15 @@
 #ifndef TACHE_COMPOSITE_H
 #define TACHE_COMPOSITE_H
 #include "tache.h"
+/**
+ * \class       Tache_Composite tache_composite.h "headers/tache_composite.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe Tache_Composite
+ * \extends     Tache
+ * \details     Une tâche composite est un ensemble de tâche qui doit être réalisé dans un interval de dates données.
+ */
 class Tache_Composite : public Tache
 {
     QList<Tache*> sousTaches;
