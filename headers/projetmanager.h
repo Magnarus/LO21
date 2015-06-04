@@ -6,6 +6,8 @@
 #include<iostream>
 class ProjetManager : public TManager<Projet*>
 {
+    ProjetManager(const ProjetManager&);
+    ProjetManager& operator=(const ProjetManager&);
 public:
     ProjetManager();
     virtual void afficher()const {std::cout << "Je suis un manager de projets\n";}

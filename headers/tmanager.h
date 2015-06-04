@@ -21,6 +21,8 @@ protected:
     {
         if(capacity > 0) managable.reserve(capacity);
     }
+    TManager(const TManager&);
+    TManager& operator=(const TManager&);
 
     struct HandlerTM{
             TManager<T>* instance;
@@ -52,7 +54,7 @@ public:
     const int getIdDispo()const {return idDispo;}
     inline int nbItem()const {return managable.size();}
     inline int nbAjouteurs()const {return ajouteurs.size();}
-    inline void ajouterItem(const QString& AjouteurType, std::map<QString,QVariant>& params)
+    inline void ajouterItem(const QString& AjouteurType, QMap<QString,QVariant>& params)
     {
         params["id"] = idDispo;
         //Jdois vérifier que AjouteurType existe mais pour l'instant j'ai la flemme, jsuis fatigué XD

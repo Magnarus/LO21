@@ -5,6 +5,8 @@
 class ProgTUnit : public Programmation
 {
     Tache_Unitaire* programme;
+    ProgTUnit(const ProgTUnit&);
+    ProgTUnit& operator=(const ProgTUnit&);
 public:
     ProgTUnit(const int id, const QDate& d, const QTime& dur, Tache_Unitaire* p);
     void setDate(QDate &d)override;

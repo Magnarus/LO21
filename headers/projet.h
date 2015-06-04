@@ -12,6 +12,8 @@ class Projet
     QDate dateEcheance;
     QString titre;
     QList<Tache*> taches;
+    Projet(const Projet&);
+    Projet& operator=(const Projet&);
 public:
     Projet(int id,QString& t, QDate& dispo, QDate& echeance);
     inline const int getId()const {return id;}

@@ -4,6 +4,8 @@
 
 class TachePreemptive : public Tache_Unitaire
 {
+    TachePreemptive(const TachePreemptive&);
+    TachePreemptive& operator=(const TachePreemptive&);
 public:
     TachePreemptive(const int id, const QString& titre, const QDate&
                    dispo, const QDate& deadline, const QTime& dur):

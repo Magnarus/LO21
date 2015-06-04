@@ -5,6 +5,8 @@
 class ProgActivite : public Programmation
 {
     Activite* programme;
+    ProgActivite(const ProgActivite&);
+    ProgActivite& operator=(const ProgActivite&);
 public:
     ProgActivite(const int id, const QDate& d, const QTime& dur, Activite* p);
     inline const Activite* getProgramme()const{return programme;}

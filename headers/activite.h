@@ -9,6 +9,7 @@ class Activite
     QDate date;
     QTime duree;
     QString nom;
+    Activite& operator=(const Activite&);
 public:
     Activite(){}
     Activite(const QDate& d, const QTime& dur, const QString& nom):date(d),duree(dur),nom(nom){}

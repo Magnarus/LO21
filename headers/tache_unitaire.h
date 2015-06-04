@@ -6,6 +6,8 @@ class Tache_Unitaire : public Tache
 {
 protected:
     QTime duree;
+    Tache_Unitaire(const Tache_Unitaire&);
+    Tache_Unitaire& operator=(const Tache_Unitaire&);
 public:
     Tache_Unitaire():Tache(){}
     Tache_Unitaire(const int id, const QString& titre, const QDate&

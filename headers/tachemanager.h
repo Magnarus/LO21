@@ -5,6 +5,8 @@
 #include<iostream>
 class TacheManager : public TManager<Tache*>
 {
+    TacheManager(const TacheManager&);
+    TacheManager& operator=(const TacheManager&);
 public:
     TacheManager();
     virtual void afficher()const {std::cout << "Je suis un manager de tâches\n";}

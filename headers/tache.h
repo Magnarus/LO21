@@ -16,6 +16,8 @@ protected:
     QDate dateEcheance;
 
     bool estPredecence(int id);
+    Tache(const Tache&);
+    Tache& operator=(const Tache&);
 public:
     Tache();
     Tache(const int id, const QString& titre, const QDate&

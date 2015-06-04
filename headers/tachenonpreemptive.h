@@ -5,6 +5,8 @@
 class TacheNonPreemptive : public Tache_Unitaire
 {
     static const QTime* MAXNONPREEMPTIVE;
+    TacheNonPreemptive(const TacheNonPreemptive&);
+    TacheNonPreemptive& operator=(const TacheNonPreemptive&);
 public:
     TacheNonPreemptive(const int id, const QString& titre, const QDate&
                    dispo, const QDate& deadline, const QTime& dur):

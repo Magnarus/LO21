@@ -5,6 +5,8 @@ class Tache_Composite : public Tache
 {
     QList<Tache*> sousTaches;
     bool estSousTache(int id);
+    Tache_Composite(const Tache_Composite&);
+    Tache_Composite& operator=(const Tache_Composite&);
 public:
     Tache_Composite(const int id, const QString& titre, const QDate&
                     dispo, const QDate& deadline,const QList<Tache*>& st = QList<Tache*>()):

@@ -9,6 +9,8 @@ protected:
     int id;
     QDate date;
     QTime duree;
+    Programmation(const Programmation&);
+    Programmation& operator=(const Programmation&);
 public:
     Programmation(const int id,const QDate& d, const QTime& dur):id(id),date(d),duree(dur){}
     const inline int getId() const {return id;}

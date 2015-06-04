@@ -18,6 +18,6 @@ int main()
     /*ProgManager::getInstance()->ajouterItem("ACTIVITE",params);
     int i = ProgManager::getInstance()->nbItem();
     std::cout << "nombre de taches : " << i << std::endl;
-    std::cout << ProgManager::getInstance()->getItem(1)->getDuree().hour() << std::endl;*/
+    ProgManager::getInstance()->getItem(1)->afficher();*/
     return 0;
 }
