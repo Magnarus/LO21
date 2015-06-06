@@ -11,7 +11,7 @@ Programmation* AjouteurProgActivite::construire(QMap<QString, QVariant> &params)
         //On récup les param de la prog
         id = params["id"].toInt();
         date = params["date"].toDate();
-        duree = params["dur"].toTime();
+        duree = params["duree"].toTime();
         act = params["programme"].value<Activite*>();
     }
     else throw AgendaException("les paramètres passés ne correspondent pas");

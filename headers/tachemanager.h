@@ -21,7 +21,7 @@ class TacheManager : public TManager<Tache*>
 protected:
 public:
     virtual void afficher()const {std::cout << "Je suis un manager de tâches\n";}
-    static TManager<Tache*> *getInstance();
+    static TManager<Tache *> *getInstance();
 };
 
 #endif // TACHEMANAGER_H

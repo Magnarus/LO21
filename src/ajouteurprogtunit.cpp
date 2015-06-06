@@ -10,7 +10,7 @@ Programmation* AjouteurProgTUnit::construire(QMap<QString,QVariant>& params)cons
     {
         id = params["id"].toInt();
         date = params["date"].toDate();
-        duree = params["dur"].toTime();
+        duree = params["duree"].toTime();
         tu = params["programme"].value<Tache_Unitaire*>();
     }
     else throw AgendaException("Paramètre passés invalides");

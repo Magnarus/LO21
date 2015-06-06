@@ -30,7 +30,7 @@ protected:
     void addItem(T i){managable.push_back(i); idDispo++;}
     TManager(TManager* t);
     TManager& operator=(TManager* t);
-    TManager(size_t capacity=0)
+    TManager(size_t capacity=0):idDispo(1)
     {
         if(capacity > 0) managable.reserve(capacity);
     }
@@ -61,14 +61,14 @@ public:
             return *it;
     }
     virtual void afficher()const = 0;
-    static TManager* getInstance();
+    //static TManager* getInstance();
     static void libererInstance();
     const int getIdDispo()const {return idDispo;}
     inline int nbItem()const {return managable.size();}
     inline int nbAjouteurs()const {return ajouteurs.size();}
     inline void ajouterItem(const QString& AjouteurType, QMap<QString,QVariant>& params)
     {
-        if(cles.find(AjouteurType) != cles.end()) throw AgendaException("Impossible d'utiliser cet ajouteur : il n'existe pas");
+        if(cles.find(AjouteurType) == cles.end()) throw AgendaException("Impossible d'utiliser cet ajouteur : il n'existe pas");
         params["id"] = idDispo;
         this->addItem(ajouteurs[AjouteurType]->construire(params));
     }
@@ -83,11 +83,11 @@ public:
 template<typename T>
 typename TManager<T>::HandlerTM TManager<T>::handler=TManager<T>::HandlerTM();
 
-template<typename T>
+/*template<typename T>
 TManager<T>* TManager<T>::getInstance(){
     if (handler.instance==0) handler.instance =new TManager;
     return handler.instance;
-}
+}*/
 
 template<typename T>
 void TManager<T>::libererInstance(){

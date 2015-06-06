@@ -9,6 +9,7 @@
  *
  * \details    Cette classe gère les exceptions
  */
+#include<QString>
 class AgendaException{
 public:
     AgendaException(const QString& message):info(message){}
