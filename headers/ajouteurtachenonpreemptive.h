@@ -17,7 +17,7 @@
 class AjouteurTacheNonPreemptive : public AjouteurTacheUnitaire
 {
 protected:
-    virtual Tache* construire(QMap<QString,QVariant>& params)const override;
+    virtual Tache* construire(QMap<QString,QVariant>& params)const throw(AgendaException) override;
     AjouteurTacheNonPreemptive(const AjouteurTacheNonPreemptive&);
     AjouteurTacheNonPreemptive& operator=(const AjouteurTacheNonPreemptive&);
 public:

@@ -1,6 +1,6 @@
 #include "../headers/ajouteurprojet.h"
 
-Projet *AjouteurProjet::construire(QMap<QString, QVariant> &params)const
+Projet *AjouteurProjet::construire(QMap<QString, QVariant> &params)const throw(AgendaException)
 {
     int id;
     QString titre;

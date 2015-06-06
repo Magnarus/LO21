@@ -12,7 +12,7 @@ bool Tache_Composite::estSousTache(int id)
     return !ok;
 }
 
-void Tache_Composite::ajouterSousTache(Tache *st)
+void Tache_Composite::ajouterSousTache(Tache *st)throw(AgendaException)
 {
     int identifiant = st->getId();
     bool ok;

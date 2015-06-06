@@ -1,5 +1,5 @@
 #include "../headers/ajouteurtachecomposite.h"
-Tache* AjouteurTacheComposite::construire(QMap<QString,QVariant>& params)const
+Tache* AjouteurTacheComposite::construire(QMap<QString,QVariant>& params)const throw(AgendaException)
 {
     bool aSousTaches = false;
     //On vérifie que les paramètres passés correspondent bien à une tache composite

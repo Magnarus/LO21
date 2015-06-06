@@ -19,7 +19,7 @@
 class AjouteurProgTUnit : public AjouteurProgrammation
 {
 protected:
-    virtual Programmation* construire(QMap<QString, QVariant> &params)const override;
+    virtual Programmation* construire(QMap<QString, QVariant> &params)const throw(AgendaException) override;
     AjouteurProgTUnit(const AjouteurProgTUnit&);
     AjouteurProgTUnit& operator=(const AjouteurProgTUnit&);
 public:

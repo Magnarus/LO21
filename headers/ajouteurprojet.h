@@ -17,7 +17,7 @@
 class AjouteurProjet : public Ajouteur<Projet*>
 {
 protected:
-    virtual Projet* construire(QMap<QString,QVariant>& params)const override;
+    virtual Projet* construire(QMap<QString,QVariant>& params)const throw(AgendaException) override;
     AjouteurProjet(const AjouteurProjet&);
     AjouteurProjet& operator=(const AjouteurProjet&);
 public:

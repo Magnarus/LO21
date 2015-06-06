@@ -1,5 +1,5 @@
 #include "../headers/ajouteurtachepreemptive.h"
-Tache* AjouteurTachePreemptive::construire(QMap<QString, QVariant> &params)const
+Tache* AjouteurTachePreemptive::construire(QMap<QString, QVariant> &params)const throw(AgendaException)
 {
     int id;
     QString titre;

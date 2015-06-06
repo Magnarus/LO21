@@ -17,7 +17,7 @@
 class AjouteurProgActivite : public AjouteurProgrammation
 {
 protected:
-    virtual Programmation* construire(QMap<QString,QVariant>& params)const override;
+    virtual Programmation* construire(QMap<QString,QVariant>& params)const throw(AgendaException) override;
     AjouteurProgActivite(const AjouteurProgActivite&);
     AjouteurProgActivite& operator=(const AjouteurProgActivite&);
 public:

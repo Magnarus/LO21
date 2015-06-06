@@ -21,7 +21,7 @@ public:
                     dispo, const QDate& deadline,const QList<Tache*>& st = QList<Tache*>()):
     Tache(id,titre,dispo,deadline),sousTaches(st)
     {}
-    void ajouterSousTache(Tache *st);
+    void ajouterSousTache(Tache *st)throw(AgendaException);
     inline virtual void afficher()const override{std::cout << "Je suis une tâche composite\n";}
 };
 

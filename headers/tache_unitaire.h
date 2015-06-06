@@ -26,7 +26,7 @@ public:
     {}
     virtual void afficher()const = 0;
     inline QTime getDuree()const {return duree;}
-    inline void setDuree(QTime& d){duree=d;}
+    inline virtual void setDuree(QTime& d){duree=d;}
 
 };
 #include<QVariant>

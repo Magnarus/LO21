@@ -21,7 +21,7 @@
 class AjouteurTacheComposite : public AjouteurTache
 {
 protected:
-    virtual Tache* construire(QMap<QString,QVariant>& params)const override;
+    virtual Tache* construire(QMap<QString,QVariant>& params)const throw(AgendaException) override;
     AjouteurTacheComposite(const AjouteurTacheComposite&);
     AjouteurTacheComposite& operator=(const AjouteurTacheComposite&);
 public:

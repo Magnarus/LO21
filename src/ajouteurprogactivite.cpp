@@ -1,5 +1,5 @@
 #include "../headers/ajouteurprogactivite.h"
-Programmation* AjouteurProgActivite::construire(QMap<QString, QVariant> &params)const
+Programmation* AjouteurProgActivite::construire(QMap<QString, QVariant> &params)const throw(AgendaException)
 {
     int id;
     QDate date;
