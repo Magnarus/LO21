@@ -20,7 +20,7 @@ bool Tache::estPredecence(int id)
     return !ok;
 }
 
-void Tache::ajouterPrecedence(Tache *pred)
+void Tache::ajouterPrecedence(Tache *pred)throw(AgendaException)
 {
     int id = pred->getId();
     if(!this->estPredecence(id))

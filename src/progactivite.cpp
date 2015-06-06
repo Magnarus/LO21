@@ -9,14 +9,14 @@ ProgActivite::ProgActivite(const int id, const QDate& d, const QTime& dur, Activ
 
 }
 
-void ProgActivite::setDate(QDate &d)
+void ProgActivite::setDate(QDate &d)throw(AgendaException)
 {
     if(d > this->programme->getDate())
         throw AgendaException("Impossible de programmer une activite à une autre date que celle voulue");
     date=d;
 }
 
-void ProgActivite::setDuree(QTime &d)
+void ProgActivite::setDuree(QTime &d)throw(AgendaException)
 {
     if(d > this->programme->getDuree())
         throw AgendaException("Impossible d'avoir une programmation plus longue que la durée de l'activite");

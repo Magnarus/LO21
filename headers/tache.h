@@ -46,7 +46,7 @@ public:
     inline void setEtat(Etats e){etat = e;}
 
     Tache* getPrecedence(int id);
-    void ajouterPrecedence(Tache* pred);
+    void ajouterPrecedence(Tache* pred)throw(AgendaException);
     virtual void afficher()const = 0;
 };
 #endif // TACHE_H

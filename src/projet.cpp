@@ -11,6 +11,32 @@ Tache& Projet::getTache(int id)
     return **it;
 }
 
+void Projet::setDateDispo(QDate &d)throw(AgendaException)
+{
+    QList<Tache*>::iterator it = taches.begin();
+    bool ok;
+    while(it!=taches.end() && ok)
+    {
+        ok = d >=(*it)->getDateDispo();
+        ++it;
+    }
+    if(!ok)throw AgendaException("Impossible: des taches commencent plus tard que la nouvelle date");
+    dateDispo = d;
+}
+
+void Projet::setDateEcheance(QDate &d)throw(AgendaException)
+{
+    QList<Tache*>::iterator it = taches.begin();
+    bool ok;
+    while(it!=taches.end() && ok)
+    {
+        ok = d <= (*it)->getEcheance();
+        ++it;
+    }
+    if(!ok)throw AgendaException("Impossible: des taches terminent plus tôt que la nouvelle date");
+    dateEcheance = d;
+}
+
 void Projet::ajouterTache(Tache *t)
 {
     //On vérifie qu'on ajoute une tache non présente dans le projet

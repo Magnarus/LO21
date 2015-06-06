@@ -30,8 +30,8 @@ public:
     inline const QDate& getDateEcheance()const{return dateEcheance;}
     inline const QString& getTitre()const{return titre;}
     inline void setTitre(QString& t){titre=t;}
-    inline void setDateDispo(QDate& d){dateDispo = d;}
-    inline void setDateEcheance(QDate& d){dateEcheance = d;}
+    void setDateDispo(QDate& d)throw(AgendaException);
+    void setDateEcheance(QDate& d)throw(AgendaException);
     Tache& getTache(int id);
     void ajouterTache(Tache* t);
 };
