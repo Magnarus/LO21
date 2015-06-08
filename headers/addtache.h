@@ -12,7 +12,7 @@
 #include<QPushButton>
 #include<QString>
 
-class addTache : public QWidget
+class AddTache : public QWidget
 {
     Q_OBJECT
     QDateEdit *_dateDispo,*_dateEcheance;
@@ -24,8 +24,8 @@ class addTache : public QWidget
     QHBoxLayout *_titreLayout,*_datesLayout,*_tachesLayout,*_buttonLayout;
 
 public:
-    explicit addTache(QWidget *parent = 0);
-    virtual ~addTache();
+    explicit AddTache(QWidget *parent = 0);
+    virtual ~AddTache();
 protected:
     void setAjouterTitle(const QString& title){ _ajouter->setText(title);}
 signals:

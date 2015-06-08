@@ -11,7 +11,7 @@
 #include "addtache.h"
 #include "editproject.h"
 
-class projectView : public QWidget
+class ProjectView : public QWidget
 {
     Q_OBJECT
     QPushButton *_creerProjet,*_creerTache,*_Editer;
@@ -19,11 +19,11 @@ class projectView : public QWidget
     QVBoxLayout *_vlayout;
     QHBoxLayout *_buttonLayout;
     AddProject *_ajouterProjet;
-    addTache *_ajouterTache;
+    AddTache *_ajouterTache;
     EditProject *_editerProjet;
 public:
-    explicit projectView(QWidget *parent = 0);
-    ~projectView();
+    explicit ProjectView(QWidget *parent = 0);
+    ~ProjectView();
 
 signals:
 
@@ -35,7 +35,7 @@ public slots:
     }
     void showCreateTache(){
         delete _ajouterTache;
-       _ajouterTache=new addTache();
+       _ajouterTache=new AddTache();
        _ajouterTache->show();
     }
     void showEditProject(){

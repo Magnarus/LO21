@@ -1,6 +1,6 @@
-#include "addtache.h"
+#include "../headers/addtache.h"
 
-addTache::addTache(QWidget *parent) : QWidget(parent)
+AddTache::AddTache(QWidget *parent) : QWidget(parent)
 {
     setWindowTitle("Ajouter une tâche");
     _vlayout= new QVBoxLayout(this);
@@ -50,7 +50,7 @@ addTache::addTache(QWidget *parent) : QWidget(parent)
     connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
 }
 
-addTache::~addTache()
+AddTache::~AddTache()
 {
     delete _titreLayout;
     delete _datesLayout;

@@ -1,22 +1,22 @@
-#ifndef ACCEUIL_H
-#define ACCEUIL_H
+#ifndef ACCUEIL_H
+#define ACCUEIL_H
 
 #include <QWidget>
 #include <QComboBox>
 #include <QVBoxLayout>
-#include "emploitdutemps.h"
+#include "emploidutemps.h"
 #include "projectview.h"
 
-class Acceuil : public QWidget
+class Accueil : public QWidget
 {
     Q_OBJECT
     QComboBox* _chooseInterface;
     QVBoxLayout* _mainLayout;
-    EmploitDuTemps* _edtInterface;
-    projectView *_projectTree;
+    EmploiDuTemps* _edtInterface;
+    ProjectView *_projectTree;
 public:
-    explicit Acceuil(QWidget *parent = 0);
-    ~Acceuil();
+    explicit Accueil(QWidget *parent = 0);
+    ~Accueil();
 
 signals:
 
@@ -37,4 +37,4 @@ public slots:
 
 };
 
-#endif // ACCEUIL_H
+#endif // ACCUEIL_H

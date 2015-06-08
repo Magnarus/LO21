@@ -1,5 +1,5 @@
 CONFIG += C++11
-QT += widgets
+QT += core gui widgets
 
 HEADERS += \
     headers/ajouteur.h \
@@ -27,7 +27,14 @@ HEADERS += \
     headers/ajouteurtachepreemptive.h \
     headers/ajouteurtachenonpreemptive.h \
     headers/agendaexception.h \
-    headers/etats.h
+    headers/etats.h \
+    headers/accueil.h \
+    headers/addtache.h \
+    headers/editproject.h \
+    headers/addproject.h \
+    headers/edittache.h \
+    headers/emploidutemps.h \
+    headers/projectview.h
 
 SOURCES += \
     src/ajouteur.cpp \
@@ -52,4 +59,11 @@ SOURCES += \
     src/ajouteurprogtunit.cpp \
     src/progmanager.cpp \
     src/progactivite.cpp \
-    src/progtunit.cpp
+    src/progtunit.cpp \
+    src/accueil.cpp \
+    src/addproject.cpp \
+    src/addtache.cpp \
+    src/editproject.cpp \
+    src/edittache.cpp \
+    src/emploidutemps.cpp \
+    src/projectview.cpp

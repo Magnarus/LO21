@@ -3,10 +3,10 @@
 #include "addtache.h"
 #include <QWidget>
 #include <QString>
-class EditTache : public addTache
+class EditTache : public AddTache
 {
 public:
-    EditTache(QWidget *parent=0):addTache(parent){ setWindowTitle(QString("Editer une tâche"));
+    EditTache(QWidget *parent=0):AddTache(parent){ setWindowTitle(QString("Editer une tâche"));
                                                  setAjouterTitle(QString("Enregistrer les modifications"));}
 };
 

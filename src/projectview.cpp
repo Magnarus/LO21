@@ -1,6 +1,6 @@
-#include "projectview.h"
+#include "../headers/projectview.h"
 
-projectView::projectView(QWidget *parent) : QWidget(parent)
+ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
 {
     _creerProjet=new QPushButton("Ajouter un projet",this);
     _creerTache=new QPushButton("Ajouter une tâche",this);
@@ -21,7 +21,7 @@ projectView::projectView(QWidget *parent) : QWidget(parent)
     connect(_Editer,SIGNAL(clicked()),this,SLOT(showEditProject()));
 }
 
-projectView::~projectView()
+ProjectView::~ProjectView()
 {
     delete _creerProjet;
     delete _creerTache;

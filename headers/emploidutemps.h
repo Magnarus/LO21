@@ -1,5 +1,5 @@
-#ifndef EMPLOITDUTEMPS_H
-#define EMPLOITDUTEMPS_H
+#ifndef EMPLOIDUTEMPS_H
+#define EMPLOIDUTEMPS_H
 
 #include <QWidget>
 #include <QTableWidget>
@@ -16,7 +16,7 @@
 #include <QAbstractItemView>
 #include <QIcon>
 
-class EmploitDuTemps : public QWidget
+class EmploiDuTemps : public QWidget
 {
     Q_OBJECT
     QVBoxLayout* _layout;
@@ -26,12 +26,12 @@ class EmploitDuTemps : public QWidget
     QLineEdit* _dateLabel;
 
 public:
-    explicit EmploitDuTemps(QWidget *parent = 0);
-    ~EmploitDuTemps();
+    explicit EmploiDuTemps(QWidget *parent = 0);
+    ~EmploiDuTemps();
 
 signals:
 
 public slots:
 };
 
-#endif // EMPLOITDUTEMPS_H
+#endif // EMPLOIDUTEMPS_H

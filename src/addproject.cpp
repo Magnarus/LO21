@@ -1,4 +1,4 @@
-#include "addproject.h"
+#include "../headers/addproject.h"
 
 AddProject::AddProject(QWidget *parent) : QWidget(parent)
 {
