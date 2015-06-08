@@ -34,7 +34,8 @@ HEADERS += \
     headers/addproject.h \
     headers/edittache.h \
     headers/emploidutemps.h \
-    headers/projectview.h
+    headers/projectview.h \
+    headers/Agenda.h
 
 SOURCES += \
     src/ajouteur.cpp \

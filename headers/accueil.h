@@ -2,6 +2,7 @@
 #define ACCUEIL_H
 
 #include <QWidget>
+#include <QMainWindow>
 #include <QComboBox>
 #include <QVBoxLayout>
 #include "emploidutemps.h"

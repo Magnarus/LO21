@@ -4,15 +4,20 @@
 #include "../headers/addtache.h"
 #include "../headers/edittache.h"
 #include "../headers/editproject.h"
+#include "../headers/Agenda.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Accueil accueil;
-    accueil.show();
+    Accueil acc;
+    //acc.showFullScreen();
+    Agenda principale(&acc);
+    principale.show();
     //AddProject ap;
     //ap.show();
-    //addTache ad;
+    //AddTache ad;
     //ad.show();
+    //EmploiDuTemps edt;
+    //edt.show();
     //EditTache e;
     //e.show();
   //  EditProject ep;

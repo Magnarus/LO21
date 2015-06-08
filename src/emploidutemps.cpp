@@ -31,9 +31,12 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
         stream.clear();
     }
     _edt->setVerticalHeaderLabels(vheaders);
+    _edt->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     _edt->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    _edt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     _layout->addLayout(_calendarBarLayout);
     _layout->addWidget(_edt);
+    this->setLayout(_layout);
 }
 
 EmploiDuTemps::~EmploiDuTemps()
