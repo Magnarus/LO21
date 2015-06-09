@@ -11,10 +11,10 @@ int main(int argc, char *argv[])
     //Accueil acc;
     //Agenda principale(&acc);
     //principale.show();
-    AddProject ap;
-    ap.show();
-    //AddTache ad;
-    //ad.show();
+    //AddProject ap;
+    //ap.show();
+    AddTache ad;
+    ad.show();
     //EmploiDuTemps edt;
     //edt.show();
     //EditTache e;

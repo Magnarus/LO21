@@ -5,7 +5,7 @@ AddTache::AddTache(QWidget *parent) : QWidget(parent)
     setWindowTitle("Ajouter une tâche");
     _vlayout= new QVBoxLayout(this);
     _datesLayout=new QHBoxLayout;
-    _tachesLayout=new QHBoxLayout;
+    _tachesLayout=new QVBoxLayout;
     _buttonLayout=new QHBoxLayout;
     _titreLayout=new QHBoxLayout;
     _dateDispo=new QDateEdit(this);
@@ -16,9 +16,9 @@ AddTache::AddTache(QWidget *parent) : QWidget(parent)
     _dateEcheance_l=new QLabel("Date d'échéance:",this);
     _titre=new QLineEdit(this);
     _titre_l=new QLabel("Nom:",this);
-    _idTaches=new QLineEdit(this);
+    _idTaches=new QListWidget(this);
     _idTaches->setEnabled(false);
-    _idTaches_l=new QLabel("ID des sous-tâches",this);
+    _idTaches_l=new QLabel("Sous-tâches",this);
     _preemptive=new QCheckBox(this);
     _preemptive_l=new QLabel("Préemptive?",this);
     _unitaire=new QCheckBox(this);
