@@ -46,54 +46,6 @@ protected:
     };
     static HandlerTM handler;
 
-    class Iterator{
-        typename QVector<T*>::iterator itCour;
-        Iterator(){itCour = managable.begin();}
-    public:
-        typename QVector<T*>::iterator& end(){return managable.end();}
-        T* valeur(){return *itCour;}
-        void next(){++itCour;}
-    };
-    Iterator& getIterator(){return Iterator();}
-
-
-    class IteratorDate{
-        QVector<T*> resultats;
-        typename QVector<T*>::iterator itRes;
-        QDate dispo;
-        QDate echeance;
-        IteratorDate(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
-        {
-           typename QVector<T*>::iterator it = managable.begin();
-            //S'il n'y a pas d'échéance mais une date simple
-            if(echeance.isNull())
-            {
-                while(it != managable.end())
-                {
-                    if((*it)->getDate() == dispo)
-                        resultats.push_back((*it));
-                    ++it;
-                }
-            }
-            else // Il y a bien une dispo et une echeance
-            {
-                while(it!= managable.end())
-                {
-                    if((*it)->getDateDispo() >= dispo && (*it)->getEcheance() <= echeance)
-                        resultats.push_back((*it));
-                    ++it;
-                }
-            }
-            itRes = resultats.begin();
-        }
-    public:
-        T* valeur(){return *itRes;}
-        typename QVector<T*>::iterator& courant(){return itRes;}
-        typename QVector<T*>::iterator& end(){return resultats.end();}
-        void next() { ++itRes;}
-    };
-    IteratorDate getIteratorDate(QDate& d, QDate &e = QDate()){return IteratorDate(d,e);}
-
 public:
     T& getItem(const int id)
     {
@@ -127,6 +79,57 @@ public:
         ajouteurs[ajouteurType] = a;
         cles.insert(ajouteurType);
     }
+
+    class Iterator
+    {
+        typename QVector<T>::iterator itCour;
+    public:
+        Iterator(typename QVector<T>::iterator i){itCour = i;}
+        T valeur(){return *itCour;}
+        typename QVector<T>::iterator& courant(){return itCour;}
+        void next(){++itCour;}
+    };
+    Iterator getIterator(){return Iterator(managable.begin());}
+    typename QVector<T>::iterator end(){return managable.end();}
+
+
+    class IteratorDate
+    {
+        QVector<T> resultats;
+        typename QVector<T>::iterator itRes;
+        QDate dispo;
+        QDate echeance;
+        IteratorDate(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
+        {
+           typename QVector<T>::iterator it = managable.begin();
+            //S'il n'y a pas d'échéance mais une date simple
+            if(echeance.isNull())
+            {
+                while(it != managable.end())
+                {
+                    if((*it)->getDate() == dispo)
+                        resultats.push_back((*it));
+                    ++it;
+                }
+            }
+            else // Il y a bien une dispo et une echeance
+            {
+                while(it!= managable.end())
+                {
+                    if((*it)->getDateDispo() >= dispo && (*it)->getEcheance() <= echeance)
+                        resultats.push_back((*it));
+                    ++it;
+                }
+            }
+            itRes = resultats.begin();
+        }
+    public:
+        T valeur(){return *itRes;}
+        typename QVector<T>::iterator& courant(){return itRes;}
+        typename QVector<T>::iterator& end(){return resultats.end();}
+        void next() { ++itRes;}
+    };
+    IteratorDate getIteratorDate(QDate& d, QDate &e = QDate()){return IteratorDate(d,e);}
 };
 
 //Initialisation du Handler Statique

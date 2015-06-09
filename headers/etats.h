@@ -7,4 +7,13 @@ enum Etats
     TERMINEE
 };
 
+enum typeTache
+{
+    TACHE,
+    UNITAIRE,
+    COMPOSITE,
+    PREEMPTIVE,
+    NON_PREEMPTIVE
+};
+
 #endif // ETATS_H

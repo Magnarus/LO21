@@ -3,12 +3,12 @@ Projet::Projet(int id, QString &t, QDate &dispo, QDate &echeance):id(id),titre(t
 {
 }
 
-Tache& Projet::getTache(int id)
+Tache* Projet::getTache(int id)
 {
     QList<Tache*>::iterator it = taches.begin();
     while(it!=taches.end() && id!=(*it)->getId())
         ++it;
-    return **it;
+    return *it;
 }
 
 void Projet::setDateDispo(QDate &d)throw(AgendaException)

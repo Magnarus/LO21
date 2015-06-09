@@ -19,7 +19,9 @@ public:
     TachePreemptive(const int id, const QString& titre, const QDate&
                    dispo, const QDate& deadline, const QTime& dur):
         Tache_Unitaire(id,titre,dispo,deadline,dur)
-    {}
+    {
+        setType(PREEMPTIVE);
+    }
     inline virtual void afficher()const override { std::cout << "Je suis une tâche préemptive\n";}
 };
 

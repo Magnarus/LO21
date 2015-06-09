@@ -32,8 +32,11 @@ public:
     inline void setTitre(QString& t){titre=t;}
     void setDateDispo(QDate& d)throw(AgendaException);
     void setDateEcheance(QDate& d)throw(AgendaException);
-    Tache& getTache(int id);
+    inline const int getNbTaches()const{taches.size();}
+    Tache *getTache(int id);
     void ajouterTache(Tache* t);
 };
-
+#include<QVariant>
+// ... ainsi que le type pointeur vers Activite
+Q_DECLARE_METATYPE(Projet*)
 #endif // PROJET_H

@@ -10,7 +10,7 @@
 #include "addproject.h"
 #include "addtache.h"
 #include "editproject.h"
-
+#include "tache_composite.h"
 class ProjectView : public QWidget
 {
     Q_OBJECT
@@ -24,9 +24,11 @@ class ProjectView : public QWidget
 public:
     explicit ProjectView(QWidget *parent = 0);
     ~ProjectView(){}
-    QTreeWidgetItem *ajouterRacine(QString name, QString description);
-    QTreeWidgetItem *ajouterEnfant(QTreeWidgetItem *parent,
-                       QString name, QString description);
+    QTreeWidgetItem* ajouterRacine(QString &name, QString &description, QVariant &data);
+    QTreeWidgetItem* ajouterEnfant(QTreeWidgetItem *parent,
+                                   QString& name, QString& description, QVariant& data);
+    void ajouterTache(Tache* t, QTreeWidgetItem* parent);
+    void init();
 
 signals:
 

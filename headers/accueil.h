@@ -37,7 +37,6 @@ public slots:
     }
     void setDate(QDate d)
     {
-        QMessageBox::information(this,"stage","e.getInfo()");
         _edtInterface->setDate(d);
     }
 };
