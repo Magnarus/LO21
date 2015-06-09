@@ -15,6 +15,17 @@ Agenda::Agenda(Accueil* a):_a(a)
     _menuFichier->addAction(_chargerFichier);
     _menuFichier->addAction(_sauvegarderFichier);
 
+     QDockWidget* dock = new QDockWidget(QLatin1String("Last filters"),this);
+     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    _dockWidget = new QWidget();
+    _sideLayout = new QVBoxLayout();
+    _calendar = new QCalendarWidget();
+    _list = new QListWidget();
+    _sideLayout->addWidget(_calendar);
+    _sideLayout->addWidget(_list);
+    _dockWidget->setLayout(_sideLayout);
+     dock->setWidget(_dockWidget);
+     addDockWidget(Qt::LeftDockWidgetArea,dock);
 
     _menuMode = menuBar()->addMenu("&Mode");
     _edtMode = new QAction("&Planning",this);

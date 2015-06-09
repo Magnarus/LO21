@@ -38,14 +38,7 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
     _edtlayout->addLayout(_calendarBarLayout);
     _edtlayout->addWidget(_edt);
 
-    _sideLayout = new QVBoxLayout();
-    _calendar = new QCalendarWidget(this);
-    _list = new QListWidget(this);
-    _sideLayout->addWidget(_calendar);
-    _sideLayout->addWidget(_list);
-
     _mainLayout = new QHBoxLayout(this);
-    _mainLayout->addLayout(_sideLayout);
     _mainLayout->addLayout(_edtlayout);
     this->setLayout(_mainLayout);
 }

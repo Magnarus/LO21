@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     //edt.show();
     //EditTache e;
     //e.show();
-  //  EditProject ep;
-  //  ep.show();
+     //EditProject ep;
+     //ep.show();
     return a.exec();
 }

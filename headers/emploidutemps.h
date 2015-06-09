@@ -22,14 +22,11 @@ class EmploiDuTemps : public QWidget
 {
     Q_OBJECT
     QHBoxLayout* _mainLayout;
-    QCalendarWidget* _calendar;
-    QListWidget* _list;
     QVBoxLayout* _edtlayout;
     QTableWidget* _edt;
     QHBoxLayout* _calendarBarLayout;
     QToolButton* _forward,*_next;
     QLineEdit* _dateLabel;
-    QVBoxLayout* _sideLayout;
 
 public:
     explicit EmploiDuTemps(QWidget *parent = 0);
