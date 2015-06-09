@@ -35,6 +35,11 @@ public slots:
         _projectTree->hide();
         _edtInterface->show();
     }
+    void setDate(QDate d)
+    {
+        QMessageBox::information(this,"stage","e.getInfo()");
+        _edtInterface->setDate(d);
+    }
 };
 
 #endif // ACCUEIL_H

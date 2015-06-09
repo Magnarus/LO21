@@ -17,7 +17,7 @@
 #include <QIcon>
 #include<QCalendarWidget>
 #include<QListWidget>
-
+#include<QLabel>
 class EmploiDuTemps : public QWidget
 {
     Q_OBJECT
@@ -26,10 +26,15 @@ class EmploiDuTemps : public QWidget
     QTableWidget* _edt;
     QHBoxLayout* _calendarBarLayout;
     QToolButton* _forward,*_next;
-    QLineEdit* _dateLabel;
+    QLabel* _dateLabel;
 
 public:
     explicit EmploiDuTemps(QWidget *parent = 0);
+    void setDate(QDate& d)
+    {
+        _dateLabel->setText(d.toString("dddd dd MMMM yyyy"));
+    }
+
     ~EmploiDuTemps(){}
 
 signals:

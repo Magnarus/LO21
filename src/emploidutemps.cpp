@@ -5,11 +5,15 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
     _calendarBarLayout=new QHBoxLayout();
     _forward=new QToolButton(this);
     _next=new QToolButton(this);
-    _dateLabel=new QLineEdit(this);
+    _dateLabel=new QLabel(this);
     _calendarBarLayout->addWidget(_forward);
     _calendarBarLayout->addWidget(_dateLabel);
     _calendarBarLayout->addWidget(_next);
-
+    QFont f= _dateLabel->font();
+    f.setPixelSize(28);
+    _dateLabel->setFont(f);
+    _dateLabel->setText(QDate::currentDate().toString("dddd dd MMMM yyyy"));
+    _dateLabel->setAlignment(Qt::AlignCenter);
     _edtlayout=new QVBoxLayout();
     _edt=new QTableWidget(24,7,this);
     _edt->setEditTriggers(QAbstractItemView::NoEditTriggers);

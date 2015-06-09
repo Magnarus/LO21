@@ -72,7 +72,7 @@ void AddTache::newTache()
         }
         else
             TacheManager::getInstance()->ajouterItem("COMPOSITE",params);
-        QMessageBox::information(this,"ajout réussi","projet bien ajouté ! ");
+        QMessageBox::information(this,"ajout réussi","tâche bien ajoutée ! ");
     }
     catch(AgendaException &e)
     {

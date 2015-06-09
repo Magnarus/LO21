@@ -7,6 +7,7 @@
 #include<QAction>
 #include<qdockwidget>
 #include "accueil.h"
+#include<iostream>
 class Agenda : public QMainWindow
 {
     Q_OBJECT
@@ -25,6 +26,14 @@ class Agenda : public QMainWindow
 
 public :
     Agenda(Accueil* a);
+signals :
+    void dateChanged(QDate);
+public slots:
+    void setDate(){
+        std::cout << "coucou hibou \n";
+        QDate d = _calendar->selectedDate();
+        emit dateChanged(d);
+    }
 };
 
 #endif // AGENDA_H
