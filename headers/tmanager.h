@@ -76,6 +76,7 @@ protected:
         }
     public:
         T* valeur(){return *itRes;}
+        typename QVector<T*>::iterator& courant(){return itRes;}
         typename QVector<T*>::iterator& end(){return resultats.end();}
         void next() { ++itRes;}
     };

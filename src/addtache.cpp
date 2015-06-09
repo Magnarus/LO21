@@ -5,10 +5,14 @@ AddTache::AddTache(QWidget *parent) : QWidget(parent)
     setWindowTitle("Ajouter une tâche");
     _vlayout= new QVBoxLayout(this);
     _datesLayout=new QHBoxLayout;
-    _tachesLayout=new QVBoxLayout;
+    _timeLayout=new QHBoxLayout;
+    _datetimeLayout=new QVBoxLayout;
     _buttonLayout=new QHBoxLayout;
     _titreLayout=new QHBoxLayout;
+
     _dateDispo=new QDateEdit(this);
+    _duree = new QTimeEdit(this);
+    _duree_l = new QLabel("Durée :",this);
     _dateDispo->setCalendarPopup(true);
     _dateEcheance=new QDateEdit(this);
     _dateEcheance->setCalendarPopup(true);
@@ -16,9 +20,6 @@ AddTache::AddTache(QWidget *parent) : QWidget(parent)
     _dateEcheance_l=new QLabel("Date d'échéance:",this);
     _titre=new QLineEdit(this);
     _titre_l=new QLabel("Nom:",this);
-    _idTaches=new QListWidget(this);
-    _idTaches->setEnabled(false);
-    _idTaches_l=new QLabel("Sous-tâches",this);
     _preemptive=new QCheckBox(this);
     _preemptive_l=new QLabel("Préemptive?",this);
     _unitaire=new QCheckBox(this);
@@ -37,39 +38,45 @@ AddTache::AddTache(QWidget *parent) : QWidget(parent)
     _datesLayout->addWidget(_dateDispo);
     _datesLayout->addWidget(_dateEcheance_l);
     _datesLayout->addWidget(_dateEcheance);
-    _tachesLayout->addWidget(_idTaches_l);
-    _tachesLayout->addWidget(_idTaches);
+    _timeLayout->addWidget(_duree_l);
+    _timeLayout->addWidget(_duree);
     _buttonLayout->addWidget(_ajouter);
     _buttonLayout->addWidget(_annuler);
 
+    _datetimeLayout->addLayout(_datesLayout);
+    _datetimeLayout->addLayout(_timeLayout);
+
     _vlayout->addLayout(_titreLayout);
-    _vlayout->addLayout(_datesLayout);
-    _vlayout->addLayout(_tachesLayout);
+    _vlayout->addLayout(_datetimeLayout);
     _vlayout->addLayout(_buttonLayout);
     connect(_unitaire,SIGNAL(clicked(bool)),this,SLOT(switchingTache(bool)));
     connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
+    connect(_ajouter,SIGNAL(clicked()),this,SLOT(newTache()));
 }
 
-AddTache::~AddTache()
+void AddTache::newTache()
 {
-    delete _titreLayout;
-    delete _datesLayout;
-    delete _tachesLayout;
-    delete _buttonLayout;
-    delete _vlayout;
-    delete _dateDispo_l;
-    delete _dateEcheance_l;
-    delete _titre_l;
-    delete _idTaches_l;
-    delete _preemptive_l;
-    delete _unitaire_l;
-    delete _ajouter;
-    delete _annuler;
-    delete _preemptive;
-    delete _unitaire;
-    delete _titre;
-    delete _idTaches;
-    delete _dateDispo;
-    delete _dateEcheance;
+    QMap<QString,QVariant> params;
+    params["dispo"]= QVariant(_dateDispo->date());
+    params["deadline"] = QVariant(_dateEcheance->date());
+    params["titre"] = QVariant(_titre->text());
+    try
+    {
+        if(_unitaire->isChecked())
+        {
+            params["dur"] = QVariant(_duree->time());
+            if(_preemptive->isChecked())
+                TacheManager::getInstance()->ajouterItem("PREEMPTIVE",params);
+            else
+                TacheManager::getInstance()->ajouterItem("NON_PREEMPTIVE",params);
+        }
+        else
+            TacheManager::getInstance()->ajouterItem("COMPOSITE",params);
+        QMessageBox::information(this,"ajout réussi","projet bien ajouté ! ");
+    }
+    catch(AgendaException &e)
+    {
+        QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+    }
 }
 
