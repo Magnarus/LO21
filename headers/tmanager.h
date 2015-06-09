@@ -5,6 +5,7 @@
 #include<QVariant>
 #include<QMap>
 #include<QSet>
+#include<QDate>
 #include "agendaexception.h"
 //Interdépendance => Forward declaration !
 template<typename U>
@@ -27,6 +28,7 @@ protected:
     QVector<T> managable; //L'ensemble des objets du Manager
     QMap<QString, Ajouteur<T>*> ajouteurs; //Les ajouteurs : ressemble au design pattern Factory !
     QSet<QString> cles;
+    int idDispo;
     void addItem(T i){managable.push_back(i); idDispo++;}
     TManager(TManager* t);
     TManager& operator=(TManager* t);
@@ -43,7 +45,41 @@ protected:
             ~HandlerTM(){ if (instance) delete instance; }
     };
     static HandlerTM handler;
-    int idDispo;
+    class Iterator{
+        QVector<T*> resultats;
+        QVector<T*> itRes;
+        QDate dispo;
+        QDate echeance;
+        Iterator(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
+        {
+           typename QVector<T*>::iterator it = managable.begin();
+            //S'il n'y a pas d'échéance mais une date simple
+            if(echeance.isNull())
+            {
+                while(it != managable.end())
+                {
+                    if((*it)->getDate() == dispo)
+                        resultats.push_back((*it));
+                    ++it;
+                }
+            }
+            else // Il y a bien une dispo et une echeance
+            {
+                while(it!= managable.end())
+                {
+                    if((*it)->getDateDispo() >= dispo && (*it)->getEcheance() <= echeance)
+                        resultats.push_back((*it));
+                    ++it;
+                }
+            }
+            itRes = resultats.begin();
+        }
+    public:
+        T* valeur(){return *itRes;}
+        typename QVector<T*>::iterator& end(){return resultats.end();}
+        void next() { ++itRes;}
+    };
+    Iterator getIterator(QDate& d, QDate &e = QDate()){return Iterator(d,e);}
 
 public:
     T& getItem(const int id)
@@ -60,6 +96,7 @@ public:
                 ++it;
             return *it;
     }
+    T& getDernierItem()const {return managable.last();}
     virtual void afficher()const = 0;
     //static TManager* getInstance();
     static void libererInstance();
