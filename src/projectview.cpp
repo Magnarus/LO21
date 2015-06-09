@@ -1,10 +1,11 @@
 #include "../headers/projectview.h"
-
+#include<QDebug>
 ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
 {
     _creerProjet=new QPushButton("Ajouter un projet",this);
     _creerTache=new QPushButton("Ajouter une tâche",this);
     _Editer=new QPushButton("Editer le projet",this);
+    _actualiser= new QPushButton("Actualiser tree view",this);
     _lesProjets=new QTreeWidget(this);
     _vlayout=new QVBoxLayout(this);
     _buttonLayout=new QHBoxLayout;
@@ -12,22 +13,19 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     _buttonLayout->addWidget(_creerProjet);
     _buttonLayout->addWidget(_creerTache);
     _buttonLayout->addWidget(_Editer);
+    _buttonLayout->addWidget(_actualiser);
     _vlayout->addWidget(_lesProjets);
     _vlayout->addLayout(_buttonLayout);
     _ajouterProjet=nullptr;
     _ajouterTache=nullptr;
     _editerProjet=nullptr;
-    QVariant var;
-    QString noeud1Name("noeud1");
-    QString noeud2Name("sous noeud 1");
-    QString noeud3Name("sous sous noeud 1");
-    QTreeWidgetItem * noeud1 = ajouterRacine(noeud1Name,noeud1Name,var);
-    QTreeWidgetItem * noeud2 = ajouterEnfant(noeud1,noeud2Name,noeud2Name,var);
-    ajouterEnfant(noeud2,noeud3Name,noeud3Name,var);
+
+    _lesProjets->setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect(_creerProjet,SIGNAL(clicked()),this,SLOT(showCreateProject()));
     connect(_creerTache,SIGNAL(clicked()),this,SLOT(showCreateTache()));
     connect(_Editer,SIGNAL(clicked()),this,SLOT(showEditProject()));
+    connect(_actualiser,SIGNAL(clicked()),this,SLOT(actualiser()));
 }
 QTreeWidgetItem* ProjectView::ajouterRacine(QString& name, QString& description,QVariant& data)
 {
@@ -66,6 +64,7 @@ void ProjectView::ajouterTache(Tache* t, QTreeWidgetItem* parent)
 
 void ProjectView::init()
 {
+    qDebug() << "bonjour je suis arrivé ici \n";
     QVariant var;
     QString name;
     QString desc ="";
@@ -82,6 +81,6 @@ void ProjectView::init()
            Tache* t = p->getTache(j);
            ajouterTache(t,itemCourant);
         }
-
+        it.next();
     }
 }

@@ -18,8 +18,8 @@ class ProgActivite : public Programmation
 public:
     ProgActivite(const int id, const QDate& d, const QTime& dur, Activite* p) throw(AgendaException);
     inline const Activite* getProgramme()const{return programme;}
-    void setDate(QDate& d)throw(AgendaException) override;
-    void setDuree(QTime &d)throw(AgendaException) override;
+    void setDate(const QDate& d)throw(AgendaException) override;
+    void setDuree(const QTime &d)throw(AgendaException) override;
     inline void setProgramme(Activite* t){programme = t;}
     inline void afficher(){ std::cout << "Je suis une programmation d'activité \n";}
 };

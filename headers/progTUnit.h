@@ -17,8 +17,8 @@ class ProgTUnit : public Programmation
     ProgTUnit& operator=(const ProgTUnit&);
 public:
     ProgTUnit(const int id, const QDate& d, const QTime& dur, Tache_Unitaire* p)throw(AgendaException);
-    void setDate(QDate &d) throw(AgendaException) override;
-    void setDuree(QTime &d)throw(AgendaException) override;
+    void setDate(const QDate &d) throw(AgendaException) override;
+    void setDuree(const QTime &d)throw(AgendaException) override;
     const inline Tache_Unitaire* getProgramme()const {return programme;}
     inline void setProgramme(Tache_Unitaire* t){programme = t;}
     inline void afficher(){ std::cout << "Je suis une programmation de tâche unitaire\n";}

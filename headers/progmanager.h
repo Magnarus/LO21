@@ -21,6 +21,36 @@ class ProgManager : public TManager<Programmation*>
     ProgManager();
 public:
     virtual void afficher()const {std::cout << "Je suis un manager de tâches\n";}
+    class IteratorIntervale
+    {
+        QVector<Programmation*> resultats;
+        QVector<Programmation*>::iterator itRes;
+        QVector<Programmation*>::iterator research;
+        QVector<Programmation*>::iterator finResearch;
+        QDate debut;
+        QDate fin;
+    public:
+        IteratorIntervale(const QDate& d,const QDate& f,
+                          QVector<Programmation*>::iterator di,
+                          QVector<Programmation*>::iterator fi):
+            debut(d),fin(f),research(di),finResearch(fi)
+        {
+            while(research != finResearch)
+            {
+                if((*research)->getDate() >= debut && (*research)->getDate() <= fin)
+                    resultats.push_back((*research));
+                ++research;
+            }
+            itRes = resultats.begin();
+        }
+        Programmation* valeur(){return *itRes;}
+        QVector<Programmation*>::iterator& courant(){return itRes;}
+        void next() { ++itRes;}
+        QVector<Programmation*>::iterator end(){return resultats.end();}
+    };
+    IteratorIntervale getIterator(const QDate& d,const QDate& f)
+    {return IteratorIntervale(d,f,managable.begin(),managable.end());}
+
     static TManager<Programmation*> *getInstance();
 };
 #endif // PROGMANAGER_H

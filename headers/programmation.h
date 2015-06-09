@@ -17,6 +17,7 @@ class Programmation{
 protected:
     int id;
     QDate date;
+    QTime horaire;
     QTime duree;
     Programmation(const Programmation&);
     Programmation& operator=(const Programmation&);
@@ -25,8 +26,10 @@ public:
     const inline int getId() const {return id;}
     const inline QDate& getDate()const{return date;}
     const inline QTime& getDuree()const{return duree;}
-    virtual inline void setDate(QDate& d) = 0;
-    virtual inline void setDuree(QTime &d) = 0;
+    const inline QTime& getHoraire()const{return horaire;}
+    inline void setHoraire(const QTime& h){horaire=h;}
+    virtual inline void setDate(const QDate& d) = 0;
+    virtual inline void setDuree(const QTime &d) = 0;
     virtual void afficher() = 0;
 };
 

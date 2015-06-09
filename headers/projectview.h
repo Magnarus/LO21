@@ -14,7 +14,7 @@
 class ProjectView : public QWidget
 {
     Q_OBJECT
-    QPushButton *_creerProjet,*_creerTache,*_Editer;
+    QPushButton *_creerProjet,*_creerTache,*_Editer,*_actualiser;
     QTreeWidget *_lesProjets;
     QVBoxLayout *_vlayout;
     QHBoxLayout *_buttonLayout;
@@ -47,6 +47,9 @@ public slots:
         delete _editerProjet;
         _editerProjet=new EditProject();
         _editerProjet->show();
+    }
+    void actualiser(){
+        init();
     }
 };
 
