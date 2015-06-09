@@ -23,7 +23,10 @@ class ProjectView : public QWidget
     EditProject *_editerProjet;
 public:
     explicit ProjectView(QWidget *parent = 0);
-    ~ProjectView();
+    ~ProjectView(){}
+    QTreeWidgetItem *ajouterRacine(QString name, QString description);
+    QTreeWidgetItem *ajouterEnfant(QTreeWidgetItem *parent,
+                       QString name, QString description);
 
 signals:
 

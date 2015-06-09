@@ -47,7 +47,7 @@ protected:
     static HandlerTM handler;
 
     class Iterator{
-        QVector<T*>::iterator itCour;
+        typename QVector<T*>::iterator itCour;
         Iterator(){itCour = managable.begin();}
     public:
         typename QVector<T*>::iterator& end(){return managable.end();}
@@ -59,7 +59,7 @@ protected:
 
     class IteratorDate{
         QVector<T*> resultats;
-        QVector<T*>::iterator itRes;
+        typename QVector<T*>::iterator itRes;
         QDate dispo;
         QDate echeance;
         IteratorDate(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
