@@ -21,8 +21,8 @@ public:
                    dispo, const QDate& deadline, const QTime& dur)throw(AgendaException):
         Tache_Unitaire(id,titre,dispo,deadline,dur)
     {
-        if(dur.hour()> MAXNONPREEMPTIVE->hour());
-        throw AgendaException("Une tâche non préemptive ne peut pas durer plus de 12h");
+        if((dur.hour()> MAXNONPREEMPTIVE->hour()) || (dur.hour() == MAXNONPREEMPTIVE->hour() && dur.minute() >0))
+            throw AgendaException("Une tâche non préemptive ne peut pas durer plus de 12h");
     }
     inline virtual void afficher()const override { std::cout << "Je suis une tâche non préemptive\n";}
     void setDuree(QTime& d)throw(AgendaException)
