@@ -67,4 +67,5 @@ SOURCES += \
     src/editproject.cpp \
     src/edittache.cpp \
     src/emploidutemps.cpp \
-    src/projectview.cpp
+    src/projectview.cpp \
+    src/agenda.cpp
