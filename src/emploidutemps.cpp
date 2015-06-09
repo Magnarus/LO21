@@ -2,8 +2,6 @@
 
 EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
 {
-    _layout=new QVBoxLayout(this);
-
     _calendarBarLayout=new QHBoxLayout();
     _forward=new QToolButton(this);
     _next=new QToolButton(this);
@@ -11,6 +9,8 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
     _calendarBarLayout->addWidget(_forward);
     _calendarBarLayout->addWidget(_dateLabel);
     _calendarBarLayout->addWidget(_next);
+
+    _edtlayout=new QVBoxLayout();
     _edt=new QTableWidget(24,7,this);
     _edt->setEditTriggers(QAbstractItemView::NoEditTriggers);
     QStringList headers;
@@ -21,6 +21,7 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
     headers.push_back(QString("Vendredi"));
     headers.push_back(QString("Samedi"));
     headers.push_back(QString("Dimanche"));
+
     _edt->setHorizontalHeaderLabels(headers);
     QStringList vheaders;
     std::ostringstream stream;
@@ -34,18 +35,19 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
     _edt->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     _edt->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     _edt->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    _layout->addLayout(_calendarBarLayout);
-    _layout->addWidget(_edt);
-    this->setLayout(_layout);
+    _edtlayout->addLayout(_calendarBarLayout);
+    _edtlayout->addWidget(_edt);
+
+    _sideLayout = new QVBoxLayout();
+    _calendar = new QCalendarWidget(this);
+    _list = new QListWidget(this);
+    _sideLayout->addWidget(_calendar);
+    _sideLayout->addWidget(_list);
+
+    _mainLayout = new QHBoxLayout(this);
+    _mainLayout->addLayout(_sideLayout);
+    _mainLayout->addLayout(_edtlayout);
+    this->setLayout(_mainLayout);
 }
 
-EmploiDuTemps::~EmploiDuTemps()
-{
-    delete _dateLabel;
-    delete _forward;
-    delete _next;
-    delete _calendarBarLayout;
-    delete _edt;
-    delete _layout;
-}
 

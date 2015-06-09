@@ -2,8 +2,6 @@
 
 Accueil::Accueil(QWidget *parent) : QWidget(parent)
 {
-    setWindowTitle(QString("ProjectCalendar"));
-    //setMinimumSize(200,200);
     _chooseInterface=new QComboBox(this);
     _chooseInterface->setMaximumWidth(150);
     _chooseInterface->addItem(QString("Emploi du temps"));
@@ -15,7 +13,6 @@ Accueil::Accueil(QWidget *parent) : QWidget(parent)
     _projectTree->hide();
     _mainLayout->addWidget(_edtInterface);
     this->setLayout(_mainLayout);
-    //_edtInterface->show();
     connect(_chooseInterface,SIGNAL(currentTextChanged(QString)),this,SLOT(changeInterface(QString)));
 }
 

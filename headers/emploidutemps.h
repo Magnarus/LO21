@@ -15,19 +15,25 @@
 #include <QHeaderView>
 #include <QAbstractItemView>
 #include <QIcon>
+#include<QCalendarWidget>
+#include<QListWidget>
 
 class EmploiDuTemps : public QWidget
 {
     Q_OBJECT
-    QVBoxLayout* _layout;
+    QHBoxLayout* _mainLayout;
+    QCalendarWidget* _calendar;
+    QListWidget* _list;
+    QVBoxLayout* _edtlayout;
     QTableWidget* _edt;
     QHBoxLayout* _calendarBarLayout;
     QToolButton* _forward,*_next;
     QLineEdit* _dateLabel;
+    QVBoxLayout* _sideLayout;
 
 public:
     explicit EmploiDuTemps(QWidget *parent = 0);
-    ~EmploiDuTemps();
+    ~EmploiDuTemps(){}
 
 signals:
 

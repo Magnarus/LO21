@@ -9,7 +9,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     Accueil acc;
-    //acc.showFullScreen();
     Agenda principale(&acc);
     principale.show();
     //AddProject ap;
