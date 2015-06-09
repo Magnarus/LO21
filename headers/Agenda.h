@@ -3,6 +3,7 @@
 #include<QMainWindow>
 #include<QMenu>
 #include<QMenuBar>
+#include<QToolBar>
 #include<QAction>
 #include "accueil.h"
 class Agenda : public QMainWindow
@@ -11,6 +12,7 @@ class Agenda : public QMainWindow
     Accueil* _a;
     QMenu* _menuFichier;
     QMenu* _menuMode;
+    QToolBar* _toolbar;
     QAction* _chargerFichier;
     QAction* _sauvegarderFichier;
     QAction* _edtMode;

@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/charger.png</file>
+        <file>res/sauvegarder.png</file>
+        <file>res/calendrier.png</file>
+        <file>res/tree.png</file>
+    </qresource>
+</RCC>

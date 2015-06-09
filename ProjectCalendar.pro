@@ -69,3 +69,6 @@ SOURCES += \
     src/emploidutemps.cpp \
     src/projectview.cpp \
     src/agenda.cpp
+
+RESOURCES += \
+    resGraphiques.qrc
