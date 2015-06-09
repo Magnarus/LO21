@@ -2,7 +2,7 @@
 #define PROJECTVIEW_H
 
 #include <QWidget>
-#include <QTreeView>
+#include <QTreeWidget>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -15,7 +15,7 @@ class ProjectView : public QWidget
 {
     Q_OBJECT
     QPushButton *_creerProjet,*_creerTache,*_Editer;
-    QTreeView *_lesProjets;
+    QTreeWidget *_lesProjets;
     QVBoxLayout *_vlayout;
     QHBoxLayout *_buttonLayout;
     AddProject *_ajouterProjet;

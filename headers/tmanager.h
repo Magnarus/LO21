@@ -45,12 +45,24 @@ protected:
             ~HandlerTM(){ if (instance) delete instance; }
     };
     static HandlerTM handler;
+
     class Iterator{
+        QVector<T*>::iterator itCour;
+        Iterator(){itCour = managable.begin();}
+    public:
+        typename QVector<T*>::iterator& end(){return managable.end();}
+        T* valeur(){return *itCour;}
+        void next(){++itCour;}
+    };
+    Iterator& getIterator(){return Iterator();}
+
+
+    class IteratorDate{
         QVector<T*> resultats;
-        QVector<T*> itRes;
+        QVector<T*>::iterator itRes;
         QDate dispo;
         QDate echeance;
-        Iterator(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
+        IteratorDate(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
         {
            typename QVector<T*>::iterator it = managable.begin();
             //S'il n'y a pas d'échéance mais une date simple
@@ -80,7 +92,7 @@ protected:
         typename QVector<T*>::iterator& end(){return resultats.end();}
         void next() { ++itRes;}
     };
-    Iterator getIterator(QDate& d, QDate &e = QDate()){return Iterator(d,e);}
+    IteratorDate getIteratorDate(QDate& d, QDate &e = QDate()){return IteratorDate(d,e);}
 
 public:
     T& getItem(const int id)

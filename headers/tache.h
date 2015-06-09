@@ -5,6 +5,7 @@
 #include<QDate>
 #include<QTime>
 #include<iostream>
+#include<typeinfo>
 #include "../headers/agendaexception.h"
 #include "../headers/etats.h"
 /**
@@ -39,6 +40,7 @@ public:
     inline const QDate& getDateDispo()const {return dateDispo;}
     inline const QDate& getEcheance()const {return dateEcheance;}
     inline const Etats getEtat()const {return etat;}
+    inline const QString getRealTypeName()const { return QString(typeid(this).name());}
 
     inline void setTitre(QString& t){titre=t;}
     inline void setDateDispo(QDate& d){dateDispo =d;}

@@ -5,7 +5,7 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     _creerProjet=new QPushButton("Ajouter un projet",this);
     _creerTache=new QPushButton("Ajouter une tâche",this);
     _Editer=new QPushButton("Editer le projet",this);
-    _lesProjets=new QTreeView(this);
+    _lesProjets=new QTreeWidget(this);
     _vlayout=new QVBoxLayout(this);
     _buttonLayout=new QHBoxLayout;
 

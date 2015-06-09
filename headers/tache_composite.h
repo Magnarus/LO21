@@ -22,6 +22,8 @@ public:
     Tache(id,titre,dispo,deadline),sousTaches(st)
     {}
     void ajouterSousTache(Tache *st)throw(AgendaException);
+    int getNbSousTaches()const{return sousTaches.size();}
+    const Tache* getSousTache(int i)const{return sousTaches[i];}
     inline virtual void afficher()const override{std::cout << "Je suis une tâche composite\n";}
 };
 
