@@ -29,9 +29,9 @@ HEADERS += \
     headers/agendaexception.h \
     headers/etats.h \
     headers/accueil.h \
+    headers/addproject.h \
     headers/addtache.h \
     headers/editproject.h \
-    headers/addproject.h \
     headers/edittache.h \
     headers/emploidutemps.h \
     headers/projectview.h \
@@ -62,13 +62,13 @@ SOURCES += \
     src/progactivite.cpp \
     src/progtunit.cpp \
     src/accueil.cpp \
-    src/addproject.cpp \
     src/addtache.cpp \
     src/editproject.cpp \
     src/edittache.cpp \
     src/emploidutemps.cpp \
     src/projectview.cpp \
-    src/agenda.cpp
+    src/agenda.cpp \
+    src/addproject.cpp
 
 RESOURCES += \
     resGraphiques.qrc

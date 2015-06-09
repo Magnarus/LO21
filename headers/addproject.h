@@ -9,7 +9,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QString>
-
+#include<QMap>
+#include "projetmanager.h"
+#include<QMessageBox>
 class AddProject : public QWidget
 {
     Q_OBJECT
@@ -21,13 +23,12 @@ class AddProject : public QWidget
     QHBoxLayout *_titreLayout,*_datesLayout,*_buttonsLayout;
 public:
     explicit AddProject(QWidget *parent = 0);
-    virtual ~AddProject();
+    virtual ~AddProject(){}
 protected:
     void setAjouterTitle(const QString& title){ _ajouter->setText(title);}
 
-signals:
-
 public slots:
+    void newProject();
 };
 
 #endif // ADDPROJECT_H

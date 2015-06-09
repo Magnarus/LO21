@@ -33,21 +33,27 @@ AddProject::AddProject(QWidget *parent) : QWidget(parent)
     _vlayout->addLayout(_datesLayout);
     _vlayout->addLayout(_buttonsLayout);
     connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
+    connect(_ajouter,SIGNAL(clicked()),this,SLOT(newProject()));
 }
 
-AddProject::~AddProject()
+void AddProject::newProject()
 {
-    delete _ajouter;
-    delete _annuler;
-    delete _dateDispo;
-    delete _dateEcheance;
-    delete _titre;
-    delete _titre_l;
-    delete _dateDispo_l;
-    delete _dateEcheance_l;
-    delete _titreLayout;
-    delete _buttonsLayout;
-    delete _datesLayout;
-    delete _vlayout;
+   QDate dd = _dateDispo->date();
+   QDate de = _dateEcheance->date();
+   QString titre =_titre->text();
+   QMap<QString,QVariant> params;
+   params["dispo"] = QVariant(dd);
+   params["echeance"] = QVariant(de);
+   params["titre"] = QVariant(titre);
+   try
+   {
+       ProjetManager::getInstance()->ajouterItem("PROJET",params);
+       QMessageBox::information(this,"ajout réussi","projet bien ajouté ! ");
+   }
+   catch(AgendaException &e)
+   {
+       QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+   }
 }
+
 
