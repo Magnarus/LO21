@@ -22,6 +22,8 @@ class ProjectView : public QWidget
     AddTache *_ajouterTache;
     EditProject *_editerProjet;
     QTreeWidgetItem* _noeudClic;
+    QAction* _ajout;
+    QAction* _suppr;
 public:
     explicit ProjectView(QWidget *parent = 0);
     ~ProjectView(){}

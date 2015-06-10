@@ -1,4 +1,5 @@
 #include "../headers/projectview.h"
+#include "../headers/tache_unitaire.h"
 #include<QDebug>
 #include<QAction>
 #include<QMenu>
@@ -11,6 +12,11 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     _lesProjets=new QTreeWidget(this);
     _vlayout=new QVBoxLayout(this);
     _buttonLayout=new QHBoxLayout;
+
+    _ajout = new QAction(QIcon(":/res/charger.png"), tr("Nouvelle Tache"), this);
+    connect(_ajout, SIGNAL(triggered()), this, SLOT(slotAjouterTache()));
+    _suppr = new QAction(QIcon(":/res/sauvegarder.png"),tr("Supprimer"),this);
+    connect(_suppr,SIGNAL(triggered()),this,SLOT(suppressionNoeud()));
 
     _buttonLayout->addWidget(_creerProjet);
     _buttonLayout->addWidget(_creerTache);
@@ -26,7 +32,7 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     connect(_lesProjets,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(clicDroit(QPoint)));
 
     connect(_creerProjet,SIGNAL(clicked()),this,SLOT(showCreateProject()));
-    connect(_creerTache,SIGNAL(clicked()),this,SLOT(showCreateTache()));
+    //connect(_creerTache,SIGNAL(clicked()),this,SLOT(showCreateTache()));
     connect(_Editer,SIGNAL(clicked()),this,SLOT(showEditProject()));
     connect(_actualiser,SIGNAL(clicked()),this,SLOT(actualiser()));
 }
@@ -36,7 +42,6 @@ QTreeWidgetItem* ProjectView::ajouterRacine(QString& name, QString& description,
     treeItem->setText(0, name);
     treeItem->setText(1, description);
     treeItem->setData(0,32,data);
-    _lesProjets->addTopLevelItem(treeItem);
     return treeItem;
 }
 
@@ -57,12 +62,17 @@ void ProjectView::ajouterTache(Tache* t, QTreeWidgetItem* parent)
     QString name = t->getTitre();
     QString desc = "";
     QVariant var;
-    var.setValue(t);
     qDebug() << "dans ajouterTache" << var.typeName();
     if(t->getType() != COMPOSITE)
+    {
+        Tache_Unitaire* tu = dynamic_cast<Tache_Unitaire*>(t);
+        var.setValue(tu);
         ajouterEnfant(parent,name,desc,var);
+    }
     else
     {
+        Tache_Composite* tc = dynamic_cast<Tache_Composite*>(t);
+        var.setValue(tc);
         QTreeWidgetItem* nouvParent = ajouterEnfant(parent,name,desc,var);
         for(int i = 0; i< dynamic_cast<Tache_Composite*>(t)->getNbSousTaches(); i++)
             ajouterTache(dynamic_cast<Tache_Composite*>(t)->getSousTache(i),nouvParent);
@@ -71,6 +81,7 @@ void ProjectView::ajouterTache(Tache* t, QTreeWidgetItem* parent)
 
 void ProjectView::init()
 {
+    qDebug() << "why not";
     QVariant var;
     QString name;
     QString desc ="";
@@ -79,16 +90,18 @@ void ProjectView::init()
     {
         Projet* p = it.valeur();
         var.setValue(p);
-        qDebug() << var.typeName();
         name = p->getTitre();
         QTreeWidgetItem* itemCourant = ajouterRacine(name,desc,var);
         int i = p->getNbTaches();
+        qDebug() << i;
         for(int j = 0; j<i;j++)
         {
-           Tache* t = p->getTache(j);
+           Tache* t = p->getTacheParCompteur(j);
            ajouterTache(t,itemCourant);
+           qDebug() << "sortie ajouter tache";
         }
         it.next();
+        qDebug() << "okok";
     }
 }
 
@@ -101,13 +114,9 @@ void ProjectView::clicDroit(QPoint pos)
     if(_noeudClic)
     {
         //On ajoute des actions au menu contextuel et on les relie à des slots
-        QAction* ajout = new QAction(QIcon(":/res/charger.png"), tr("Nouvelle Tache"), this);
-        connect(ajout, SIGNAL(triggered()), this, SLOT(slotAjouterTache()));
-        QAction* suppr = new QAction(QIcon(":/res/sauvegarder.png"),tr("Supprimer"),this);
-        connect(ajout,SIGNAL(triggered()),this,SLOT(suppressionNoeud()));
         QMenu menu(this);
-        menu.addAction(ajout);
-        menu.addAction(suppr);
+        menu.addAction(_ajout);
+        menu.addAction(_suppr);
         menu.exec( _lesProjets->mapToGlobal(pos));
     }
 }
@@ -118,40 +127,39 @@ void ProjectView::slotAjouterTache()
     QVariant tvar;
     QString desc="";
     QVariant donnees =_noeudClic->data(0,32);
-    if(donnees.canConvert<Projet*>()|| donnees.canConvert<Tache_Composite*>())
+    if(donnees.canConvert<Projet*>() || donnees.canConvert<Tache_Composite*>())
     {
         //On affiche la fenêtre pour créer une tâche
         showCreateTache();
         //On la récupère
         t = TacheManager::getInstance()->getDernierItem();
         tvar.setValue(t);
-    }
-    else QMessageBox::critical(this,"erreur noeud","une tache unitaire ne peut pas avoir de sous tâche");
-
-    if (donnees.canConvert<Projet*>())
-    {
-        try
+        if (donnees.canConvert<Projet*>())
         {
-            Projet* p = donnees.value<Projet*>();
-            p->ajouterTache(t);
-            ajouterTache(t,_noeudClic);
-        }catch(AgendaException e){QMessageBox::critical(this,"erreur ajout",e.getInfo());}
-    }
-    else if(donnees.canConvert<Tache_Composite*>())
-    {
-        try
+            try
+            {
+                Projet* p = donnees.value<Projet*>();
+                p->ajouterTache(t);
+                qDebug() << "ok";
+                ajouterTache(t,_noeudClic);
+            }catch(AgendaException e){QMessageBox::critical(this,"erreur ajout",e.getInfo());}
+        }
+        else
         {
-             Tache* tinter = donnees.value<Tache*>();
-             Tache_Composite* tc= dynamic_cast<Tache_Composite*>(tinter);
-             qDebug() << "titre de ma tache composite convertie" << tc->getTitre();
-             tc->ajouterSousTache(t);
-             ajouterEnfant(_noeudClic,t->getTitre(),desc,tvar);
-        }
-        catch(const std::bad_cast& e) {
-            QMessageBox::critical(this,"erreur interne","erreur interne");
+            try
+            {
+                 Tache_Composite* tc = donnees.value<Tache_Composite*>();
+                 qDebug() << "titre de ma tache composite convertie" << tc->getTitre();
+                 tc->ajouterSousTache(t);
+                 ajouterEnfant(_noeudClic,t->getTitre(),desc,tvar);
+            }
+            catch(const std::bad_cast& e)
+            {
+                QMessageBox::critical(this,"erreur interne","erreur interne");
+            }
         }
     }
-    _noeudClic = nullptr;
+    else QMessageBox::warning(this,"erreur noeud","une tache unitaire ne peut pas avoir de sous tâche");
 }
 
 void ProjectView::suppressionNoeud()
@@ -166,15 +174,49 @@ void ProjectView::suppressionNoeud()
         {
             Projet* projetsupp = varsupp.value<Projet*>();
             ProjetManager::getInstance()->supprimerItem(projetsupp->getId());
-            delete projetsupp;
         }
-        else
+        else if (varsupp.canConvert<Tache_Unitaire*>() || varsupp.canConvert<Tache_Composite*>())
         {
-            Tache* tachesupp= varsupp.value<Tache*>();
+            Tache* tachesupp;
+            if(varsupp.canConvert<Tache_Unitaire*>())
+                tachesupp= varsupp.value<Tache_Unitaire*>();
+            else tachesupp= varsupp.value<Tache_Composite*>();
+            ProjetManager::Iterator it = ProjetManager::getInstance()->getIterator();
+            bool dedans = false;
+            while(it.courant() != ProjetManager::getInstance()->end() && !dedans)
+            {
+                dedans = it.valeur()->supprSiDedans(tachesupp->getId());
+                it.next();
+            }
             TacheManager::getInstance()->supprimerItem(tachesupp->getId());
-            delete tachesupp;
         }
     }
+    QVariant donnees = _noeudClic->data(0,32);
+    if(donnees.canConvert<Projet*>())
+    {
+        Projet* projetsupp = donnees.value<Projet*>();
+        ProjetManager::getInstance()->supprimerItem(projetsupp->getId());
+    }
+    else if (donnees.canConvert<Tache_Unitaire*>() || donnees.canConvert<Tache_Composite*>())
+    {
+        Tache* tachesupp;
+        if(donnees.canConvert<Tache_Unitaire*>())
+            tachesupp= donnees.value<Tache_Unitaire*>();
+        else tachesupp= donnees.value<Tache_Composite*>();
+        ProjetManager::Iterator it = ProjetManager::getInstance()->getIterator();
+        bool dedans = false;
+        while(it.courant() != ProjetManager::getInstance()->end() && !dedans)
+        {
+            dedans = it.valeur()->supprSiDedans(tachesupp->getId());
+            it.next();
+        }
+        TacheManager::getInstance()->supprimerItem(tachesupp->getId());
+    }
+
+    /*qDebug() << "avant suppression" << _lesProjets->topLevelItem(0)->childCount();
     _lesProjets->removeItemWidget(_noeudClic,0);
-    _noeudClic = nullptr;
+    qDebug() << "après " << _lesProjets->topLevelItem(0)->childCount();
+    _lesProjets->reset();*/
+    _lesProjets->clear();
+    init();
 }

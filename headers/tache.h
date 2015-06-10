@@ -16,6 +16,7 @@
  * \brief       Implémente la classe Tache
  * \details     Une tâche est un évènement qui doit être réalisé durant un interval de dates donné.
  */
+class Projet;
 class Tache
 {
 protected:

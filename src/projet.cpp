@@ -64,3 +64,22 @@ void Projet::ajouterTache(Tache *t)throw(AgendaException)
     if(ok) taches.push_back(t);
     else throw AgendaException("La tâche a des dates incompatibles avec le projet");
 }
+
+bool Projet::supprSiDedans(int id)
+{
+    qDebug() << "rentré dans supprimersidedans";
+    QList<Tache*>::iterator it = taches.begin();
+    bool dedans = false;
+    while(it != taches.end() && !dedans)
+    {
+        dedans = ((*it)->getId() == id);
+        if(dedans)
+        {
+            qDebug() << "trouvé !";
+           taches.erase(it);
+        }
+        ++it;
+    }
+    return dedans;
+    qDebug() << "je ressors";
+}

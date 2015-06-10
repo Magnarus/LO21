@@ -6,6 +6,7 @@ Tache* AjouteurTacheNonPreemptive::construire(QMap<QString,QVariant>& params)con
     QDate dispo;
     QDate deadline;
     QTime duree;
+    Projet* papa;
     //On vérifie que les paramètres passés correspondent bien à une tache composite
     if(verifTypes(params.keys()))
     {
@@ -15,6 +16,7 @@ Tache* AjouteurTacheNonPreemptive::construire(QMap<QString,QVariant>& params)con
         dispo = params["dispo"].toDate();
         deadline = params["deadline"].toDate();
         duree = params["dur"].toTime();
+
     }
     else throw AgendaException("Paramètre passés invalides");
 

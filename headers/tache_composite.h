@@ -18,7 +18,7 @@ class Tache_Composite : public Tache
     Tache_Composite& operator=(const Tache_Composite&);
 public:
     Tache_Composite(const int id, const QString& titre, const QDate&
-                    dispo, const QDate& deadline,const QList<Tache*>& st = QList<Tache*>()):
+                    dispo, const QDate& deadline, const QList<Tache*>& st = QList<Tache*>()):
     Tache(id,titre,dispo,deadline),sousTaches(st)
     {
         setType(COMPOSITE);
