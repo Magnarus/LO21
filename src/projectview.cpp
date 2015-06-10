@@ -36,6 +36,7 @@ QTreeWidgetItem* ProjectView::ajouterRacine(QString& name, QString& description,
     treeItem->setText(0, name);
     treeItem->setText(1, description);
     treeItem->setData(0,32,data);
+    _lesProjets->addTopLevelItem(treeItem);
     return treeItem;
 }
 
@@ -70,7 +71,6 @@ void ProjectView::ajouterTache(Tache* t, QTreeWidgetItem* parent)
 
 void ProjectView::init()
 {
-    //qDebug() << "bonjour je suis arrivé ici \n";
     QVariant var;
     QString name;
     QString desc ="";
@@ -94,10 +94,13 @@ void ProjectView::init()
 
 void ProjectView::clicDroit(QPoint pos)
 {
+    //On récupère le noeud de la treeview cliqué
      _noeudClic = _lesProjets->itemAt(pos);
 
+    //On check qu'il y en a bien un
     if(_noeudClic)
     {
+        //On ajoute des actions au menu contextuel et on les relie à des slots
         QAction* newAct = new QAction(QIcon(":/res/charger.png"), tr("&Nouvelle Tache"), this);
         connect(newAct, SIGNAL(triggered()), this, SLOT(slotAjouterTache()));
         QMenu menu(this);
@@ -108,36 +111,45 @@ void ProjectView::clicDroit(QPoint pos)
 
 void ProjectView::slotAjouterTache()
 {
-    showCreateTache();
-    Tache* t = TacheManager::getInstance()->getDernierItem();
+    Tache* t;
     QVariant tvar;
-    QString desc ="";
+    QString desc="";
+    //Solution temporaire pour tester si c'est un projet ou non qui a été cliqué.
     Projet * p = ProjetManager::getInstance()->getItem(1);
     QVariant varTest;
     varTest.setValue(p);
-    tvar.setValue(t);
-    QVariant v =_noeudClic->data(0,32);
-    if (v.typeName() == varTest.typeName())
+    QVariant donnees =_noeudClic->data(0,32);
+    if(donnees.canConvert<Projet*>()|| donnees.canConvert<Tache_Composite*>())
+    {
+        //On affiche la fenêtre pour créer une tâche
+        showCreateTache();
+        //On la récupère
+        t = TacheManager::getInstance()->getDernierItem();
+        tvar.setValue(t);
+    }
+    else QMessageBox::critical(this,"erreur noeud","une tache unitaire ne peut pas avoir de sous tâche");
+
+    if (donnees.canConvert<Projet*>())
     {
         try
         {
-            Projet* p = v.value<Projet*>();
+            Projet* p = donnees.value<Projet*>();
             p->ajouterTache(t);
             ajouterTache(t,_noeudClic);
         }catch(AgendaException e){QMessageBox::critical(this,"erreur ajout",e.getInfo());}
     }
-    else
+    else if(donnees.canConvert<Tache_Composite*>())
     {
         try
         {
-             Tache* tinter = v.value<Tache*>();
+             Tache* tinter = donnees.value<Tache*>();
              Tache_Composite* tc= dynamic_cast<Tache_Composite*>(tinter);
              qDebug() << "titre de ma tache composite convertie" << tc->getTitre();
              tc->ajouterSousTache(t);
              ajouterEnfant(_noeudClic,t->getTitre(),desc,tvar);
         }
         catch(const std::bad_cast& e) {
-            throw AgendaException("Impossible d'ajouter une tache à une tâche unitaire !");
+            QMessageBox::critical(this,"erreur interne","erreur interne");
         }
     }
 }

@@ -22,6 +22,8 @@ Agenda::Agenda(Accueil* a):_a(a)
     _calendar = new QCalendarWidget();
     _calendar->selectedDate().dayOfWeek();
     _list = new QListWidget();
+    QString label("Faudra ajouter les tâches non programmées qui peuvent l'être pour la semaine courante");
+    _list->addItem(label);
     _sideLayout->addWidget(_calendar);
     _sideLayout->addWidget(_list);
     _dockWidget->setLayout(_sideLayout);

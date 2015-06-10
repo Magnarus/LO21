@@ -12,7 +12,7 @@
 #include<QMap>
 #include "projetmanager.h"
 #include<QMessageBox>
-class AddProject : public QWidget
+class AddProject : public QDialog
 {
     Q_OBJECT
     QLabel *_titre_l,*_dateDispo_l,*_dateEcheance_l;

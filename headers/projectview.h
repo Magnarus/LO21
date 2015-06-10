@@ -25,7 +25,7 @@ class ProjectView : public QWidget
 public:
     explicit ProjectView(QWidget *parent = 0);
     ~ProjectView(){}
-    QTreeWidgetItem* ajouterRacine(QString &name, QString &description, QVariant &data);
+    QTreeWidgetItem *ajouterRacine(QString &name, QString &description, QVariant &data);
     QTreeWidgetItem* ajouterEnfant(QTreeWidgetItem *parent,
                                    QString& name, QString& description, QVariant& data);
     void ajouterTache(Tache* t, QTreeWidgetItem* parent);
@@ -37,7 +37,7 @@ public slots:
     void showCreateProject(){
         delete _ajouterProjet;
         _ajouterProjet=new AddProject();
-        _ajouterProjet->show();
+        _ajouterProjet->exec();
     }
     void showCreateTache(){
         delete _ajouterTache;
@@ -47,7 +47,7 @@ public slots:
     void showEditProject(){
         delete _editerProjet;
         _editerProjet=new EditProject();
-        _editerProjet->show();
+        _editerProjet->exec();
     }
     void actualiser(){
         init();

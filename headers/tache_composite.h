@@ -28,5 +28,6 @@ public:
     Tache* getSousTache(int i)const{return sousTaches[i];}
     inline virtual void afficher()const override{std::cout << "Je suis une tâche composite\n";}
 };
-
+// ... ainsi que le type pointeur vers Tache_Composite
+Q_DECLARE_METATYPE(Tache_Composite*)
 #endif // TACHE_COMPOSITE_H

@@ -1,6 +1,6 @@
 #include "../headers/addproject.h"
 
-AddProject::AddProject(QWidget *parent) : QWidget(parent)
+AddProject::AddProject(QWidget *parent) : QDialog(parent)
 {
     setWindowTitle(QString("Créer un projet"));
     _vlayout=new QVBoxLayout(this);
@@ -32,7 +32,7 @@ AddProject::AddProject(QWidget *parent) : QWidget(parent)
     _vlayout->addLayout(_titreLayout);
     _vlayout->addLayout(_datesLayout);
     _vlayout->addLayout(_buttonsLayout);
-    connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(accept()));
     connect(_ajouter,SIGNAL(clicked()),this,SLOT(newProject()));
 }
 
