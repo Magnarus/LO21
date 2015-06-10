@@ -16,6 +16,7 @@
  */
 class Activite
 {
+    int id;
     QDate date;
     QTime duree;
     QString nom;
@@ -23,6 +24,7 @@ class Activite
 public:
     Activite(){}
     Activite(const QDate& d, const QTime& dur, const QString& nom):date(d),duree(dur),nom(nom){}
+    inline int getId()const {return id;}
     const inline QDate& getDate()const{return date;}
     const inline QTime& getDuree()const{return duree;}
     const inline QString& getNom()const{return nom;}

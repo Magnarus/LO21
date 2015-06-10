@@ -24,7 +24,8 @@ public:
                    dispo, const QDate& deadline, const QTime& dur):
         Tache(id,titre,dispo,deadline),duree(dur)
     {
-        setType(UNITAIRE);
+        //setType(UNITAIRE);
+        typeT= UNITAIRE;
     }
     virtual void afficher()const = 0;
     inline QTime getDuree()const {return duree;}

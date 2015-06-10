@@ -34,7 +34,8 @@ public:
     void setDateEcheance(QDate& d)throw(AgendaException);
     inline const int getNbTaches()const{taches.size();}
     Tache *getTache(int id);
-    void ajouterTache(Tache* t);
+    bool estTache(int id);
+    void ajouterTache(Tache* t)throw(AgendaException);
 };
 #include<QVariant>
 // ... ainsi que le type pointeur vers Activite

@@ -35,9 +35,10 @@ public:
     Tache(const int id, const QString& titre, const QDate&
           dispo, const QDate& deadline)
          :id(id),titre(titre),dateDispo(dispo),dateEcheance(deadline),typeT(TACHE)
-    {}
+    {    if(dispo > deadline)throw AgendaException("Une tache doit se finir après avoir commencé !");
+    }
     inline int getId()const { return id;}
-    inline const QString& getTitre()const {return titre;}
+    inline QString& getTitre() {return titre;}
     inline const QDate& getDateDispo()const {return dateDispo;}
     inline const QDate& getEcheance()const {return dateEcheance;}
     inline const Etats getEtat()const {return etat;}

@@ -49,5 +49,6 @@ Agenda::Agenda(Accueil* a):_a(a)
     connect(_treeMode,SIGNAL(triggered()), _a,SLOT(setTreeOn()));
     connect(_calendar,SIGNAL(selectionChanged()),this,SLOT(setDate()));
     connect(this,SIGNAL(dateChanged(QDate)),_a,SLOT(setDate(QDate)));
+    connect(_a,SIGNAL(changeDockVisible()),this,SLOT(changeDockVisible()));
 }
 

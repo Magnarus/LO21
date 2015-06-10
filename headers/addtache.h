@@ -15,7 +15,7 @@
 #include<QListWidget>
 #include<QMessageBox>
 #include "tachemanager.h"
-class AddTache : public QWidget
+class AddTache : public QDialog
 {
     Q_OBJECT
     QDateEdit *_dateDispo,*_dateEcheance;
@@ -33,7 +33,7 @@ public:
 protected:
     void setAjouterTitle(const QString& title){ _ajouter->setText(title);}
 signals:
-
+    void tacheAjoutee(int id);
 public slots:
     void switchingTache(bool b){
         _preemptive->setEnabled(b);

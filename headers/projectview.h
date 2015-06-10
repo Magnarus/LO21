@@ -21,6 +21,7 @@ class ProjectView : public QWidget
     AddProject *_ajouterProjet;
     AddTache *_ajouterTache;
     EditProject *_editerProjet;
+    QTreeWidgetItem* _noeudClic;
 public:
     explicit ProjectView(QWidget *parent = 0);
     ~ProjectView(){}
@@ -41,7 +42,7 @@ public slots:
     void showCreateTache(){
         delete _ajouterTache;
        _ajouterTache=new AddTache();
-       _ajouterTache->show();
+       _ajouterTache->exec();
     }
     void showEditProject(){
         delete _editerProjet;
@@ -51,6 +52,8 @@ public slots:
     void actualiser(){
         init();
     }
+    void clicDroit(QPoint pos);
+    void slotAjouterTache();
 };
 
 #endif // PROJECTVIEW_H

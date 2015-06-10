@@ -1,11 +1,14 @@
 #include "../headers/tache_composite.h"
 #include<typeinfo>
+#include<QDebug>
 bool Tache_Composite::estSousTache(int id)
 {
-    bool ok;
+    qDebug() << "Je rentre";
+    bool ok=true;
     QList<Tache*>::iterator it = sousTaches.begin();
     while(it!=sousTaches.end() && ok)
     {
+        qDebug() << "id testé " << (*it)->getId();
         ok = id!=(*it)->getId();
         ++it;
     }
@@ -15,12 +18,17 @@ bool Tache_Composite::estSousTache(int id)
 void Tache_Composite::ajouterSousTache(Tache *st)throw(AgendaException)
 {
     int identifiant = st->getId();
-    bool ok;
+    bool ok=true;
     if(!estSousTache(identifiant))
     {
-        if(typeid(st).name() == "Tache_Composite")
+        if(st->getType() == COMPOSITE)
         {
-            ok = !dynamic_cast<Tache_Composite*>(st)->estSousTache(this->id);
+            try
+            {
+                Tache_Composite* test = dynamic_cast<Tache_Composite*>(st);
+                ok = !test->estSousTache(id);
+            }
+            catch(std::bad_cast& e){throw AgendaException("Conversion impossible");}
         }
         if(ok && st->getEcheance() <= getEcheance())
         {

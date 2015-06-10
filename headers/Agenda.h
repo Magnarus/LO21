@@ -34,6 +34,11 @@ public slots:
         QDate d = _calendar->selectedDate();
         emit dateChanged(d);
     }
+    void changeDockVisible(){
+        if (_dockWidget->isVisible())
+            _dockWidget->setVisible(false);
+        else _dockWidget->setVisible(true);
+    }
 };
 
 #endif // AGENDA_H

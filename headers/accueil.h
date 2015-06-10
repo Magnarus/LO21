@@ -19,7 +19,7 @@ public:
     ~Accueil(){}
 
 signals:
-
+    void changeDockVisible();
 public slots:
     void setTreeOn()
     {
@@ -27,6 +27,7 @@ public slots:
         _mainLayout->addWidget(_projectTree);
         _edtInterface->hide();
         _projectTree->show();
+        emit changeDockVisible();
     }
     void setPlanningOn()
     {
@@ -34,6 +35,7 @@ public slots:
         _mainLayout->addWidget(_edtInterface);
         _projectTree->hide();
         _edtInterface->show();
+        emit changeDockVisible();
     }
     void setDate(QDate d)
     {

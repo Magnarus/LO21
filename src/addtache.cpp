@@ -1,6 +1,6 @@
 #include "../headers/addtache.h"
 
-AddTache::AddTache(QWidget *parent) : QWidget(parent)
+AddTache::AddTache(QWidget *parent) : QDialog(parent)
 {
     setWindowTitle("Ajouter une tâche");
     _vlayout= new QVBoxLayout(this);
@@ -50,7 +50,7 @@ AddTache::AddTache(QWidget *parent) : QWidget(parent)
     _vlayout->addLayout(_datetimeLayout);
     _vlayout->addLayout(_buttonLayout);
     connect(_unitaire,SIGNAL(clicked(bool)),this,SLOT(switchingTache(bool)));
-    connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(accept()));
     connect(_ajouter,SIGNAL(clicked()),this,SLOT(newTache()));
 }
 
@@ -78,5 +78,6 @@ void AddTache::newTache()
     {
         QMessageBox::critical(this,"Erreur ajout",e.getInfo());
     }
+
 }
 

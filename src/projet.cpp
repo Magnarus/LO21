@@ -1,6 +1,8 @@
 #include "../headers/projet.h"
+#include<QDebug>
 Projet::Projet(int id, QString &t, QDate &dispo, QDate &echeance):id(id),titre(t),dateDispo(dispo),dateEcheance(echeance)
 {
+    if(dispo > echeance)throw AgendaException("Un projet doit se finir après avoir commencé !");
 }
 
 Tache* Projet::getTache(int id)
@@ -37,14 +39,16 @@ void Projet::setDateEcheance(QDate &d)throw(AgendaException)
     dateEcheance = d;
 }
 
-void Projet::ajouterTache(Tache *t)
+void Projet::ajouterTache(Tache *t)throw(AgendaException)
 {
     //On vérifie qu'on ajoute une tache non présente dans le projet
     int id = t->getId();
+    qDebug() << "id de la tache a ajouter" << id;
     QList<Tache*>::iterator it = taches.begin();
-    bool ok;
+    bool ok=true;
     while(it!=taches.end() && ok)
     {
+        qDebug() << "id testé " << (*it)->getId();
         ok = id!=(*it)->getId();
         ++it;
     }

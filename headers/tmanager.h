@@ -29,7 +29,7 @@ protected:
     QMap<QString, Ajouteur<T>*> ajouteurs; //Les ajouteurs : ressemble au design pattern Factory !
     QSet<QString> cles;
     int idDispo;
-    void addItem(T i){managable.push_back(i); idDispo++;}
+    const void addItem(T i){managable.push_back(i); idDispo++;}
     TManager(TManager* t);
     TManager& operator=(TManager* t);
     TManager(size_t capacity=0):idDispo(1)
@@ -61,18 +61,20 @@ public:
                 ++it;
             return *it;
     }
-    T& getDernierItem()const {return managable.last();}
+    T getDernierItem()const {return managable.last();}
+    //const T getDernierItem()const {return managable.last();}
     virtual void afficher()const = 0;
     //static TManager* getInstance();
     static void libererInstance();
     const int getIdDispo()const {return idDispo;}
     inline int nbItem()const {return managable.size();}
     inline int nbAjouteurs()const {return ajouteurs.size();}
-    inline void ajouterItem(const QString& AjouteurType, QMap<QString,QVariant>& params)
+    inline int ajouterItem(const QString& AjouteurType, QMap<QString,QVariant>& params)
     {
         if(cles.find(AjouteurType) == cles.end()) throw AgendaException("Impossible d'utiliser cet ajouteur : il n'existe pas");
         params["id"] = idDispo;
         this->addItem(ajouteurs[AjouteurType]->construire(params));
+        return idDispo-1;
     }
     inline void ajouterAjouteur(const QString ajouteurType, Ajouteur<T>* a)
     {
@@ -135,12 +137,6 @@ public:
 //Initialisation du Handler Statique
 template<typename T>
 typename TManager<T>::HandlerTM TManager<T>::handler=TManager<T>::HandlerTM();
-
-/*template<typename T>
-TManager<T>* TManager<T>::getInstance(){
-    if (handler.instance==0) handler.instance =new TManager;
-    return handler.instance;
-}*/
 
 template<typename T>
 void TManager<T>::libererInstance(){
