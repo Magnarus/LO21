@@ -101,10 +101,13 @@ void ProjectView::clicDroit(QPoint pos)
     if(_noeudClic)
     {
         //On ajoute des actions au menu contextuel et on les relie à des slots
-        QAction* newAct = new QAction(QIcon(":/res/charger.png"), tr("&Nouvelle Tache"), this);
-        connect(newAct, SIGNAL(triggered()), this, SLOT(slotAjouterTache()));
+        QAction* ajout = new QAction(QIcon(":/res/charger.png"), tr("Nouvelle Tache"), this);
+        connect(ajout, SIGNAL(triggered()), this, SLOT(slotAjouterTache()));
+        QAction* suppr = new QAction(QIcon(":/res/sauvegarder.png"),tr("Supprimer"),this);
+        connect(ajout,SIGNAL(triggered()),this,SLOT(suppressionNoeud()));
         QMenu menu(this);
-        menu.addAction(newAct);
+        menu.addAction(ajout);
+        menu.addAction(suppr);
         menu.exec( _lesProjets->mapToGlobal(pos));
     }
 }
@@ -114,10 +117,6 @@ void ProjectView::slotAjouterTache()
     Tache* t;
     QVariant tvar;
     QString desc="";
-    //Solution temporaire pour tester si c'est un projet ou non qui a été cliqué.
-    Projet * p = ProjetManager::getInstance()->getItem(1);
-    QVariant varTest;
-    varTest.setValue(p);
     QVariant donnees =_noeudClic->data(0,32);
     if(donnees.canConvert<Projet*>()|| donnees.canConvert<Tache_Composite*>())
     {
@@ -152,4 +151,30 @@ void ProjectView::slotAjouterTache()
             QMessageBox::critical(this,"erreur interne","erreur interne");
         }
     }
+    _noeudClic = nullptr;
+}
+
+void ProjectView::suppressionNoeud()
+{
+    QTreeWidgetItem* supp=nullptr;
+    int nb=_noeudClic->childCount();
+    for(int i=0;i<nb;i++)
+    {
+        supp=_noeudClic->child(i);
+        QVariant varsupp = supp->data(0,32);
+        if (varsupp.canConvert<Projet*>())
+        {
+            Projet* projetsupp = varsupp.value<Projet*>();
+            ProjetManager::getInstance()->supprimerItem(projetsupp->getId());
+            delete projetsupp;
+        }
+        else
+        {
+            Tache* tachesupp= varsupp.value<Tache*>();
+            TacheManager::getInstance()->supprimerItem(tachesupp->getId());
+            delete tachesupp;
+        }
+    }
+    _lesProjets->removeItemWidget(_noeudClic,0);
+    _noeudClic = nullptr;
 }

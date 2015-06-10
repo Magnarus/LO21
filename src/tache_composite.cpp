@@ -1,6 +1,14 @@
 #include "../headers/tache_composite.h"
 #include<typeinfo>
 #include<QDebug>
+#include"../headers/tachemanager.h"
+Tache_Composite::~Tache_Composite()
+{
+    QList<Tache*>::iterator it = sousTaches.begin();
+    for(it;it!=sousTaches.end();++it)
+        TacheManager::getInstance()->supprimerItem((*it)->getId());
+}
+
 bool Tache_Composite::estSousTache(int id)
 {
     qDebug() << "Je rentre";
@@ -38,4 +46,13 @@ void Tache_Composite::ajouterSousTache(Tache *st)throw(AgendaException)
         else throw AgendaException("Impossible d'être sous tâches mutuelles");
     }
     else throw AgendaException("Sous tâche déjà existante");
+}
+
+void Tache_Composite::supprimerSousTache(int id)
+{
+    QList<Tache*>::iterator it = sousTaches.begin();
+    while(it!=sousTaches.end() && (*it)->getId() != id)
+        ++it;
+    if(!(it==sousTaches.end()))
+        sousTaches.erase(it);
 }

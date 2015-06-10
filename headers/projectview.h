@@ -54,6 +54,7 @@ public slots:
     }
     void clicDroit(QPoint pos);
     void slotAjouterTache();
+    void suppressionNoeud();
 };
 
 #endif // PROJECTVIEW_H

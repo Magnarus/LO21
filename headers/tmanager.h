@@ -81,6 +81,20 @@ public:
         ajouteurs[ajouteurType] = a;
         cles.insert(ajouteurType);
     }
+    inline bool supprimerItem(int id)
+    {
+        typename QVector<T>::iterator it = managable.begin();
+        while(it!=managable.end() && id!=(*it)->getId())
+            ++it;
+        if(it == managable.end())
+            return false;
+        else
+        {
+            delete (*it);
+            managable.erase(it);
+        }
+        return true;
+    }
 
     class Iterator
     {

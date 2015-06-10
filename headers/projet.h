@@ -25,6 +25,7 @@ class Projet
     Projet& operator=(const Projet&);
 public:
     Projet(int id,QString& t, QDate& dispo, QDate& echeance);
+    ~Projet();
     inline const int getId()const {return id;}
     inline const QDate& getDateDispo()const{return dateDispo;}
     inline const QDate& getDateEcheance()const{return dateEcheance;}
@@ -32,7 +33,7 @@ public:
     inline void setTitre(QString& t){titre=t;}
     void setDateDispo(QDate& d)throw(AgendaException);
     void setDateEcheance(QDate& d)throw(AgendaException);
-    inline const int getNbTaches()const{taches.size();}
+    inline const int getNbTaches()const{return taches.size();}
     Tache *getTache(int id);
     bool estTache(int id);
     void ajouterTache(Tache* t)throw(AgendaException);

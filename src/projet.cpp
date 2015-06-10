@@ -1,8 +1,15 @@
 #include "../headers/projet.h"
 #include<QDebug>
+#include"../headers/tachemanager.h"
 Projet::Projet(int id, QString &t, QDate &dispo, QDate &echeance):id(id),titre(t),dateDispo(dispo),dateEcheance(echeance)
 {
     if(dispo > echeance)throw AgendaException("Un projet doit se finir après avoir commencé !");
+}
+Projet::~Projet()
+{
+    QList<Tache*>::iterator it = taches.begin();
+    for(it;it!=taches.end();++it)
+        TacheManager::getInstance()->supprimerItem((*it)->getId());
 }
 
 Tache* Projet::getTache(int id)
