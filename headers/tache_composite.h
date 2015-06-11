@@ -25,10 +25,21 @@ public:
     }
     ~Tache_Composite();
     void ajouterSousTache(Tache *st)throw(AgendaException);
-    void supprimerSousTache(int id);
+    bool supprimerSousTache(int id);
     int getNbSousTaches()const{return sousTaches.size();}
-    Tache* getSousTache(int i)const{return sousTaches[i];}
+    inline Tache* getSousTache(int i){return sousTaches[i];}
     inline virtual void afficher()const override{std::cout << "Je suis une tâche composite\n";}
+    class Iterator
+    {
+        typename QList<Tache*>::iterator itCour;
+    public:
+        Iterator(typename QList<Tache*>::iterator i){itCour = i;}
+        Tache* valeur(){return *itCour;}
+        typename QList<Tache*>::iterator& courant(){return itCour;}
+        void next(){++itCour;}
+    };
+    Iterator getIterator(){return Iterator(sousTaches.begin());}
+    QList<Tache*>::iterator end(){return sousTaches.end();}
 };
 // ... ainsi que le type pointeur vers Tache_Composite
 Q_DECLARE_METATYPE(Tache_Composite*)

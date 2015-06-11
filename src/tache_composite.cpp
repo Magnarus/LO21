@@ -48,11 +48,24 @@ void Tache_Composite::ajouterSousTache(Tache *st)throw(AgendaException)
     else throw AgendaException("Sous tâche déjà existante");
 }
 
-void Tache_Composite::supprimerSousTache(int id)
+bool Tache_Composite::supprimerSousTache(int id)
 {
+    qDebug() << "rentré dans supprimer sous taches";
+    qDebug() << "id à l'intérieur de la fonction " << id;
+    bool dedans = false;
     QList<Tache*>::iterator it = sousTaches.begin();
-    while(it!=sousTaches.end() && (*it)->getId() != id)
+    while(it!=sousTaches.end() && !dedans)
+    {
+        qDebug() << "id testé" << (*it)->getId();
+        dedans= (*it)->getId() == id;
+        qDebug() << "dedans ?" << dedans;
+        if(dedans)
+        {
+            sousTaches.erase(it);
+            qDebug() << "Tache bien supprimée ! ";
+        }
         ++it;
-    if(!(it==sousTaches.end()))
-        sousTaches.erase(it);
+    }
+
+    return dedans;
 }

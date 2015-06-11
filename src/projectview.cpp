@@ -49,7 +49,6 @@ QTreeWidgetItem* ProjectView::ajouterEnfant(QTreeWidgetItem *parent, QString& na
                                             QVariant& data)
 {
     QTreeWidgetItem *treeItem = new QTreeWidgetItem();
-    qDebug() << "dans ajouterEnfant" << data.typeName();
     treeItem->setText(0, name);
     treeItem->setText(1, description);
     treeItem->setData(0,32,data);
@@ -59,10 +58,11 @@ QTreeWidgetItem* ProjectView::ajouterEnfant(QTreeWidgetItem *parent, QString& na
 
 void ProjectView::ajouterTache(Tache* t, QTreeWidgetItem* parent)
 {
+    qDebug() << t->getId();
     QString name = t->getTitre();
+    qDebug() << name;
     QString desc = "";
     QVariant var;
-    qDebug() << "dans ajouterTache" << var.typeName();
     if(t->getType() != COMPOSITE)
     {
         Tache_Unitaire* tu = dynamic_cast<Tache_Unitaire*>(t);
@@ -74,14 +74,19 @@ void ProjectView::ajouterTache(Tache* t, QTreeWidgetItem* parent)
         Tache_Composite* tc = dynamic_cast<Tache_Composite*>(t);
         var.setValue(tc);
         QTreeWidgetItem* nouvParent = ajouterEnfant(parent,name,desc,var);
-        for(int i = 0; i< dynamic_cast<Tache_Composite*>(t)->getNbSousTaches(); i++)
-            ajouterTache(dynamic_cast<Tache_Composite*>(t)->getSousTache(i),nouvParent);
+        qDebug() << "nombre de sous taches ! " << tc->getNbSousTaches();
+        Tache_Composite::Iterator it = tc->getIterator();
+        while(it.courant() != tc->end())
+        {
+              ajouterTache(it.valeur(),nouvParent);
+              it.next();
+        }
     }
 }
 
 void ProjectView::init()
 {
-    qDebug() << "why not";
+    qDebug() <<" debut init";
     QVariant var;
     QString name;
     QString desc ="";
@@ -93,15 +98,12 @@ void ProjectView::init()
         name = p->getTitre();
         QTreeWidgetItem* itemCourant = ajouterRacine(name,desc,var);
         int i = p->getNbTaches();
-        qDebug() << i;
         for(int j = 0; j<i;j++)
         {
            Tache* t = p->getTacheParCompteur(j);
            ajouterTache(t,itemCourant);
-           qDebug() << "sortie ajouter tache";
         }
         it.next();
-        qDebug() << "okok";
     }
 }
 
@@ -133,30 +135,20 @@ void ProjectView::slotAjouterTache()
         showCreateTache();
         //On la récupère
         t = TacheManager::getInstance()->getDernierItem();
-        tvar.setValue(t);
         if (donnees.canConvert<Projet*>())
         {
             try
             {
                 Projet* p = donnees.value<Projet*>();
                 p->ajouterTache(t);
-                qDebug() << "ok";
                 ajouterTache(t,_noeudClic);
             }catch(AgendaException e){QMessageBox::critical(this,"erreur ajout",e.getInfo());}
         }
         else
         {
-            try
-            {
-                 Tache_Composite* tc = donnees.value<Tache_Composite*>();
-                 qDebug() << "titre de ma tache composite convertie" << tc->getTitre();
-                 tc->ajouterSousTache(t);
-                 ajouterEnfant(_noeudClic,t->getTitre(),desc,tvar);
-            }
-            catch(const std::bad_cast& e)
-            {
-                QMessageBox::critical(this,"erreur interne","erreur interne");
-            }
+             Tache_Composite* tc = donnees.value<Tache_Composite*>();
+             tc->ajouterSousTache(t);
+             ajouterTache(t,_noeudClic);
         }
     }
     else QMessageBox::warning(this,"erreur noeud","une tache unitaire ne peut pas avoir de sous tâche");
@@ -188,9 +180,18 @@ void ProjectView::suppressionNoeud()
                 dedans = it.valeur()->supprSiDedans(tachesupp->getId());
                 it.next();
             }
+            TacheManager::IteratorTypeT itType = dynamic_cast<TacheManager*>(TacheManager::getInstance())->getIteratorTypeT(COMPOSITE);
+            dedans = false;
+
+            while(itType.courant() != TacheManager::getInstance()->end() && !dedans)
+            {
+                dedans = dynamic_cast<Tache_Composite*>(itType.valeur())->supprimerSousTache(tachesupp->getId());
+                it.next();
+            }
             TacheManager::getInstance()->supprimerItem(tachesupp->getId());
         }
     }
+
     QVariant donnees = _noeudClic->data(0,32);
     if(donnees.canConvert<Projet*>())
     {
@@ -203,12 +204,21 @@ void ProjectView::suppressionNoeud()
         if(donnees.canConvert<Tache_Unitaire*>())
             tachesupp= donnees.value<Tache_Unitaire*>();
         else tachesupp= donnees.value<Tache_Composite*>();
+        qDebug() << "id de la tâche à supprimer " << tachesupp->getId();
         ProjetManager::Iterator it = ProjetManager::getInstance()->getIterator();
         bool dedans = false;
         while(it.courant() != ProjetManager::getInstance()->end() && !dedans)
         {
             dedans = it.valeur()->supprSiDedans(tachesupp->getId());
             it.next();
+        }
+        TacheManager::IteratorTypeT itType = dynamic_cast<TacheManager*>(TacheManager::getInstance())->getIteratorTypeT(COMPOSITE);
+        dedans = false;
+        while(itType.courant() != itType.fin() && !dedans)
+        {
+            qDebug() << "ici";
+            dedans = dynamic_cast<Tache_Composite*>(itType.valeur())->supprimerSousTache(tachesupp->getId());
+            itType.next();
         }
         TacheManager::getInstance()->supprimerItem(tachesupp->getId());
     }

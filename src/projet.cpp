@@ -67,7 +67,6 @@ void Projet::ajouterTache(Tache *t)throw(AgendaException)
 
 bool Projet::supprSiDedans(int id)
 {
-    qDebug() << "rentré dans supprimersidedans";
     QList<Tache*>::iterator it = taches.begin();
     bool dedans = false;
     while(it != taches.end() && !dedans)
@@ -75,7 +74,6 @@ bool Projet::supprSiDedans(int id)
         dedans = ((*it)->getId() == id);
         if(dedans)
         {
-            qDebug() << "trouvé !";
            taches.erase(it);
         }
         ++it;
