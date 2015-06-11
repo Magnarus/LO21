@@ -64,6 +64,7 @@ public slots:
     void clicDroit(QPoint pos);
     void slotAjouterTache();
     void suppressionNoeud();
+    void lancerEdit(QTreeWidgetItem* item, int column);
 };
 
 #endif // PROJECTVIEW_H

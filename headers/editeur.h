@@ -10,6 +10,7 @@ protected:
     QHBoxLayout* _buttonLayout;
 public:
     Editeur(QWidget* parent=0);
+    virtual void initChamps() = 0;
 };
 
 #endif // EDITEUR_H

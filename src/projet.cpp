@@ -79,5 +79,16 @@ bool Projet::supprSiDedans(int id)
         ++it;
     }
     return dedans;
-    qDebug() << "je ressors";
+}
+
+bool Projet::aTache(int id)
+{
+    bool dedans = false;
+    QList<Tache*>::iterator it = taches.begin();
+    while(it != taches.end() && !dedans)
+    {
+        dedans = ((*it)->getId() == id);
+        ++it;
+    }
+    return dedans;
 }

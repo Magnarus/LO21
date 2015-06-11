@@ -5,7 +5,6 @@ EditTache::EditTache(Tache *t, QWidget *parent):Editeur(parent),tacheEdit(t)
     _dateDispo = new QDateEdit(this);
     _dateEcheance = new QDateEdit(this);
     _type = new QLabel("default",this);
-    _preemptive = new QLabel("oui",this);
     _precedences_l = new QLabel("Précédences : ",this);
     _possibles_l = new QLabel("Précédences possibles : ",this);
     _precedences = new QListWidget(this);
@@ -18,7 +17,6 @@ EditTache::EditTache(Tache *t, QWidget *parent):Editeur(parent),tacheEdit(t)
     _formLayout->addRow("Date Dispo : ",_dateDispo);
     _formLayout->addRow("Date Echéance : ",_dateEcheance);
     _formLayout->addRow("Type : ",_type);
-    _formLayout->addRow("Préemptive ? : ",_preemptive);
 
     _precListLayout = new QVBoxLayout;
     _precListLayout->addWidget(_precedences_l);
@@ -43,4 +41,44 @@ EditTache::EditTache(Tache *t, QWidget *parent):Editeur(parent),tacheEdit(t)
     _mainLayout->addLayout(_precLayout);
     _mainLayout->addLayout(_buttonLayout);
 
+}
+
+void EditTache::initChamps()
+{
+    _titre->setText(tacheEdit->getTitre());
+    _dateDispo->setDate(tacheEdit->getDateDispo());
+    _dateEcheance->setDate(tacheEdit->getEcheance());
+    _type->setText(tacheEdit->getTypeToQString());
+    //On récupère toutes les précédences et on les ajoute à la liste
+    Tache::Iterator it = tacheEdit->getIterator();
+    for(it;it.courant() != tacheEdit->end();it.next())
+    {
+        QListWidgetItem* item = new QListWidgetItem(_precedences);
+        item->setText(it.valeur()->getTitre());
+        QVariant v;
+        v.setValue(it.valeur());
+        item->setData(32,v);
+        _precedences->addItem(item);
+    }
+    //On récupère le projet pour check les précédences compatibles
+    Projet* p = dynamic_cast<ProjetManager*>(ProjetManager::getInstance())->getProjetTache(tacheEdit->getId());
+    if(p)
+    {
+        Projet::IteratorDate it = p->getIteratorDate(tacheEdit->getDateDispo(),tacheEdit->getEcheance());
+        for(it;it.courant() != it.end();it.next())
+        {
+            if(it.valeur()->getId() != tacheEdit->getId())
+            {
+                if(!tacheEdit->estPredecence(it.valeur()->getId()))
+                {
+                    QListWidgetItem* item = new QListWidgetItem(_possibles);
+                    item->setText(it.valeur()->getTitre());
+                    QVariant v;
+                    v.setValue(it.valeur());
+                    item->setData(32,v);
+                    _possibles->addItem(item);
+                }
+            }
+        }
+    }
 }

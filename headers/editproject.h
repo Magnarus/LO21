@@ -8,6 +8,7 @@
 #include<QDateEdit>
 #include<QLabel>
 #include<QLineEdit>
+#include<QDebug>
 class EditProject : public Editeur
 {
     Projet* projetEdit;
@@ -19,6 +20,8 @@ class EditProject : public Editeur
     QLabel* _taches_l;
 public:
     EditProject(Projet* p=0, QWidget* parent=0);
+    void setProjet(Projet* p){projetEdit=p;}
+    virtual void initChamps();
 };
 
 #endif // EDITPROJECT_H

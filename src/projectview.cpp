@@ -11,7 +11,7 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     _actualiser= new QPushButton("Actualiser tree view",this);
     _lesProjets=new QTreeWidget(this);
     _mainLayout=new QVBoxLayout(this);
-    _edit = new EditTache(0,this);
+    _edit = nullptr;
     _buttonLayout=new QHBoxLayout;
 
     _ajout = new QAction(QIcon(":/res/charger.png"), tr("Nouvelle Tache"), this);
@@ -36,9 +36,9 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     connect(_lesProjets,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(clicDroit(QPoint)));
 
     connect(_creerProjet,SIGNAL(clicked()),this,SLOT(showCreateProject()));
-    //connect(_creerTache,SIGNAL(clicked()),this,SLOT(showCreateTache()));
     connect(_Editer,SIGNAL(clicked()),this,SLOT(showEditProject()));
     connect(_actualiser,SIGNAL(clicked()),this,SLOT(actualiser()));
+    connect(_lesProjets,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(lancerEdit(QTreeWidgetItem*,int)));
 }
 QTreeWidgetItem* ProjectView::ajouterRacine(QString& name, QString& description,QVariant& data)
 {
@@ -221,5 +221,31 @@ void ProjectView::supprimerLienTacheComposite(Tache* tachesupp)
         qDebug() << "dedans ? " << dedans;
         itType.next();
         qDebug() << "next hasn't fail";
+    }
+}
+
+void ProjectView::lancerEdit(QTreeWidgetItem *item, int column)
+{
+    QVariant v = item->data(column,32);
+    if(v.canConvert<Projet*>())
+    {
+        Projet* p = v.value<Projet*>();
+        delete _edit;
+        _edit = new EditProject(p,this);
+        _treeLayout->addWidget(_edit);
+        _edit->initChamps();
+    }
+    else
+    {
+        Tache * t;
+        if(v.canConvert<Tache_Unitaire*>())
+            t = v.value<Tache_Unitaire*>();
+        else
+            t = v.value<Tache_Composite*>();
+        delete _edit;
+        _edit = new EditTache(t,this);
+        qDebug() << "okey";
+        _treeLayout->addWidget(_edit);
+        _edit->initChamps();
     }
 }

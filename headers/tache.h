@@ -8,6 +8,7 @@
 #include<typeinfo>
 #include "../headers/agendaexception.h"
 #include "../headers/etats.h"
+#include<QDebug>
 /**
  * \class       Tache tache.h "headers/tache.h"
  * \author      DELAUNAY Grégory
@@ -28,7 +29,6 @@ protected:
     Etats etat;
     typeTache typeT;
 
-    bool estPredecence(int id);
     Tache(const Tache&);
     Tache& operator=(const Tache&);
 public:
@@ -45,16 +45,30 @@ public:
     inline const Etats getEtat()const {return etat;}
     inline const QString getRealTypeName()const { return QString(typeid(this).name());}
     inline const typeTache getType()const { return typeT;}
-
+    const QString getTypeToQString()const;
     inline void setTitre(QString& t){titre=t;}
     inline void setDateDispo(QDate& d){dateDispo =d;}
     inline void setEcheance(QDate& d){dateEcheance=d;}
     inline void setEtat(Etats e){etat = e;}
     inline void setType(typeTache t){typeT = t;}
-
+    Projet* getProjet()const;
+    bool estPredecence(int id);
     Tache* getPrecedence(int id);
     void ajouterPrecedence(Tache* pred)throw(AgendaException);
     virtual void afficher()const = 0;
+
+    class Iterator
+    {
+        QList<Tache*>::iterator itCour;
+    public:
+        Iterator(QList<Tache*>::iterator i){itCour = i;}
+        Tache* valeur(){return *itCour;}
+        QList<Tache*>::iterator& courant(){return itCour;}
+        void next(){++itCour;}
+    };
+    Iterator getIterator(){return Iterator(precedence.begin());}
+    typename QList<Tache*>::iterator end(){return precedence.end();}
+
 };
 #include<QVariant>
 // ... ainsi que le type pointeur vers Activite

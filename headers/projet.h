@@ -36,21 +36,45 @@ public:
     inline const int getNbTaches()const{return taches.size();}
     Tache* getTache(int id);
     inline Tache* getTacheParCompteur(int i){return taches[i];}
-    bool estTache(int id);
+    bool aTache(int id);
     void ajouterTache(Tache* t)throw(AgendaException);
     bool supprSiDedans(int id);
     class Iterator
     {
-        typename QList<Tache*>::iterator itCour;
+        QList<Tache*>::iterator itCour;
     public:
         Iterator(QList<Tache*>::iterator i){itCour = i;}
         Tache* valeur(){return *itCour;}
-        typename QList<Tache*>::iterator& courant(){return itCour;}
+        QList<Tache*>::iterator& courant(){return itCour;}
         void next(){++itCour;}
     };
     Iterator getIterator(){return Iterator(taches.begin());}
-    typename QList<Tache*>::iterator end(){return taches.end();}
+    QList<Tache*>::iterator end(){return taches.end();}
 
+    class IteratorDate
+    {
+        QList<Tache*>::iterator itCour;
+        QList<Tache*> result;
+    public:
+        IteratorDate(QList<Tache*>::iterator it,QList<Tache*>::iterator fin,
+                     const QDate& dispo, const QDate& echeance)
+        {
+            for(it;it != fin;++it)
+            {
+                if((*it)->getDateDispo() >= dispo && (*it)->getEcheance() <= echeance)
+                    result.push_back(*it);
+            }
+            itCour = result.begin();
+        }
+        Tache* valeur(){return *itCour;}
+        typename QList<Tache*>::iterator& courant(){return itCour;}
+        void next(){++itCour;}
+        QList<Tache*>::iterator end(){return result.end();}
+    };
+    IteratorDate getIteratorDate(const QDate& d, const QDate& f)
+    {
+        return IteratorDate(taches.begin(),taches.end(),d,f);
+    }
 };
 #include<QVariant>
 // ... ainsi que le type pointeur vers Activite

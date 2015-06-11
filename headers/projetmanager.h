@@ -23,6 +23,7 @@ protected:
 public:
     virtual void afficher()const {std::cout << "Je suis un manager de projets\n";}
     static TManager<Projet *> *getInstance();
+    Projet* getProjetTache(int id);
 };
 
 #endif // PROJETMANAGER_H

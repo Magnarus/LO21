@@ -10,14 +10,14 @@ Tache* Tache::getPrecedence(int id)
 
 bool Tache::estPredecence(int id)
 {
-    bool ok;
+    bool ok=false;
     QList<Tache*>::iterator it = this->precedence.begin();
-    while(it!=precedence.end() && ok)
+    while(it!=precedence.end() && !ok)
     {
-        ok = id!=(*it)->getId();
+        ok = (id ==(*it)->getId());
         ++it;
     }
-    return !ok;
+    return ok;
 }
 
 void Tache::ajouterPrecedence(Tache *pred)throw(AgendaException)
@@ -29,4 +29,27 @@ void Tache::ajouterPrecedence(Tache *pred)throw(AgendaException)
        else throw AgendaException("Impossible d'avoir des précédences mutuelles");
     else throw AgendaException("Précédence déjà existante");
 
+}
+
+const QString Tache::getTypeToQString()const
+{
+    QString resultat;
+    switch(typeT)
+    {
+        case TACHE:
+            resultat = "TACHE";
+            break;
+        case UNITAIRE:
+            resultat = "UNITAIRE";
+            break;
+        case COMPOSITE:
+            resultat = "COMPOSITE";
+            break;
+        case PREEMPTIVE:
+            resultat = "UNITAIRE PREEMPTIVE";
+            break;
+        default:
+            resultat = "UNITAIRE NON PREEMPTIVE";
+    }
+    return resultat;
 }
