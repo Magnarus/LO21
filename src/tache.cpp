@@ -8,6 +8,16 @@ Tache* Tache::getPrecedence(int id)
     return *it;
 }
 
+void Tache::setDateDispo(QDate &d)
+{
+    dateDispo =d;
+}
+void Tache::setEcheance(QDate &d)
+{
+
+        dateEcheance = d;
+}
+
 bool Tache::estPredecence(int id)
 {
     bool ok=false;

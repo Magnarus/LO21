@@ -18,6 +18,7 @@
  * \details     Une tâche est un évènement qui doit être réalisé durant un interval de dates donné.
  */
 class Projet;
+class ProjetManager;
 class Tache
 {
 protected:
@@ -47,11 +48,10 @@ public:
     inline const typeTache getType()const { return typeT;}
     const QString getTypeToQString()const;
     inline void setTitre(QString& t){titre=t;}
-    inline void setDateDispo(QDate& d){dateDispo =d;}
-    inline void setEcheance(QDate& d){dateEcheance=d;}
+    void setDateDispo(QDate& d);
+    void setEcheance(QDate& d);
     inline void setEtat(Etats e){etat = e;}
     inline void setType(typeTache t){typeT = t;}
-    Projet* getProjet()const;
     bool estPredecence(int id);
     Tache* getPrecedence(int id);
     void ajouterPrecedence(Tache* pred)throw(AgendaException);

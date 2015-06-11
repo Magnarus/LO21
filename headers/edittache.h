@@ -1,9 +1,10 @@
 #ifndef EDITTACHE_H
 #define EDITTACHE_H
-#include "tache.h"
 #include "editeur.h"
 #include "projet.h"
 #include "projetmanager.h"
+#include "tache_unitaire.h"
+#include "tache_composite.h"
 #include <QString>
 #include<QFormLayout>
 #include<QLineEdit>
@@ -11,6 +12,7 @@
 #include<QLabel>
 #include<QListWidget>
 #include<QDebug>
+#include<QMessageBox>
 class EditTache : public Editeur
 {
     Tache* tacheEdit;
@@ -26,6 +28,8 @@ public:
     EditTache(Tache* t=0,QWidget *parent=0);
     void setTache(Tache* t){tacheEdit = t;}
     virtual void initChamps();
+public slots:
+    void notifie();
 };
 
 #endif // EDITTACHE_H

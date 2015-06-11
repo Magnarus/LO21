@@ -9,8 +9,10 @@
 #include<QLabel>
 #include<QLineEdit>
 #include<QDebug>
+#include<QMessageBox>
 class EditProject : public Editeur
 {
+    Q_OBJECT
     Projet* projetEdit;
     QListWidget* _taches;
     QLineEdit *_titre;
@@ -22,6 +24,8 @@ public:
     EditProject(Projet* p=0, QWidget* parent=0);
     void setProjet(Projet* p){projetEdit=p;}
     virtual void initChamps();
+public slots:
+    void notifie();
 };
 
 #endif // EDITPROJECT_H

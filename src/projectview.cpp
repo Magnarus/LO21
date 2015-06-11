@@ -248,4 +248,5 @@ void ProjectView::lancerEdit(QTreeWidgetItem *item, int column)
         _treeLayout->addWidget(_edit);
         _edit->initChamps();
     }
+    connect(_edit,SIGNAL(modifie()),this,SLOT(actualiser()));
 }

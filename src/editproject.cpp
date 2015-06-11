@@ -28,6 +28,8 @@ EditProject::EditProject(Projet *p, QWidget *parent):Editeur(parent),projetEdit(
     _mainLayout->addLayout(_tachesLayout);
     _mainLayout->addLayout(_buttonLayout);
 
+    connect(_valider,SIGNAL(clicked()),this,SLOT(notifie()));
+
 }
 
 void EditProject::initChamps()
@@ -48,4 +50,22 @@ void EditProject::initChamps()
         _taches->addItem(item);
     }
     _taches->setSelectionMode(QAbstractItemView::NoSelection);
+}
+
+void EditProject::notifie()
+{
+    try
+    {
+        QString s = _titre->text();
+        projetEdit->setTitre(s);
+        QDate d = _dateDispo->date();
+        QDate e = _dateEcheance->date();
+        projetEdit->setDateDispo(d);
+        projetEdit->setDateEcheance(e);
+    }
+    catch(AgendaException& e)
+    {
+        QMessageBox::critical(this,"Impossible de modifier",e.getInfo());
+    }
+    emit modifie();
 }

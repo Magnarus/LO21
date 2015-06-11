@@ -41,6 +41,9 @@ EditTache::EditTache(Tache *t, QWidget *parent):Editeur(parent),tacheEdit(t)
     _mainLayout->addLayout(_precLayout);
     _mainLayout->addLayout(_buttonLayout);
 
+    connect(_ajouterPrec,SIGNAL(clicked()),this,SLOT(ajouterListe()));
+    connect(_retirerPrec,SIGNAL(clicked()),this,SLOT(retirerListe()));
+
 }
 
 void EditTache::initChamps()
@@ -81,4 +84,33 @@ void EditTache::initChamps()
             }
         }
     }
+}
+
+void EditTache::notifie()
+{
+    try
+    {
+        QString s = _titre->text();
+        tacheEdit->setTitre(s);
+        QDate d = _dateDispo->date();
+        QDate e = _dateEcheance->date();
+        tacheEdit->setDateDispo(d);
+        tacheEdit->setEcheance(e);
+        for(int i = 0; i < _precedences->count(); ++i)
+        {
+            QListWidgetItem* item = _precedences->item(i);
+            QVariant v = item->data(32);
+            Tache* t;
+            if(v.canConvert<Tache_Unitaire*>())
+                t = v.value<Tache_Unitaire*>();
+            else t = v.value<Tache_Composite*>();
+            if(!tacheEdit->estPredecence(t->getId()))
+                tacheEdit->ajouterPrecedence(t);
+        }
+    }
+    catch(AgendaException& e)
+    {
+        QMessageBox::critical(this,"Impossible de modifier",e.getInfo());
+    }
+    emit modifie();
 }

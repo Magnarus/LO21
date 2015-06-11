@@ -58,7 +58,7 @@ public slots:
         _editerProjet->exec();*/
     }
     void actualiser(){
-       // _lesProjets->reset();
+        _lesProjets->clear();
         init();
     }
     void clicDroit(QPoint pos);

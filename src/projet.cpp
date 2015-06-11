@@ -23,7 +23,7 @@ Tache* Projet::getTache(int id)
 void Projet::setDateDispo(QDate &d)throw(AgendaException)
 {
     QList<Tache*>::iterator it = taches.begin();
-    bool ok;
+    bool ok=true;
     while(it!=taches.end() && ok)
     {
         ok = d >=(*it)->getDateDispo();
@@ -36,8 +36,8 @@ void Projet::setDateDispo(QDate &d)throw(AgendaException)
 void Projet::setDateEcheance(QDate &d)throw(AgendaException)
 {
     QList<Tache*>::iterator it = taches.begin();
-    bool ok;
-    while(it!=taches.end() && ok)
+    bool ok=true;
+    while(it !=taches.end() && ok)
     {
         ok = d <= (*it)->getEcheance();
         ++it;
