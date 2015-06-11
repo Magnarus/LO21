@@ -24,6 +24,10 @@ class ProjectView : public QWidget
     QTreeWidgetItem* _noeudClic;
     QAction* _ajout;
     QAction* _suppr;
+
+    void supprimerValeurAssocieeQVariant(QVariant& varsupp);
+    void supprimerLienProjet(Tache* t);
+    void supprimerLienTacheComposite(Tache *t);
 public:
     explicit ProjectView(QWidget *parent = 0);
     ~ProjectView(){}
@@ -52,6 +56,7 @@ public slots:
         _editerProjet->exec();
     }
     void actualiser(){
+        _lesProjets->reset();
         init();
     }
     void clicDroit(QPoint pos);

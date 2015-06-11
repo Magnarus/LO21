@@ -43,7 +43,6 @@ public:
                 ++research;
             }
             itRes = resultats.begin();
-            qDebug() << "resultats.size()" << resultats.size();
         }
         Tache* valeur(){return *itRes;}
         QVector<Tache*>::iterator& courant(){return itRes;}

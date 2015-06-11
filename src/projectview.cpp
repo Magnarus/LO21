@@ -162,71 +162,60 @@ void ProjectView::suppressionNoeud()
     {
         supp=_noeudClic->child(i);
         QVariant varsupp = supp->data(0,32);
-        if (varsupp.canConvert<Projet*>())
-        {
-            Projet* projetsupp = varsupp.value<Projet*>();
-            ProjetManager::getInstance()->supprimerItem(projetsupp->getId());
-        }
-        else if (varsupp.canConvert<Tache_Unitaire*>() || varsupp.canConvert<Tache_Composite*>())
-        {
-            Tache* tachesupp;
-            if(varsupp.canConvert<Tache_Unitaire*>())
-                tachesupp= varsupp.value<Tache_Unitaire*>();
-            else tachesupp= varsupp.value<Tache_Composite*>();
-            ProjetManager::Iterator it = ProjetManager::getInstance()->getIterator();
-            bool dedans = false;
-            while(it.courant() != ProjetManager::getInstance()->end() && !dedans)
-            {
-                dedans = it.valeur()->supprSiDedans(tachesupp->getId());
-                it.next();
-            }
-            TacheManager::IteratorTypeT itType = dynamic_cast<TacheManager*>(TacheManager::getInstance())->getIteratorTypeT(COMPOSITE);
-            dedans = false;
-
-            while(itType.courant() != TacheManager::getInstance()->end() && !dedans)
-            {
-                dedans = dynamic_cast<Tache_Composite*>(itType.valeur())->supprimerSousTache(tachesupp->getId());
-                it.next();
-            }
-            TacheManager::getInstance()->supprimerItem(tachesupp->getId());
-        }
+        supprimerValeurAssocieeQVariant(varsupp);
     }
 
     QVariant donnees = _noeudClic->data(0,32);
-    if(donnees.canConvert<Projet*>())
-    {
-        Projet* projetsupp = donnees.value<Projet*>();
-        ProjetManager::getInstance()->supprimerItem(projetsupp->getId());
-    }
-    else if (donnees.canConvert<Tache_Unitaire*>() || donnees.canConvert<Tache_Composite*>())
-    {
-        Tache* tachesupp;
-        if(donnees.canConvert<Tache_Unitaire*>())
-            tachesupp= donnees.value<Tache_Unitaire*>();
-        else tachesupp= donnees.value<Tache_Composite*>();
-        qDebug() << "id de la tâche à supprimer " << tachesupp->getId();
-        ProjetManager::Iterator it = ProjetManager::getInstance()->getIterator();
-        bool dedans = false;
-        while(it.courant() != ProjetManager::getInstance()->end() && !dedans)
-        {
-            dedans = it.valeur()->supprSiDedans(tachesupp->getId());
-            it.next();
-        }
-        TacheManager::IteratorTypeT itType = dynamic_cast<TacheManager*>(TacheManager::getInstance())->getIteratorTypeT(COMPOSITE);
-        dedans = false;
-        while(itType.courant() != itType.fin() && !dedans)
-        {
-            qDebug() << "ici";
-            dedans = dynamic_cast<Tache_Composite*>(itType.valeur())->supprimerSousTache(tachesupp->getId());
-            itType.next();
-        }
-        TacheManager::getInstance()->supprimerItem(tachesupp->getId());
-    }
-
+    supprimerValeurAssocieeQVariant(donnees);
     /*qDebug() << "avant suppression" << _lesProjets->topLevelItem(0)->childCount();
     _lesProjets->removeItemWidget(_noeudClic,0);
     qDebug() << "après " << _lesProjets->topLevelItem(0)->childCount();
     _lesProjets->reset();*/
     _lesProjets->clear();
     init();
+}
+
+void ProjectView::supprimerValeurAssocieeQVariant(QVariant& varsupp)
+{
+    if (varsupp.canConvert<Projet*>())
+    {
+        Projet* projetsupp = varsupp.value<Projet*>();
+        ProjetManager::getInstance()->supprimerItem(projetsupp->getId());
+    }
+    else if (varsupp.canConvert<Tache_Unitaire*>() || varsupp.canConvert<Tache_Composite*>())
+    {
+        Tache* tachesupp;
+        if(varsupp.canConvert<Tache_Unitaire*>())
+            tachesupp= varsupp.value<Tache_Unitaire*>();
+        else tachesupp= varsupp.value<Tache_Composite*>();
+
+        supprimerLienProjet(tachesupp);
+        supprimerLienTacheComposite(tachesupp);
+        TacheManager::getInstance()->supprimerItem(tachesupp->getId());
+    }
+}
+
+void ProjectView::supprimerLienProjet(Tache* tachesupp)
+{
+    ProjetManager::Iterator it = ProjetManager::getInstance()->getIterator();
+    bool dedans = false;
+    while(it.courant() != ProjetManager::getInstance()->end() && !dedans)
+    {
+        dedans = it.valeur()->supprSiDedans(tachesupp->getId());
+        it.next();
+    }
+}
+void ProjectView::supprimerLienTacheComposite(Tache* tachesupp)
+{
+    TacheManager::IteratorTypeT itType = dynamic_cast<TacheManager*>(TacheManager::getInstance())->getIteratorTypeT(COMPOSITE);
+    bool dedans = false;
+
+    while(itType.courant() != itType.fin() && !dedans)
+    {
+        qDebug() << "entrée while";
+        dedans = dynamic_cast<Tache_Composite*>(itType.valeur())->supprimerSousTache(tachesupp->getId());
+        qDebug() << "dedans ? " << dedans;
+        itType.next();
+        qDebug() << "next hasn't fail";
+    }
 }
