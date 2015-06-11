@@ -10,20 +10,22 @@
 #include "addproject.h"
 #include "addtache.h"
 #include "editproject.h"
+#include "edittache.h"
 #include "tache_composite.h"
 class ProjectView : public QWidget
 {
     Q_OBJECT
     QPushButton *_creerProjet,*_creerTache,*_Editer,*_actualiser;
     QTreeWidget *_lesProjets;
-    QVBoxLayout *_vlayout;
-    QHBoxLayout *_buttonLayout;
+    QVBoxLayout *_mainLayout;
+    QHBoxLayout *_buttonLayout,*_treeLayout;
     AddProject *_ajouterProjet;
     AddTache *_ajouterTache;
     EditProject *_editerProjet;
     QTreeWidgetItem* _noeudClic;
     QAction* _ajout;
     QAction* _suppr;
+    Editeur* _edit;
 
     void supprimerValeurAssocieeQVariant(QVariant& varsupp);
     void supprimerLienProjet(Tache* t);
@@ -51,12 +53,12 @@ public slots:
        _ajouterTache->exec();
     }
     void showEditProject(){
-        delete _editerProjet;
+        /*delete _editerProjet;
         _editerProjet=new EditProject();
-        _editerProjet->exec();
+        _editerProjet->exec();*/
     }
     void actualiser(){
-        _lesProjets->reset();
+       // _lesProjets->reset();
         init();
     }
     void clicDroit(QPoint pos);

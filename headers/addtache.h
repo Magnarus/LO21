@@ -14,24 +14,25 @@
 #include<QString>
 #include<QListWidget>
 #include<QMessageBox>
+#include<QListWidget>
 #include "tachemanager.h"
 class AddTache : public QDialog
 {
     Q_OBJECT
+protected:
     QDateEdit *_dateDispo,*_dateEcheance;
     QTimeEdit * _duree;
     QLineEdit *_titre;
     QCheckBox *_preemptive,*_unitaire;
     QPushButton *_ajouter,*_annuler;
     QLabel *_dateDispo_l,*_dateEcheance_l,*_duree_l,*_titre_l,*_preemptive_l,*_unitaire_l;
-    QVBoxLayout *_vlayout,*_datetimeLayout;
+    QVBoxLayout *_vlayout,*_datetimeLayout,_projetLayout,_mereLayout;
     QHBoxLayout *_titreLayout,*_datesLayout,*_timeLayout,*_buttonLayout;
-
+    void setAjouterTitle(const QString& title){ _ajouter->setText(title);}
 public:
     explicit AddTache(QWidget *parent = 0);
     virtual ~AddTache(){}
 protected:
-    void setAjouterTitle(const QString& title){ _ajouter->setText(title);}
 signals:
     void tacheAjoutee(int id);
 public slots:

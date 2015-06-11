@@ -10,7 +10,8 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     _Editer=new QPushButton("Editer le projet",this);
     _actualiser= new QPushButton("Actualiser tree view",this);
     _lesProjets=new QTreeWidget(this);
-    _vlayout=new QVBoxLayout(this);
+    _mainLayout=new QVBoxLayout(this);
+    _edit = new EditTache(0,this);
     _buttonLayout=new QHBoxLayout;
 
     _ajout = new QAction(QIcon(":/res/charger.png"), tr("Nouvelle Tache"), this);
@@ -18,12 +19,15 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     _suppr = new QAction(QIcon(":/res/sauvegarder.png"),tr("Supprimer"),this);
     connect(_suppr,SIGNAL(triggered()),this,SLOT(suppressionNoeud()));
 
+    _treeLayout = new QHBoxLayout;
+    _treeLayout->addWidget(_lesProjets);
+    _treeLayout->addWidget(_edit);
     _buttonLayout->addWidget(_creerProjet);
     _buttonLayout->addWidget(_creerTache);
     _buttonLayout->addWidget(_Editer);
     _buttonLayout->addWidget(_actualiser);
-    _vlayout->addWidget(_lesProjets);
-    _vlayout->addLayout(_buttonLayout);
+    _mainLayout->addLayout(_treeLayout);
+    _mainLayout->addLayout(_buttonLayout);
     _ajouterProjet=nullptr;
     _ajouterTache=nullptr;
     _editerProjet=nullptr;

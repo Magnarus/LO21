@@ -55,5 +55,3 @@ void AddProject::newProject()
        QMessageBox::critical(this,"Erreur ajout",e.getInfo());
    }
 }
-
-

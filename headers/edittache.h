@@ -1,13 +1,26 @@
 #ifndef EDITTACHE_H
 #define EDITTACHE_H
-#include "addtache.h"
-#include <QWidget>
+#include "tache.h"
+#include "editeur.h"
 #include <QString>
-class EditTache : public AddTache
+#include<QFormLayout>
+#include<QLineEdit>
+#include<QDateEdit>
+#include<QLabel>
+#include<QListWidget>
+class EditTache : public Editeur
 {
+    Tache* tacheEdit;
+    QLineEdit *_titre;
+    QDateEdit *_dateDispo,*_dateEcheance;
+    QFormLayout* _formLayout;
+    QLabel *_type,*_preemptive,*_precedences_l,*_possibles_l;
+    QListWidget *_precedences, *_possibles;
+    QPushButton *_ajouterPrec, *_retirerPrec;
+    QHBoxLayout *_precLayout;
+    QVBoxLayout *_precListLayout,*_possLayout,*_butPrecLayout,*_mainLayout;
 public:
-    EditTache(QWidget *parent=0):AddTache(parent){ setWindowTitle(QString("Editer une tâche"));
-                                                 setAjouterTitle(QString("Enregistrer les modifications"));}
+    EditTache(Tache* t=0,QWidget *parent=0);
 };
 
 #endif // EDITTACHE_H

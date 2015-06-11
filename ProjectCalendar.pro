@@ -35,7 +35,8 @@ HEADERS += \
     headers/edittache.h \
     headers/emploidutemps.h \
     headers/projectview.h \
-    headers/Agenda.h
+    headers/Agenda.h \
+    headers/editeur.h
 
 SOURCES += \
     src/ajouteur.cpp \
@@ -68,7 +69,8 @@ SOURCES += \
     src/emploidutemps.cpp \
     src/projectview.cpp \
     src/agenda.cpp \
-    src/addproject.cpp
+    src/addproject.cpp \
+    src/editeur.cpp
 
 RESOURCES += \
     resGraphiques.qrc

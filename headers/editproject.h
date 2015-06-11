@@ -1,13 +1,24 @@
 #ifndef EDITPROJECT_H
 #define EDITPROJECT_H
-#include"addproject.h"
-#include<QWidget>
+#include "projet.h"
+#include"editeur.h"
 #include<QString>
-class EditProject : public AddProject
+#include<QListWidget>
+#include <QFormLayout>
+#include<QDateEdit>
+#include<QLabel>
+#include<QLineEdit>
+class EditProject : public Editeur
 {
+    Projet* projetEdit;
+    QListWidget* _taches;
+    QLineEdit *_titre;
+    QDateEdit *_dateDispo,*_dateEcheance;
+    QVBoxLayout *_mainLayout,* _tachesLayout;
+    QFormLayout* _formLayout;
+    QLabel* _taches_l;
 public:
-    EditProject(QWidget* parent=0):AddProject(parent){ setWindowTitle(QString("Editer un projet"));
-                                                  setAjouterTitle(QString("Enregistrer les modifications"));   }
+    EditProject(Projet* p=0, QWidget* parent=0);
 };
 
 #endif // EDITPROJECT_H

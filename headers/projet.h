@@ -39,6 +39,18 @@ public:
     bool estTache(int id);
     void ajouterTache(Tache* t)throw(AgendaException);
     bool supprSiDedans(int id);
+    class Iterator
+    {
+        typename QList<Tache*>::iterator itCour;
+    public:
+        Iterator(QList<Tache*>::iterator i){itCour = i;}
+        Tache* valeur(){return *itCour;}
+        typename QList<Tache*>::iterator& courant(){return itCour;}
+        void next(){++itCour;}
+    };
+    Iterator getIterator(){return Iterator(taches.begin());}
+    typename QList<Tache*>::iterator end(){return taches.end();}
+
 };
 #include<QVariant>
 // ... ainsi que le type pointeur vers Activite
