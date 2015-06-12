@@ -6,5 +6,6 @@
         <file>res/tree.png</file>
         <file>res/leftarrow.png</file>
         <file>res/rightarrow.png</file>
+        <file>res/nouveau.png</file>
     </qresource>
 </RCC>

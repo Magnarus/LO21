@@ -57,6 +57,7 @@ public:
     Tache* getPrecedence(int id);
     void ajouterPrecedence(Tache* pred)throw(AgendaException);
     void supprimerPrecedence(int id);
+    bool precedencesFinies();
     virtual void afficher()const = 0;
 
     class Iterator

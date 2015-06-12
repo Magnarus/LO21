@@ -39,6 +39,7 @@ Agenda::Agenda(Accueil* a):_a(a)
     _treeMode->setShortcut(QKeySequence("CTRL+T"));
     _treeMode->setIcon(QIcon(":/res/tree.png"));
     _addProg = new QAction("Programmer",this);
+    _addProg->setIcon(QIcon(":/res/nouveau.png"));
     _addProg->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_P));
     _menuMode->addAction(_edtMode);
     _menuMode->addAction(_treeMode);

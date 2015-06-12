@@ -78,3 +78,15 @@ const QString Tache::getTypeToQString()const
     }
     return resultat;
 }
+
+bool Tache::precedencesFinies()
+{
+    bool ok=true;
+    QList<Tache*>::iterator it = this->precedence.begin();
+    while(it!=precedence.end() && ok)
+    {
+        ok = (*it)->getEtat() == TERMINEE;
+        ++it;
+    }
+    return ok;
+}

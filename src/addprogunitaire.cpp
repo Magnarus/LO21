@@ -3,9 +3,11 @@ AddProgUnitaire::AddProgUnitaire(QWidget *parent):AddProg(parent)
 {
     _taches = new QListWidget(this);
     setWindowTitle("Ajout d'une programmation de tâche");
-    //On récupère toutes les taches unitaires non programmées
+    //On récupère toutes les taches unitaires programmables non programmées
     TacheManager::IteratorTypeT itType = dynamic_cast<TacheManager*>(TacheManager::getInstance())->getIteratorTypeT(UNITAIRE);
     QList<const Tache_Unitaire*> prog;
+
+    //On récupère toutes les tâches des programmations de tâches
     ProgManager::Iterator it = ProgManager::getInstance()->getIterator();
     while(it.courant() != ProgManager::getInstance()->end())
     {
@@ -16,17 +18,21 @@ AddProgUnitaire::AddProgUnitaire(QWidget *parent):AddProg(parent)
         }
         it.next();
     }
+    //On parcours toutes les tâches unitaires (préemptives ou non) et on check si elles sont dans les tâches récupérées
     while(itType.courant() != itType.fin())
     {
         Tache_Unitaire* courant = dynamic_cast<Tache_Unitaire*>(itType.valeur());
-        if(!prog.contains(courant))
+        if(courant->precedencesFinies())
         {
-            QListWidgetItem* item = new QListWidgetItem(_taches);
-            item->setText(courant->getTitre());
-            QVariant v;
-            v.setValue(courant);
-            item->setData(32,v);
-            _taches->addItem(item);
+            if(!prog.contains(courant))
+            {
+                QListWidgetItem* item = new QListWidgetItem(_taches);
+                item->setText(courant->getTitre());
+                QVariant v;
+                v.setValue(courant);
+                item->setData(32,v);
+                _taches->addItem(item);
+            }
         }
         itType.next();
     }
@@ -46,10 +52,12 @@ void AddProgUnitaire::creation()
     params["horaire"] = QVariant(_horaire->time());
     qDebug() << _taches->selectedItems().size();
     QVariant p = _taches->selectedItems().at(0)->data(32);
+    Tache_Unitaire* t = p.value<Tache_Unitaire*>();
     params["programme"] = p;
     try
     {
         ProgManager::getInstance()->ajouterItem("UNITAIRE",params);
+        t->setEtat(EN_COURS);
         QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
         done(1);
     }
@@ -58,6 +66,7 @@ void AddProgUnitaire::creation()
         QMessageBox::critical(this,"Erreur ajout",e.getInfo());
         done(0);
     }
+
 }
 
 void AddProgUnitaire::majInfo(QListWidgetItem * selected)

@@ -46,7 +46,8 @@ HEADERS += \
     headers/SimpleFileExport.h \
     headers/TExport.h \
     headers/XMLExport.h \
-    headers/exportexception.h
+    headers/exportexception.h \
+    headers/addprogactivite.h
 
 SOURCES += \
     src/ajouteur.cpp \
@@ -90,7 +91,8 @@ SOURCES += \
     src/SimpleFileExport.cpp \
     src/TExport.cpp \
     src/XMLExport.cpp \
-    src/exportexception.cpp
+    src/exportexception.cpp \
+    src/addprogactivite.cpp
 
 RESOURCES += \
     resGraphiques.qrc
