@@ -2,6 +2,8 @@
 #define TEXPORT_H
 #include "MethodExport.h"
 #include <QVector>
+#include <fstream>
+#include <iostream>
 /**
  * \class       TExport TExport.h "headers/TExport.h"
  * \author      NEVEUX Anais
@@ -18,11 +20,12 @@ class TExport{
     MethodExport* exportMethod;
     QString type;
 protected:
-    const MethodExport* getExportMethod(){ return exportMethod;}
+    const MethodExport* getExportMethod()const{ return exportMethod;}
     void setExportMethod(MethodExport* me){
         delete exportMethod;
         exportMethod=me;
     }
+    MethodExport* getExportMethod(){ return exportMethod;}
 public:
     TExport(const QString& t,MethodExport* e=NULL):exportMethod(e),type(t){}
     const QString& getExportType()const{ return type;}

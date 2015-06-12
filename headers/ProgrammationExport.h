@@ -4,6 +4,7 @@
 #include "progmanager.h"
 #include "programmation.h"
 #include "exportexception.h"
+#include "projetmanager.h"
 
 /**
  * \class       ProgrammationExport ProgrammationExport.h "headers/ProgrammationExport.h"

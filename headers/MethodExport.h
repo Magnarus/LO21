@@ -1,6 +1,7 @@
 #ifndef METHODEXPORT_H
 #define METHODEXPORT_H
 #include <QString>
+#include <QStringBuilder>
 #include "headers/projet.h"
 #include "headers/tache.h"
 #include "headers/activite.h"
@@ -23,6 +24,8 @@ public:
     virtual void exportTache(const Tache& t)=0;
     virtual void exportProgrammation(const Programmation& prog)=0;
     virtual void exportActivite(const Activite& a)=0;
+    virtual const QString sendExport()=0;
+    virtual ~MethodExport(){}
 };
 
 #endif // METHODEXPORT_H

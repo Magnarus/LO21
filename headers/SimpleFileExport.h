@@ -21,6 +21,7 @@ public:
     void exportTache(const Tache& t);
     void exportProgrammation(const Programmation& prog);
     void exportActivite(const Activite& a);
+    const QString sendExport(){ return "toto";}
 };
 
 #endif //SIMPLEFILEEXPORT_H
