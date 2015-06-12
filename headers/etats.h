@@ -16,4 +16,10 @@ enum typeTache
     NON_PREEMPTIVE
 };
 
+enum typeProg
+{
+    PROGTACHE,
+    PROGACTIVITE,
+};
+
 #endif // ETATS_H

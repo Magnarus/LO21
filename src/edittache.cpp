@@ -11,11 +11,13 @@ EditTache::EditTache(Tache *t, QWidget *parent):Editeur(parent),tacheEdit(t)
     _possibles = new QListWidget(this);
     _ajouterPrec = new QPushButton("<- Ajouter ",this);
     _retirerPrec = new QPushButton("Retirer ->",this);
+    _duree = new QTimeEdit(this);
 
     _formLayout = new QFormLayout;
     _formLayout->addRow("Titre : ",_titre);
     _formLayout->addRow("Date Dispo : ",_dateDispo);
     _formLayout->addRow("Date Echéance : ",_dateEcheance);
+    _formLayout->addRow("Durée de la tâche : ",_duree);
     _formLayout->addRow("Type : ",_type);
 
     _precListLayout = new QVBoxLayout;
@@ -51,6 +53,10 @@ void EditTache::initChamps()
     _titre->setText(tacheEdit->getTitre());
     _dateDispo->setDate(tacheEdit->getDateDispo());
     _dateEcheance->setDate(tacheEdit->getEcheance());
+    if(tacheEdit->getType() == UNITAIRE || tacheEdit->getType() == PREEMPTIVE || tacheEdit->getType() == NON_PREEMPTIVE)
+        _duree->setTime(dynamic_cast<Tache_Unitaire*>(tacheEdit)->getDuree());
+    else
+        _duree->setEnabled(false);
     _type->setText(tacheEdit->getTypeToQString());
     //On récupère toutes les précédences et on les ajoute à la liste
     Tache::Iterator it = tacheEdit->getIterator();
@@ -95,36 +101,33 @@ void EditTache::notifie()
         tacheEdit->setTitre(s);
         QDate d = _dateDispo->date();
         QDate e = _dateEcheance->date();
+        QTime dur = _duree->time();
         tacheEdit->setDateDispo(d);
         tacheEdit->setEcheance(e);
-        qDebug() << "base faite";
+        if(tacheEdit->getType() == UNITAIRE || tacheEdit->getType() == PREEMPTIVE || tacheEdit->getType() == NON_PREEMPTIVE)
+        {
+            qDebug() << "rtiorjtre";
+            dynamic_cast<Tache_Unitaire*>(tacheEdit)->setDuree(dur);
+        }
         for(int i = 0; i < _precedences->count(); i++)
         {
-            qDebug() << "tour";
             QListWidgetItem* item = _precedences->item(i);
             QVariant v = item->data(32);
             Tache* t = v.value<Tache*>();
-            qDebug() << "j'arrive là" << t->getId();
             if(!tacheEdit->estPredecence(t->getId()))
             {
-                qDebug() << "je rentre dans l'ajout";
                 tacheEdit->ajouterPrecedence(t);
             }
-            qDebug() << "J'en suis sorti";
         }
         for(int i = 0; i < _possibles->count(); i++)
         {
-            qDebug() << "tour";
             QListWidgetItem* item = _possibles->item(i);
             QVariant v = item->data(32);
             Tache* t = v.value<Tache*>();
-            qDebug() << "j'arrive là" << t->getId();
             if(tacheEdit->estPredecence(t->getId()))
             {
-                qDebug() << "je rentre dans l'ajout";
                 tacheEdit->supprimerPrecedence(t->getId());
             }
-            qDebug() << "J'en suis sorti";
         }
     }
     catch(AgendaException& e)

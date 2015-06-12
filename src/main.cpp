@@ -1,4 +1,6 @@
 #include <QApplication>
+#include "../headers/addprog.h"
+#include "../headers/addprogunitaire.h"
 #include "../headers/accueil.h"
 #include "../headers/addproject.h"
 #include "../headers/addtache.h"
@@ -8,9 +10,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Accueil acc;
-    Agenda principale(&acc);
-    principale.show();
+    //Accueil acc;
+    //Agenda principale(&acc);
+    //principale.show();
     //AddProject ap;
     //ap.show();
     //AddTache ad;
@@ -21,5 +23,7 @@ int main(int argc, char *argv[])
     //e.show();
     //EditProject ep;
     //ep.show();
+    AddProgUnitaire ap;
+    ap.exec();
     return a.exec();
 }

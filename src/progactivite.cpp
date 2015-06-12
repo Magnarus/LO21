@@ -6,7 +6,7 @@ ProgActivite::ProgActivite(const int id, const QDate& d, const QTime& dur, Activ
        throw AgendaException("L'activite ne peut pas être programmée avec ces dates !");
    if(p->getDuree() != dur)
        throw AgendaException("L'activite ne peut pas être programmée avec ces durées !");
-
+   setType(PROGACTIVITE);
 }
 
 void ProgActivite::setDate(const QDate &d)throw(AgendaException)

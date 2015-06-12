@@ -19,6 +19,7 @@ class EditTache : public Editeur
     Tache* tacheEdit;
     QLineEdit *_titre;
     QDateEdit *_dateDispo,*_dateEcheance;
+    QTimeEdit *_duree;
     QFormLayout* _formLayout;
     QLabel *_type,*_precedences_l,*_possibles_l;
     QListWidget *_precedences, *_possibles;

@@ -38,8 +38,16 @@ public:
         {
             while(research != finResearch)
             {
-                if((*research)->getType() == type)
-                    resultats.push_back((*research));
+                if(type == UNITAIRE)
+                {
+                    if((*research)->getType() == type || (*research)->getType() == PREEMPTIVE || (*research)->getType() == NON_PREEMPTIVE)
+                        resultats.push_back((*research));
+                }
+                else
+                {
+                    if((*research)->getType() == type)
+                        resultats.push_back((*research));
+                }
                 ++research;
             }
             itRes = resultats.begin();
