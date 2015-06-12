@@ -69,3 +69,18 @@ bool Tache_Composite::supprimerSousTache(int id)
 
     return dedans;
 }
+
+bool Tache_Composite::estSousTacheRec(unsigned int id) const{
+    bool ok=true;
+    QList<Tache*>::const_iterator it = sousTaches.begin();
+    while(it!=sousTaches.end() && ok)
+    {
+        //qDebug() << "id testé " << (*it)->getId();
+        ok = id!=(*it)->getId();
+        if(ok && (*it)->getType()==typeTache::COMPOSITE){ //Si la tache n'est pas celle recherchée et qu'en plus c'est une tâche composite, on cherche parmis ses sous-tâches
+            ok=!(dynamic_cast<Tache_Composite*>(*it))->estSousTacheRec(id);
+        }
+        ++it;
+    }
+    return !ok;
+}

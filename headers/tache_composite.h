@@ -19,7 +19,7 @@ class Tache_Composite : public Tache
 public:
     Tache_Composite(const int id, const QString& titre, const QDate&
                     dispo, const QDate& deadline, const QList<Tache*>& st = QList<Tache*>()):
-    Tache(id,titre,dispo,deadline),sousTaches(st)
+        Tache(id,titre,dispo,deadline),sousTaches(st)
     {
         setType(COMPOSITE);
     }
@@ -40,6 +40,7 @@ public:
     };
     Iterator getIterator(){return Iterator(sousTaches.begin());}
     QList<Tache*>::iterator end(){return sousTaches.end();}
+    bool estSousTacheRec(unsigned int id)const;
 };
 // ... ainsi que le type pointeur vers Tache_Composite
 Q_DECLARE_METATYPE(Tache_Composite*)

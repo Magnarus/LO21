@@ -92,3 +92,19 @@ bool Projet::aTache(int id)
     }
     return dedans;
 }
+
+bool Projet::estTacheRec(int id){
+    //verification pour chaque tache
+    bool found=false;
+    Projet::Iterator it=this->getIterator();
+    while(it.courant()!=this->end() && !found){
+        if(it.valeur()->getId()!=id){
+            if(it.valeur()->getType()==typeTache::COMPOSITE){
+                found=(dynamic_cast<Tache_Composite*>(it.valeur()))->estSousTacheRec(id);
+            }
+            if(!found) it.next();
+        }
+        else found=true;
+    }
+    return found;
+}

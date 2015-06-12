@@ -4,6 +4,7 @@
 #include<QString>
 #include<QList>
 #include"tache.h"
+#include"tache_composite.h"
 #include "agendaexception.h"
 /**
  * \class       Projet projet.h "headers/projet.h"
@@ -37,6 +38,7 @@ public:
     Tache* getTache(int id);
     inline Tache* getTacheParCompteur(int i){return taches[i];}
     bool aTache(int id);
+    bool estTacheRec(int id);
     void ajouterTache(Tache* t)throw(AgendaException);
     bool supprSiDedans(int id);
     class Iterator
