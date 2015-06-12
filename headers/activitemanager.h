@@ -1,0 +1,28 @@
+#ifndef ACTIVITEMANAGER
+#define ACTIVITEMANAGER
+#include "tmanager.h"
+#include "ajouteuractivite.h"
+#include<iostream>
+/**
+ * \class       ActiviteManager activitemanager.h "headers/activitemanager.h"
+ * \author      NEVEUX Anaïs
+ * \version     1.0
+ * \date        04 juin 2015
+ * \brief       Implémente la classe ActiviteManager
+ * \extends     TManager<Activite*>
+ * \details     Cette classe définit le manager de programmation
+ *              Les Manager sont des singletons qui gèrent le cycle de vie et l'accès au type associé.
+ */
+class TacheManager : public TManager<Activite*>
+{
+    TacheManager(const TacheManager&);
+    TacheManager& operator=(const TacheManager&);
+    TacheManager();
+protected:
+public:
+    virtual void afficher()const {std::cout << "Je suis un manager d'activité\n";}
+    static TManager<Activite *> *getInstance();
+};
+
+#endif // ACTIVITEMANAGER
+

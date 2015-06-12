@@ -1,5 +1,5 @@
 CONFIG += C++11
-QT += core gui widgets
+QT += core gui widgets xml
 
 HEADERS += \
     headers/ajouteur.h \
@@ -38,7 +38,15 @@ HEADERS += \
     headers/Agenda.h \
     headers/editeur.h \
     headers/addprog.h \
-    headers/addprogunitaire.h
+    headers/addprogunitaire.h \
+    headers/ajouteuractivite.h \
+    headers/activitemanager.h \
+    headers/MethodExport.h \
+    headers/ProgrammationExport.h \
+    headers/SimpleFileExport.h \
+    headers/TExport.h \
+    headers/XMLExport.h \
+    headers/exportexception.h
 
 SOURCES += \
     src/ajouteur.cpp \
@@ -74,7 +82,15 @@ SOURCES += \
     src/addproject.cpp \
     src/editeur.cpp \
     src/addprog.cpp \
-    src/addprogunitaire.cpp
+    src/addprogunitaire.cpp \
+    src/ajouteuractivite.cpp \
+    src/activitemanager.cpp \
+    src/MethodExport.cpp \
+    src/ProgrammationExport.cpp \
+    src/SimpleFileExport.cpp \
+    src/TExport.cpp \
+    src/XMLExport.cpp \
+    src/exportexception.cpp
 
 RESOURCES += \
     resGraphiques.qrc

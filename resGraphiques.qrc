@@ -4,5 +4,7 @@
         <file>res/sauvegarder.png</file>
         <file>res/calendrier.png</file>
         <file>res/tree.png</file>
+        <file>res/leftarrow.png</file>
+        <file>res/rightarrow.png</file>
     </qresource>
 </RCC>

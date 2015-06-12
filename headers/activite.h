@@ -23,6 +23,7 @@ class Activite
     Activite& operator=(const Activite&);
 public:
     Activite(){}
+    Activite(int id,const QDate& d, const QTime& dur, const QString& nom):date(d),duree(dur),nom(nom),id(id){}
     Activite(const QDate& d, const QTime& dur, const QString& nom):date(d),duree(dur),nom(nom){}
     inline int getId()const {return id;}
     const inline QDate& getDate()const{return date;}

@@ -3,7 +3,7 @@
 #include "addprog.h"
 #include "tachemanager.h"
 #include "programmation.h"
-#include "progtunit.h"
+#include "progTUnit.h"
 #include "progmanager.h"
 #include <QListWidget>
 class AddProgUnitaire : public AddProg

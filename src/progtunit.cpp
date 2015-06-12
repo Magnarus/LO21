@@ -1,4 +1,4 @@
-#include "../headers/progtunit.h"
+#include "../headers/progTUnit.h"
 ProgTUnit::ProgTUnit(const int id, const QDate& d, const QTime& dur, Tache_Unitaire* p)throw(AgendaException)
     :Programmation(id,d,dur),programme(p)
 {

@@ -4,7 +4,9 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
 {
     _calendarBarLayout=new QHBoxLayout();
     _forward=new QToolButton(this);
+    _forward->setIcon(QIcon(":/res/leftarrow.png"));
     _next=new QToolButton(this);
+    _next->setIcon(QIcon(":/res/rightarrow.png"));
     _dateLabel=new QLabel(this);
     _calendarBarLayout->addWidget(_forward);
     _calendarBarLayout->addWidget(_dateLabel);

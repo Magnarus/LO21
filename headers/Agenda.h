@@ -5,7 +5,7 @@
 #include<QMenuBar>
 #include<QToolBar>
 #include<QAction>
-#include<qdockwidget>
+#include<QDockWidget>
 #include "accueil.h"
 #include<iostream>
 class Agenda : public QMainWindow
