@@ -20,11 +20,17 @@ public:
     XMLExport(const QString& fn):MethodExport(fn),document(fn),node(document.createElement("export")),
     projets(document.createElement("projets")),activites(document.createElement("activites")),
       programmations(document.createElement("programmations")),taches(document.createElement("taches")){
+        document.appendChild(node);
+        node.appendChild(projets);
+        node.appendChild(taches);
+        node.appendChild(activites);
+        node.appendChild(programmations);
     }
     void exportProjet(const Projet& p);
     void exportTache(const Tache& t);
     void exportProgrammation(const Programmation& prog);
     void exportActivite(const Activite& a);
+    const QString sendExport(){ return document.toString(); }
 };
 
 #endif // XMLEXPORT_H
