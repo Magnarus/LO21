@@ -10,9 +10,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //Accueil acc;
-    //Agenda principale(&acc);
-    //principale.show();
+    Accueil acc;
+    Agenda principale(&acc);
+    principale.show();
     //AddProject ap;
     //ap.show();
     //AddTache ad;
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     //e.show();
     //EditProject ep;
     //ep.show();
-    AddProgUnitaire ap;
-    ap.exec();
+   // AddProgUnitaire ap;
+    //ap.exec();
     return a.exec();
 }

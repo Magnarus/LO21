@@ -14,6 +14,7 @@ AddProject::AddProject(QWidget *parent) : QDialog(parent)
     _annuler=new QPushButton("Annuler",this);
     _titre=new QLineEdit(this);
     _dateDispo=new QDateEdit(this);
+    _dateDispo->setMinimumDate(QDate::currentDate());
     _dateEcheance=new QDateEdit(this);
     _dateDispo->setCalendarPopup(true);
     _dateEcheance->setCalendarPopup(true);

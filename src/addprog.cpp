@@ -4,6 +4,7 @@ AddProg::AddProg(QWidget* parent):QDialog(parent)
 {
     _titre = new QLineEdit(this);
     _date = new QDateEdit(this);
+    _date->setMinimumDate(QDate::currentDate());
     _horaire = new QTimeEdit(this);
     _duree = new QTimeEdit(this);
     _valider = new QPushButton("valider",this);

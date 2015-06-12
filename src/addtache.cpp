@@ -14,8 +14,10 @@ AddTache::AddTache(QWidget *parent) : QDialog(parent)
     _duree = new QTimeEdit(this);
     _duree_l = new QLabel("Durée :",this);
     _dateDispo->setCalendarPopup(true);
+    _dateDispo->setMinimumDate(QDate::currentDate());
     _dateEcheance=new QDateEdit(this);
     _dateEcheance->setCalendarPopup(true);
+    _dateEcheance->setMinimumDate(QDate::currentDate());
     _dateDispo_l=new QLabel("Date de disponibilité:",this);
     _dateEcheance_l=new QLabel("Date d'échéance:",this);
     _titre=new QLineEdit(this);
