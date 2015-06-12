@@ -41,6 +41,7 @@ public:
     }
     inline int getId()const { return id;}
     inline QString& getTitre() {return titre;}
+    inline const QString& getTitre()const{return titre;}
     inline const QDate& getDateDispo()const {return dateDispo;}
     inline const QDate& getEcheance()const {return dateEcheance;}
     inline const Etats getEtat()const {return etat;}
@@ -69,6 +70,18 @@ public:
     };
     Iterator getIterator(){return Iterator(precedence.begin());}
     typename QList<Tache*>::iterator end(){return precedence.end();}
+
+    class constIterator
+    {
+        QList<Tache*>::const_iterator itCour;
+    public:
+        constIterator(QList<Tache*>::const_iterator i){itCour = i;}
+        const Tache* valeur(){return *itCour;}
+        QList<Tache*>::const_iterator& courant(){return itCour;}
+        void next(){++itCour;}
+    };
+    constIterator getIterator()const{return constIterator(precedence.begin());}
+    typename QList<Tache*>::const_iterator end()const{return precedence.end();}
 
 };
 #include<QVariant>

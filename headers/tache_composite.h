@@ -40,6 +40,17 @@ public:
     };
     Iterator getIterator(){return Iterator(sousTaches.begin());}
     QList<Tache*>::iterator end(){return sousTaches.end();}
+    class constIterator
+    {
+        typename QList<Tache*>::const_iterator itCour;
+    public:
+        constIterator(typename QList<Tache*>::const_iterator i){itCour = i;}
+        const Tache* valeur(){return *itCour;}
+        typename QList<Tache*>::const_iterator& courant(){return itCour;}
+        void next(){++itCour;}
+    };
+    constIterator getIterator()const{return constIterator(sousTaches.begin());}
+    QList<Tache*>::const_iterator end()const{return sousTaches.end();}
     bool estSousTacheRec(unsigned int id)const;
 };
 // ... ainsi que le type pointeur vers Tache_Composite

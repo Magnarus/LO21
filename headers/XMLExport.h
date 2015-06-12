@@ -16,6 +16,7 @@
 class XMLExport : public MethodExport{
     QDomDocument document;
     QDomElement node,projets,activites,programmations,taches;
+    QDomElement exportSousTache(const Tache_Composite& t);
 public:
     XMLExport(const QString& fn):MethodExport(fn),document(fn),node(document.createElement("export")),
     projets(document.createElement("projets")),activites(document.createElement("activites")),

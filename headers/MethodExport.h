@@ -1,6 +1,7 @@
 #ifndef METHODEXPORT_H
 #define METHODEXPORT_H
 #include <QString>
+#include <QStringBuilder>
 #include "headers/projet.h"
 #include "headers/tache.h"
 #include "headers/activite.h"

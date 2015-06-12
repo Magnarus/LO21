@@ -77,6 +77,18 @@ public:
     {
         return IteratorDate(taches.begin(),taches.end(),d,f);
     }
+
+    class constIterator
+    {
+        QList<Tache*>::const_iterator itCour;
+    public:
+        constIterator(QList<Tache*>::const_iterator i){itCour = i;}
+        const Tache* valeur(){return *itCour;}
+        QList<Tache*>::const_iterator& courant(){return itCour;}
+        void next(){++itCour;}
+    };
+    constIterator getIterator()const{return constIterator(taches.begin());}
+    QList<Tache*>::const_iterator end()const{return taches.end();}
 };
 #include<QVariant>
 // ... ainsi que le type pointeur vers Activite
