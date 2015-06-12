@@ -15,10 +15,10 @@
 class ProjectView : public QWidget
 {
     Q_OBJECT
-    QPushButton *_creerProjet,*_creerTache,*_Editer,*_actualiser;
+    QPushButton *_creerProjet;
     QTreeWidget *_lesProjets;
-    QVBoxLayout *_mainLayout;
-    QHBoxLayout *_buttonLayout,*_treeLayout;
+    QHBoxLayout *_mainLayout;
+    QVBoxLayout *_leftLayout;
     AddProject *_ajouterProjet;
     AddTache *_ajouterTache;
     EditProject *_editerProjet;
@@ -46,16 +46,12 @@ public slots:
         delete _ajouterProjet;
         _ajouterProjet=new AddProject();
         _ajouterProjet->exec();
+        actualiser();
     }
     void showCreateTache(){
         delete _ajouterTache;
        _ajouterTache=new AddTache();
        _ajouterTache->exec();
-    }
-    void showEditProject(){
-        /*delete _editerProjet;
-        _editerProjet=new EditProject();
-        _editerProjet->exec();*/
     }
     void actualiser(){
         _lesProjets->clear();

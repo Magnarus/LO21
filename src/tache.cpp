@@ -20,6 +20,7 @@ void Tache::setEcheance(QDate &d)
 
 bool Tache::estPredecence(int id)
 {
+    qDebug() << "début du test";
     bool ok=false;
     QList<Tache*>::iterator it = this->precedence.begin();
     while(it!=precedence.end() && !ok)
@@ -27,6 +28,7 @@ bool Tache::estPredecence(int id)
         ok = (id ==(*it)->getId());
         ++it;
     }
+    qDebug() << "fin du test";
     return ok;
 }
 
@@ -39,6 +41,19 @@ void Tache::ajouterPrecedence(Tache *pred)throw(AgendaException)
        else throw AgendaException("Impossible d'avoir des précédences mutuelles");
     else throw AgendaException("Précédence déjà existante");
 
+}
+
+void Tache::supprimerPrecedence(int id)
+{
+    bool ok=false;
+    QList<Tache*>::iterator it = this->precedence.begin();
+    while(it!=precedence.end() && !ok)
+    {
+        ok = (id ==(*it)->getId());
+        if(ok)
+            precedence.erase(it);
+        ++it;
+    }
 }
 
 const QString Tache::getTypeToQString()const

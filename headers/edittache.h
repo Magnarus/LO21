@@ -15,6 +15,7 @@
 #include<QMessageBox>
 class EditTache : public Editeur
 {
+    Q_OBJECT
     Tache* tacheEdit;
     QLineEdit *_titre;
     QDateEdit *_dateDispo,*_dateEcheance;
@@ -30,6 +31,8 @@ public:
     virtual void initChamps();
 public slots:
     void notifie();
+    void ajouterListe();
+    void retirerListe();
 };
 
 #endif // EDITTACHE_H

@@ -41,9 +41,9 @@ EditTache::EditTache(Tache *t, QWidget *parent):Editeur(parent),tacheEdit(t)
     _mainLayout->addLayout(_precLayout);
     _mainLayout->addLayout(_buttonLayout);
 
+    connect(_valider,SIGNAL(clicked()),this,SLOT(notifie()));
     connect(_ajouterPrec,SIGNAL(clicked()),this,SLOT(ajouterListe()));
     connect(_retirerPrec,SIGNAL(clicked()),this,SLOT(retirerListe()));
-
 }
 
 void EditTache::initChamps()
@@ -90,22 +90,41 @@ void EditTache::notifie()
 {
     try
     {
+        qDebug() << "notifie";
         QString s = _titre->text();
         tacheEdit->setTitre(s);
         QDate d = _dateDispo->date();
         QDate e = _dateEcheance->date();
         tacheEdit->setDateDispo(d);
         tacheEdit->setEcheance(e);
-        for(int i = 0; i < _precedences->count(); ++i)
+        qDebug() << "base faite";
+        for(int i = 0; i < _precedences->count(); i++)
         {
+            qDebug() << "tour";
             QListWidgetItem* item = _precedences->item(i);
             QVariant v = item->data(32);
-            Tache* t;
-            if(v.canConvert<Tache_Unitaire*>())
-                t = v.value<Tache_Unitaire*>();
-            else t = v.value<Tache_Composite*>();
+            Tache* t = v.value<Tache*>();
+            qDebug() << "j'arrive là" << t->getId();
             if(!tacheEdit->estPredecence(t->getId()))
+            {
+                qDebug() << "je rentre dans l'ajout";
                 tacheEdit->ajouterPrecedence(t);
+            }
+            qDebug() << "J'en suis sorti";
+        }
+        for(int i = 0; i < _possibles->count(); i++)
+        {
+            qDebug() << "tour";
+            QListWidgetItem* item = _possibles->item(i);
+            QVariant v = item->data(32);
+            Tache* t = v.value<Tache*>();
+            qDebug() << "j'arrive là" << t->getId();
+            if(tacheEdit->estPredecence(t->getId()))
+            {
+                qDebug() << "je rentre dans l'ajout";
+                tacheEdit->supprimerPrecedence(t->getId());
+            }
+            qDebug() << "J'en suis sorti";
         }
     }
     catch(AgendaException& e)
@@ -113,4 +132,26 @@ void EditTache::notifie()
         QMessageBox::critical(this,"Impossible de modifier",e.getInfo());
     }
     emit modifie();
+}
+
+void EditTache::ajouterListe()
+{
+    QList<QListWidgetItem*> selected = _possibles->selectedItems();
+    QList<QListWidgetItem*>::iterator it = selected.begin();
+    for(it;it != selected.end();++it)
+    {
+       _precedences->addItem((*it)->clone());
+    }
+    qDeleteAll(_possibles->selectedItems());
+}
+
+void EditTache::retirerListe()
+{
+    QList<QListWidgetItem*> selected = _precedences->selectedItems();
+    QList<QListWidgetItem*>::iterator it = selected.begin();
+    for(it;it != selected.end();++it)
+    {
+       _possibles->addItem((*it)->clone());
+    }
+    qDeleteAll(_precedences->selectedItems());
 }

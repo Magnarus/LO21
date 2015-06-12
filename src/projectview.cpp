@@ -6,38 +6,27 @@
 ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
 {
     _creerProjet=new QPushButton("Ajouter un projet",this);
-    _creerTache=new QPushButton("Ajouter une tâche",this);
-    _Editer=new QPushButton("Editer le projet",this);
-    _actualiser= new QPushButton("Actualiser tree view",this);
     _lesProjets=new QTreeWidget(this);
-    _mainLayout=new QVBoxLayout(this);
+    _mainLayout=new QHBoxLayout(this);
     _edit = nullptr;
-    _buttonLayout=new QHBoxLayout;
 
     _ajout = new QAction(QIcon(":/res/charger.png"), tr("Nouvelle Tache"), this);
     connect(_ajout, SIGNAL(triggered()), this, SLOT(slotAjouterTache()));
     _suppr = new QAction(QIcon(":/res/sauvegarder.png"),tr("Supprimer"),this);
     connect(_suppr,SIGNAL(triggered()),this,SLOT(suppressionNoeud()));
 
-    _treeLayout = new QHBoxLayout;
-    _treeLayout->addWidget(_lesProjets);
-    _treeLayout->addWidget(_edit);
-    _buttonLayout->addWidget(_creerProjet);
-    _buttonLayout->addWidget(_creerTache);
-    _buttonLayout->addWidget(_Editer);
-    _buttonLayout->addWidget(_actualiser);
-    _mainLayout->addLayout(_treeLayout);
-    _mainLayout->addLayout(_buttonLayout);
+    _leftLayout = new QVBoxLayout;
+    _leftLayout->addWidget(_lesProjets);
+    _leftLayout->addWidget(_creerProjet);
+    _mainLayout->addLayout(_leftLayout);
+    _mainLayout->addWidget(_edit);
     _ajouterProjet=nullptr;
     _ajouterTache=nullptr;
     _editerProjet=nullptr;
 
     _lesProjets->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(_lesProjets,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(clicDroit(QPoint)));
-
     connect(_creerProjet,SIGNAL(clicked()),this,SLOT(showCreateProject()));
-    connect(_Editer,SIGNAL(clicked()),this,SLOT(showEditProject()));
-    connect(_actualiser,SIGNAL(clicked()),this,SLOT(actualiser()));
     connect(_lesProjets,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(lancerEdit(QTreeWidgetItem*,int)));
 }
 QTreeWidgetItem* ProjectView::ajouterRacine(QString& name, QString& description,QVariant& data)
@@ -232,7 +221,7 @@ void ProjectView::lancerEdit(QTreeWidgetItem *item, int column)
         Projet* p = v.value<Projet*>();
         delete _edit;
         _edit = new EditProject(p,this);
-        _treeLayout->addWidget(_edit);
+        _mainLayout->addWidget(_edit);
         _edit->initChamps();
     }
     else
@@ -244,8 +233,7 @@ void ProjectView::lancerEdit(QTreeWidgetItem *item, int column)
             t = v.value<Tache_Composite*>();
         delete _edit;
         _edit = new EditTache(t,this);
-        qDebug() << "okey";
-        _treeLayout->addWidget(_edit);
+        _mainLayout->addWidget(_edit);
         _edit->initChamps();
     }
     connect(_edit,SIGNAL(modifie()),this,SLOT(actualiser()));
