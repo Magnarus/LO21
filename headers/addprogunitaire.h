@@ -5,12 +5,19 @@
 #include "programmation.h"
 #include "progTUnit.h"
 #include "progmanager.h"
+#include "math.h"
 #include <QListWidget>
+#include<QMessageBox>
+#include<QDebug>
 class AddProgUnitaire : public AddProg
 {
+    Q_OBJECT
     QListWidget *_taches;
 public:
     AddProgUnitaire(QWidget* parent=0);
+public slots:
+    void creation();
+    void majInfo(QListWidgetItem*selected);
 };
 
 #endif // ADDPROGUNITAIRE_H

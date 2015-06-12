@@ -38,8 +38,11 @@ Agenda::Agenda(Accueil* a):_a(a)
     _treeMode = new QAction("&Gestion des projets",this);
     _treeMode->setShortcut(QKeySequence("CTRL+T"));
     _treeMode->setIcon(QIcon(":/res/tree.png"));
+    _addProg = new QAction("Programmer",this);
+    _addProg->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_P));
     _menuMode->addAction(_edtMode);
     _menuMode->addAction(_treeMode);
+
 
     _toolbar = addToolBar("Agenda");
     _toolbar->addAction(_chargerFichier);
@@ -47,11 +50,15 @@ Agenda::Agenda(Accueil* a):_a(a)
     _toolbar->addSeparator();
     _toolbar->addAction(_edtMode);
     _toolbar->addAction(_treeMode);
+    _toolbar->addSeparator();
+    _toolbar->addAction(_addProg);
 
+    _progU = new AddProgUnitaire();
     connect(_edtMode, SIGNAL(triggered()), _a, SLOT(setPlanningOn()));
     connect(_treeMode,SIGNAL(triggered()), _a,SLOT(setTreeOn()));
     connect(_calendar,SIGNAL(selectionChanged()),this,SLOT(setDate()));
     connect(this,SIGNAL(dateChanged(QDate)),_a,SLOT(setDate(QDate)));
     connect(_a,SIGNAL(changeDockVisible()),this,SLOT(changeDockVisible()));
+    connect(_addProg,SIGNAL(triggered()),this,SLOT(showCreateProg()));
 }
 

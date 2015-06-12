@@ -24,7 +24,7 @@ protected:
     Programmation(const Programmation&);
     Programmation& operator=(const Programmation&);
 public:
-    Programmation(const int id,const QDate& d, const QTime& dur):id(id),date(d),duree(dur){}
+    Programmation(const int id,const QDate& d, const QTime& dur,const QTime& h):id(id),date(d),duree(dur),horaire(h){}
     const inline int getId() const {return id;}
     const inline QDate& getDate()const{return date;}
     const inline QTime& getDuree()const{return duree;}

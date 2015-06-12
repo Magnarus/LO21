@@ -16,7 +16,7 @@ class ProgTUnit : public Programmation
     ProgTUnit(const ProgTUnit&);
     ProgTUnit& operator=(const ProgTUnit&);
 public:
-    ProgTUnit(const int id, const QDate& d, const QTime& dur, Tache_Unitaire* p)throw(AgendaException);
+    ProgTUnit(const int id, const QDate& d, const QTime& dur,const QTime& h, Tache_Unitaire* p)throw(AgendaException);
     void setDate(const QDate &d) throw(AgendaException) override;
     void setDuree(const QTime &d)throw(AgendaException) override;
     bool estProg(const Tache_Unitaire*);

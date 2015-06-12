@@ -3,7 +3,7 @@ Programmation* AjouteurProgTUnit::construire(QMap<QString,QVariant>& params)cons
 {
     int id;
     QDate date;
-    QTime duree;
+    QTime duree,horaire;
     Tache_Unitaire* tu;
     //On vérifie que les paramètres passés correspondent bien à une tache composite
     if(verifTypes(params.keys()))
@@ -11,9 +11,10 @@ Programmation* AjouteurProgTUnit::construire(QMap<QString,QVariant>& params)cons
         id = params["id"].toInt();
         date = params["date"].toDate();
         duree = params["duree"].toTime();
+        horaire = params["horaire"].toTime();
         tu = params["programme"].value<Tache_Unitaire*>();
     }
     else throw AgendaException("Paramètre passés invalides");
 
-    return new ProgTUnit(id,date,duree,tu);
+    return new ProgTUnit(id,date,duree,horaire,tu);
 }

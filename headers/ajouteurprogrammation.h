@@ -27,6 +27,7 @@ public:
         types.insert("id");
         types.insert("date");
         types.insert("duree");
+        types.insert("horaire");
         types.insert("programme");
     }
 };

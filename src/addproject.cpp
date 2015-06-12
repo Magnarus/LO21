@@ -16,6 +16,7 @@ AddProject::AddProject(QWidget *parent) : QDialog(parent)
     _dateDispo=new QDateEdit(this);
     _dateDispo->setMinimumDate(QDate::currentDate());
     _dateEcheance=new QDateEdit(this);
+    _dateEcheance->setMinimumDate(QDate::currentDate());
     _dateDispo->setCalendarPopup(true);
     _dateEcheance->setCalendarPopup(true);
 

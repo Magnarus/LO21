@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     //e.show();
     //EditProject ep;
     //ep.show();
-   // AddProgUnitaire ap;
+     //AddProgUnitaire ap;
     //ap.exec();
     return a.exec();
 }

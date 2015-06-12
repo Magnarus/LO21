@@ -29,7 +29,7 @@ public:
     virtual const QString generateFilename()=0;
     virtual void exportData(MethodExport* e=NULL)=0;
     virtual QVector<U> findElements()=0;
-    virtual ~TExport()final;
+    virtual ~TExport(); //Ne jamais mettre un destructeur en final omg surtou t pour u
 };
 
 template<typename U>

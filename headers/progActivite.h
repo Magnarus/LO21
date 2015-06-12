@@ -16,7 +16,7 @@ class ProgActivite : public Programmation
     ProgActivite(const ProgActivite&);
     ProgActivite& operator=(const ProgActivite&);
 public:
-    ProgActivite(const int id, const QDate& d, const QTime& dur, Activite* p) throw(AgendaException);
+    ProgActivite(const int id, const QDate& d, const QTime& dur, const QTime& h, Activite* p) throw(AgendaException);
     inline const Activite* getProgramme()const{return programme;}
     void setDate(const QDate& d)throw(AgendaException) override;
     void setDuree(const QTime &d)throw(AgendaException) override;

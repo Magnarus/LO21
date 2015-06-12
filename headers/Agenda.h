@@ -8,6 +8,7 @@
 #include<QDockWidget>
 #include "accueil.h"
 #include<iostream>
+#include"addprogunitaire.h"
 class Agenda : public QMainWindow
 {
     Q_OBJECT
@@ -21,8 +22,10 @@ class Agenda : public QMainWindow
     QAction* _sauvegarderFichier;
     QAction* _edtMode;
     QAction* _treeMode;
+    QAction* _addProg;
     QVBoxLayout* _sideLayout;
     QWidget* _dockWidget;
+    AddProgUnitaire* _progU;
 
 public :
     Agenda(Accueil* a);
@@ -38,6 +41,10 @@ public slots:
         if (_dockWidget->isVisible())
             _dockWidget->setVisible(false);
         else _dockWidget->setVisible(true);
+    }
+    void showCreateProg(){
+       _progU=new AddProgUnitaire();
+       _progU->exec();
     }
 };
 
