@@ -8,6 +8,7 @@ AddProgActivite::AddProgActivite(QWidget *parent):AddProg(parent)
     _dateAct->setDate(QDate::currentDate());
     _dateAct->setEnabled(false);
     _dureeAct = new QTimeEdit(this);
+    _dureeAct->stepBy(1);
     _dureeAct->setEnabled(false);
     _titreAct = new QLineEdit(this);
     _activite->addRow("Titre Activite : ",_titreAct);
@@ -18,6 +19,7 @@ AddProgActivite::AddProgActivite(QWidget *parent):AddProg(parent)
     _mainLayout->addWidget(_contour);
     _mainLayout->addLayout(_buttonLayout);
     connect(_valider,SIGNAL(clicked()),this,SLOT(creation()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(close());
     connect(_duree,SIGNAL(timeChanged(QTime)),this,SLOT(majDuree(QTime)));
     connect(_date,SIGNAL(dateChanged(QDate)),this,SLOT(majDate(QDate)));
 
@@ -42,11 +44,11 @@ void AddProgActivite::creation()
         paramsProg["programme"] = p;
         ProgManager::getInstance()->ajouterItem("ACTIVITE",paramsProg);
         QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
+        emit progAdded();
         done(1);
     }
     catch(AgendaException &e)
     {
         QMessageBox::critical(this,"Erreur ajout",e.getInfo());
-        done(0);
     }
 }

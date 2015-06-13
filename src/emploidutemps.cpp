@@ -55,16 +55,27 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
     connect(_forward,SIGNAL(clicked()),this,SLOT(semainePassee()));
     connect(_next,SIGNAL(clicked()),this,SLOT(semaineSuivante()));
 }
-
+void EmploiDuTemps::setDate(QDate& d)
+{
+    int difference = _aujourdhui.daysTo(d);
+    _aujourdhui = d;
+    _dateLabel->setText(d.toString("dddd dd MMMM yyyy"));
+    int passerALundi = d.dayOfWeek()-1;
+    int passerADimanche = 7 - d.dayOfWeek();
+    _lundi = _aujourdhui.addDays(-passerALundi);
+    _dimanche = _aujourdhui.addDays(passerADimanche);
+    passerALundi *= -1;
+    //Si on change de semaine
+    if(difference < passerALundi || difference > passerADimanche)
+        changerProg();
+}
 void EmploiDuTemps::semaineSuivante()
 {
     _aujourdhui = _aujourdhui.addDays(7);
     _dateLabel->setText(_aujourdhui.toString("dddd dd MMMM yyyy"));
     _lundi = _lundi.addDays(7);
     _dimanche = _dimanche.addDays(7);
-    qDebug() <<"ajd" <<  _aujourdhui;
-    qDebug() <<"lundi" << _lundi;
-    qDebug() <<"dimanche" << _dimanche;
+    changerProg();
 }
 
 void EmploiDuTemps::semainePassee()
@@ -73,8 +84,60 @@ void EmploiDuTemps::semainePassee()
     _dateLabel->setText(_aujourdhui.toString("dddd dd MMMM yyyy"));
     _lundi = _lundi.addDays(-7);
     _dimanche = _dimanche.addDays(-7);
-    qDebug() <<"ajd" <<  _aujourdhui;
-    qDebug() <<"lundi" << _lundi;
-    qDebug() <<"dimanche" << _dimanche;
+    changerProg();
+}
+
+void EmploiDuTemps::changerProg()
+{
+    _edt->clearContents();
+    ProgManager::IteratorIntervale it = dynamic_cast<ProgManager*>(ProgManager::getInstance())->getIteratorIntervale(_lundi,_dimanche);
+
+    while(it.courant() != it.end())
+    {
+        int jour;
+        int heure;
+        int duree;
+        QString titre;
+        QVariant v;
+        if (it.valeur()->getType() == PROGTACHE)
+        {
+            ProgTUnit* p = dynamic_cast<ProgTUnit*>(it.valeur());
+            jour = p->getDate().dayOfWeek();
+            heure = p->getHoraire().hour();
+            duree = p->getDuree().hour();
+            titre = p->getProgramme()->getTitre();
+            v.setValue(p);
+        }
+        else
+        {
+           ProgActivite* p = dynamic_cast<ProgActivite*>(it.valeur());
+           jour = p->getDate().dayOfWeek();
+           qDebug() << "jour de la semaine : " << jour;
+           heure = p->getHoraire().hour();
+           duree = p->getDuree().hour();
+           titre = p->getProgramme()->getNom();
+           v.setValue(p);
+        }
+        int i=0;
+        while (i<duree && jour-1 <7)
+        {
+            QTableWidgetItem* item = new QTableWidgetItem();
+            item->setData(32,v);
+            item->setBackgroundColor(QColor("red"));
+            item->setTextColor(QColor("white"));
+            item->setText(titre);
+            if(heure>=24){
+                jour++;
+                heure -= 24;
+            }
+            if(jour-1<7)
+            {
+                _edt->setItem(heure,jour-1,item);
+                heure++;
+            }
+            i++;
+        }
+        it.next();
+    }
 }
 

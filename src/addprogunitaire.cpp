@@ -41,6 +41,7 @@ AddProgUnitaire::AddProgUnitaire(QWidget *parent):AddProg(parent)
     _mainLayout->addWidget(_taches);
     _mainLayout->addLayout(_buttonLayout);
     connect(_valider,SIGNAL(clicked()),this,SLOT(creation()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(close());
     connect(_taches,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(majInfo(QListWidgetItem*)));
 }
 
@@ -59,12 +60,12 @@ void AddProgUnitaire::creation()
         ProgManager::getInstance()->ajouterItem("UNITAIRE",params);
         t->setEtat(EN_COURS);
         QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
+        emit progAdded();
         done(1);
     }
     catch(AgendaException &e)
     {
         QMessageBox::critical(this,"Erreur ajout",e.getInfo());
-        done(0);
     }
 
 }

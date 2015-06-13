@@ -48,7 +48,7 @@ public:
         void next() { ++itRes;}
         QVector<Programmation*>::iterator end(){return resultats.end();}
     };
-    IteratorIntervale getIterator(const QDate& d,const QDate& f)
+    IteratorIntervale getIteratorIntervale(const QDate& d,const QDate& f)
     {return IteratorIntervale(d,f,managable.begin(),managable.end());}
 
     static TManager<Programmation*> *getInstance();

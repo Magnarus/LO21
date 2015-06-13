@@ -24,7 +24,7 @@ protected:
     Programmation(const Programmation&);
     Programmation& operator=(const Programmation&);
 public:
-    Programmation(const int id,const QDate& d, const QTime& dur,const QTime& h):id(id),date(d),duree(dur),horaire(h){}
+    Programmation(const int id,const QDate& d, const QTime& dur,const QTime& h);
     const inline int getId() const {return id;}
     const inline QDate& getDate()const{return date;}
     const inline QTime& getDuree()const{return duree;}
@@ -36,5 +36,7 @@ public:
     virtual inline void setDuree(const QTime &d) = 0;
     virtual void afficher() = 0;
 };
-
+#include<QVariant>
+// ... ainsi que le type pointeur vers Activite
+Q_DECLARE_METATYPE(Programmation*)
 #endif // PROGRAMMATION_H

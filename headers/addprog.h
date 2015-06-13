@@ -23,6 +23,8 @@ protected:
     QVBoxLayout * _mainLayout;
 public:
     AddProg(QWidget* parent=0);
+signals:
+    void progAdded();
 
 };
 
