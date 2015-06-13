@@ -3,6 +3,11 @@
 EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
 {
     _calendarBarLayout=new QHBoxLayout();
+    _aujourdhui = QDate::currentDate();
+    int toLundi = _aujourdhui.dayOfWeek()-1;
+    int toDimanche = 7-_aujourdhui.dayOfWeek();
+    _lundi = _aujourdhui.addDays(-toLundi);
+    _dimanche = _aujourdhui.addDays(toDimanche);
     _forward=new QToolButton(this);
     _forward->setIcon(QIcon(":/res/leftarrow.png"));
     _next=new QToolButton(this);
@@ -47,6 +52,29 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
     _mainLayout = new QHBoxLayout(this);
     _mainLayout->addLayout(_edtlayout);
     this->setLayout(_mainLayout);
+    connect(_forward,SIGNAL(clicked()),this,SLOT(semainePassee()));
+    connect(_next,SIGNAL(clicked()),this,SLOT(semaineSuivante()));
 }
 
+void EmploiDuTemps::semaineSuivante()
+{
+    _aujourdhui = _aujourdhui.addDays(7);
+    _dateLabel->setText(_aujourdhui.toString("dddd dd MMMM yyyy"));
+    _lundi = _lundi.addDays(7);
+    _dimanche = _dimanche.addDays(7);
+    qDebug() <<"ajd" <<  _aujourdhui;
+    qDebug() <<"lundi" << _lundi;
+    qDebug() <<"dimanche" << _dimanche;
+}
+
+void EmploiDuTemps::semainePassee()
+{
+    _aujourdhui = _aujourdhui.addDays(-7);
+    _dateLabel->setText(_aujourdhui.toString("dddd dd MMMM yyyy"));
+    _lundi = _lundi.addDays(-7);
+    _dimanche = _dimanche.addDays(-7);
+    qDebug() <<"ajd" <<  _aujourdhui;
+    qDebug() <<"lundi" << _lundi;
+    qDebug() <<"dimanche" << _dimanche;
+}
 

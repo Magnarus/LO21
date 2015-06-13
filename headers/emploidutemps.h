@@ -18,9 +18,11 @@
 #include<QCalendarWidget>
 #include<QListWidget>
 #include<QLabel>
+#include<qdebug.h>
 class EmploiDuTemps : public QWidget
 {
     Q_OBJECT
+    QDate _aujourdhui, _lundi, _dimanche;
     QHBoxLayout* _mainLayout;
     QVBoxLayout* _edtlayout;
     QTableWidget* _edt;
@@ -32,7 +34,12 @@ public:
     explicit EmploiDuTemps(QWidget *parent = 0);
     void setDate(QDate& d)
     {
+        _aujourdhui = d;
         _dateLabel->setText(d.toString("dddd dd MMMM yyyy"));
+        int passerALundi = d.dayOfWeek()-1;
+        int passerADimanche = 7 - d.dayOfWeek();
+        _lundi = _aujourdhui.addDays(-passerALundi);
+        _dimanche = _aujourdhui.addDays(passerADimanche);
     }
 
     ~EmploiDuTemps(){}
@@ -40,6 +47,8 @@ public:
 signals:
 
 public slots:
+    void semaineSuivante();
+    void semainePassee();
 };
 
 #endif // EMPLOIDUTEMPS_H

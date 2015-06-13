@@ -2,6 +2,7 @@
 #define ACTIVITEMANAGER
 #include "tmanager.h"
 #include "ajouteuractivite.h"
+
 #include<iostream>
 /**
  * \class       ActiviteManager activitemanager.h "headers/activitemanager.h"
