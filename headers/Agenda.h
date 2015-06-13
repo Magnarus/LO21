@@ -52,6 +52,7 @@ public slots:
        _progA=new AddProgActivite();
        _progA->exec();
     }
+    void updateList();
 };
 
 #endif // AGENDA_H

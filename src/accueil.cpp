@@ -8,5 +8,9 @@ Accueil::Accueil(QWidget *parent) : QWidget(parent)
     _projectTree->hide();
     _mainLayout->addWidget(_edtInterface);
     this->setLayout(_mainLayout);
+
+    connect(_edtInterface,SIGNAL(progChanged()),this,SLOT(prevenirAgenda()));
+    connect(_projectTree,SIGNAL(previentAccueil()),this,SLOT(prevenirAgenda()));
 }
+
 

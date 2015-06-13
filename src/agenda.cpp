@@ -23,8 +23,6 @@ Agenda::Agenda(Accueil* a):_a(a)
     _calendar->setMinimumDate(QDate::currentDate());
     _calendar->selectedDate().dayOfWeek();
     _list = new QListWidget();
-    QString label("Faudra ajouter les tâches non programmées qui peuvent l'être pour la semaine courante");
-    _list->addItem(label);
     _sideLayout->addWidget(_calendar);
     _sideLayout->addWidget(_list);
     _dockWidget->setLayout(_sideLayout);
@@ -71,12 +69,48 @@ Agenda::Agenda(Accueil* a):_a(a)
     _progA = new AddProgActivite();
     connect(_edtMode, SIGNAL(triggered()), _a, SLOT(setPlanningOn()));
     connect(_treeMode,SIGNAL(triggered()), _a,SLOT(setTreeOn()));
+    connect(_a,SIGNAL(previentAgenda()),this,SLOT(updateList()));
     connect(_calendar,SIGNAL(selectionChanged()),this,SLOT(setDate()));
     connect(this,SIGNAL(dateChanged(QDate)),_a,SLOT(setDate(QDate)));
     connect(_a,SIGNAL(changeDockVisible(bool)),this,SLOT(changeDockVisible(bool)));
     connect(_addProgU,SIGNAL(triggered()),this,SLOT(showCreateProgU()));
     connect(_addProgA,SIGNAL(triggered()),this,SLOT(showCreateProgA()));
-    connect(_progU,SIGNAL(progAdded()),_a,SLOT(majEDT()));
-    connect(_progA,SIGNAL(progAdded()),_a,SLOT(majEDT()));
+    connect(_progU,SIGNAL(accepted()),_a,SLOT(majEDT()));
+    connect(_progA,SIGNAL(accepted()),_a,SLOT(majEDT()));
 }
 
+void Agenda::updateList()
+{
+    _list->clear();
+    TacheManager::IteratorTypeT itType = dynamic_cast<TacheManager*>(TacheManager::getInstance())->getIteratorTypeT(UNITAIRE);
+    QList<const Tache_Unitaire*> prog;
+    //On récupère toutes les tâches des programmations de tâches
+    ProgManager::Iterator it = ProgManager::getInstance()->getIterator();
+    while(it.courant() != ProgManager::getInstance()->end())
+    {
+        if(it.valeur()->getType() == PROGTACHE)
+        {
+            ProgTUnit* ptu = dynamic_cast<ProgTUnit*>(it.valeur());
+            prog.push_back(ptu->getProgramme());
+        }
+        it.next();
+    }
+    //On parcours toutes les tâches unitaires (préemptives ou non) et on check si elles sont dans les tâches récupérées
+    while(itType.courant() != itType.fin())
+    {
+        Tache_Unitaire* courant = dynamic_cast<Tache_Unitaire*>(itType.valeur());
+        if(courant->precedencesFinies())
+        {
+            if(!prog.contains(courant) || courant->getType() == PREEMPTIVE)
+            {
+                QListWidgetItem* item = new QListWidgetItem(_list);
+                item->setText(courant->getTitre());
+                QVariant v;
+                v.setValue(courant);
+                item->setData(32,v);
+                _list->addItem(item);
+            }
+        }
+        itType.next();
+    }
+}

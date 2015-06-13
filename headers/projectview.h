@@ -40,7 +40,7 @@ public:
     void init();
 
 signals:
-
+    void previentAccueil();
 public slots:
     void showCreateProject(){
         delete _ajouterProjet;
@@ -51,6 +51,7 @@ public slots:
     void showCreateTache(){
         delete _ajouterTache;
        _ajouterTache=new AddTache();
+       connect(_ajouterTache,SIGNAL(accepted()),this,SLOT(prevenirAccueil()));
        _ajouterTache->exec();
     }
     void actualiser(){
@@ -61,6 +62,9 @@ public slots:
     void slotAjouterTache();
     void suppressionNoeud();
     void lancerEdit(QTreeWidgetItem* item, int column);
+    void prevenirAccueil(){
+        emit previentAccueil();
+    }
 };
 
 #endif // PROJECTVIEW_H
