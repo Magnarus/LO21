@@ -5,7 +5,7 @@ const QString ProgrammationExport::generateFilename(){
 }
 
 void ProgrammationExport::exportData(MethodExport *e){
-    if(e==NULL && getExportMethod()) throw ExportException("Aucune stratégie d'exportation indiquée. Exportation impossible.");
+    if(e==NULL && getExportMethod()==NULL) throw ExportException("Aucune stratégie d'exportation indiquée. Exportation impossible.");
     if(getExportMethod()==NULL) setExportMethod(e);
 
     TManager<Projet*>::Iterator itProjet=ProjetManager::getInstance()->getIterator();
@@ -17,7 +17,7 @@ void ProgrammationExport::exportData(MethodExport *e){
     QVector<Projet*> projets_saved;
 
     //Creation du fichier
-    const QString namefile=this->generateFilename();
+    const QString namefile=this->generateFilename()+"."+this->getExtension();
     std::ofstream file(namefile.toStdString().c_str(),std::ios::out | std::ios::trunc);
     ProgActivite* pa;
     ProgTUnit* ptu;
@@ -28,6 +28,7 @@ void ProgrammationExport::exportData(MethodExport *e){
             getExportMethod()->exportProgrammation(**it);
             //Recuperation de l'objet de la programmation
             if((*it)->getType()==typeProg::PROGACTIVITE){ //Si c'est une simple activité
+                qDebug() << "programmation d'activite";
                 pa=dynamic_cast<ProgActivite*>(*it);
                 getExportMethod()->exportActivite(*pa->getProgramme());
             }else{
@@ -42,7 +43,7 @@ void ProgrammationExport::exportData(MethodExport *e){
                 }
 
                 //Si le projet n'a pas déjà été exporté, alors on l'exporte et on ajoute le projet à la liste des projets déjà sauvegardés
-                if(!std::find(projets_saved.begin(),projets_saved.end(),itProjet.valeur())){
+                if(std::find(projets_saved.begin(),projets_saved.end(),itProjet.valeur())==projets_saved.end()){
                     getExportMethod()->exportProjet(*itProjet.valeur());
                     projets_saved.push_back(itProjet.valeur());
                 }

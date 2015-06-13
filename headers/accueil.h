@@ -16,6 +16,7 @@ class Accueil : public QWidget
     ProjectView *_projectTree;
 public:
     explicit Accueil(QWidget *parent = 0);
+    inline EmploiDuTemps* const& getEDT(){ return _edtInterface;}
     ~Accueil(){}
 
 signals:

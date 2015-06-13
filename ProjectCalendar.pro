@@ -49,7 +49,8 @@ HEADERS += \
     headers/addprogactivite.h \
     headers/Agenda.h \
     headers/ProgrammationSemaineExport.h \
-    headers/ProgrammationProjetExport.h
+    headers/ProgrammationProjetExport.h \
+    headers/exportView.h
 
 SOURCES += \
     src/ajouteur.cpp \
@@ -96,7 +97,8 @@ SOURCES += \
     src/exportexception.cpp \
     src/addprogactivite.cpp \
     src/ProgrammationSemaineExport.cpp \
-    src/ProgrammationProjetExport.cpp
+    src/ProgrammationProjetExport.cpp \
+    src/exportView.cpp
 
 RESOURCES += \
     resGraphiques.qrc

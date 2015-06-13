@@ -11,6 +11,13 @@
 #include<iostream>
 #include"addprogunitaire.h"
 #include"addprogactivite.h"
+#include"MethodExport.h"
+#include"ProgrammationExport.h"
+#include"XMLExport.h"
+#include"SimpleFileExport.h"
+#include"ProgrammationSemaineExport.h"
+#include"ProgrammationProjetExport.h"
+#include<QMessageBox>
 class Agenda : public QMainWindow
 {
     Q_OBJECT
@@ -21,7 +28,10 @@ class Agenda : public QMainWindow
     QListWidget* _list;
     QToolBar* _toolbar;
     QAction* _chargerFichier;
-    QAction* _sauvegarderFichier;
+    QMenu* _sauvegarderFichier;
+    QVector<QMenu*>  _saveOptions;
+    QVector<QAction*> _saveData;
+    //QAction* _sauvegarderFichier;
     QAction* _edtMode;
     QAction* _treeMode;
     QAction* _addProgU;
@@ -31,9 +41,10 @@ class Agenda : public QMainWindow
     QWidget* _dockWidget;
     AddProgUnitaire* _progU;
     AddProgActivite* _progA;
-
+    ProgrammationExport* progexport;
 public :
     Agenda(Accueil* a);
+    void saveFile();
 signals :
     void dateChanged(QDate);
 public slots:
@@ -53,6 +64,8 @@ public slots:
        _progA->exec();
     }
     void updateList();
+    void saveProgWeekXML();
+    void saveProgProjetXML(Projet* p);
 };
 
 #endif // AGENDA_H

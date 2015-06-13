@@ -25,7 +25,8 @@ protected:
         delete exportMethod;
         exportMethod=me;
     }
-    MethodExport* getExportMethod(){ return exportMethod;}
+    inline const QString getExtension()const{ return exportMethod->getExtension();}
+    inline MethodExport* getExportMethod(){ return exportMethod;}
         virtual QVector<U> findElements()=0;
         virtual const QString generateFilename()=0;
         const QString& getExportType()const{ return type;}

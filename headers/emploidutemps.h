@@ -34,6 +34,8 @@ class EmploiDuTemps : public QWidget
 public:
     explicit EmploiDuTemps(QWidget *parent = 0);
     void setDate(QDate& d);
+    inline const QDate& getLundi()const{ return _lundi;}
+    inline const QDate& getDimanche()const{ return _dimanche;}
     ~EmploiDuTemps(){}
 signals:
     void progChanged();
