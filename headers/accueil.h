@@ -19,7 +19,7 @@ public:
     ~Accueil(){}
 
 signals:
-    void changeDockVisible();
+    void changeDockVisible(bool);
 public slots:
     void setTreeOn()
     {
@@ -27,7 +27,7 @@ public slots:
         _mainLayout->addWidget(_projectTree);
         _edtInterface->hide();
         _projectTree->show();
-        emit changeDockVisible();
+        emit changeDockVisible(false);
     }
     void setPlanningOn()
     {
@@ -35,11 +35,16 @@ public slots:
         _mainLayout->addWidget(_edtInterface);
         _projectTree->hide();
         _edtInterface->show();
-        emit changeDockVisible();
+        emit changeDockVisible(true);
     }
     void setDate(QDate d)
     {
         _edtInterface->setDate(d);
+    }
+    void majEDT()
+    {
+        qDebug() << "trigerred";
+        _edtInterface->changerProg();
     }
 };
 

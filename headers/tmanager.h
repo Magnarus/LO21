@@ -115,6 +115,7 @@ public:
         typename QVector<T>::iterator itRes;
         QDate dispo;
         QDate echeance;
+    public:
         IteratorDate(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
         {
            typename QVector<T>::iterator it = managable.begin();

@@ -24,7 +24,7 @@ AddProgUnitaire::AddProgUnitaire(QWidget *parent):AddProg(parent)
         Tache_Unitaire* courant = dynamic_cast<Tache_Unitaire*>(itType.valeur());
         if(courant->precedencesFinies())
         {
-            if(!prog.contains(courant))
+            if(!prog.contains(courant) || courant->getType() == PREEMPTIVE)
             {
                 QListWidgetItem* item = new QListWidgetItem(_taches);
                 item->setText(courant->getTitre());
@@ -41,6 +41,7 @@ AddProgUnitaire::AddProgUnitaire(QWidget *parent):AddProg(parent)
     _mainLayout->addWidget(_taches);
     _mainLayout->addLayout(_buttonLayout);
     connect(_valider,SIGNAL(clicked()),this,SLOT(creation()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
     connect(_taches,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(majInfo(QListWidgetItem*)));
 }
 
@@ -58,13 +59,13 @@ void AddProgUnitaire::creation()
     {
         ProgManager::getInstance()->ajouterItem("UNITAIRE",params);
         t->setEtat(EN_COURS);
+        emit progAdded();
         QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
         done(1);
     }
     catch(AgendaException &e)
     {
         QMessageBox::critical(this,"Erreur ajout",e.getInfo());
-        done(0);
     }
 
 }
@@ -74,6 +75,7 @@ void AddProgUnitaire::majInfo(QListWidgetItem * selected)
     QVariant var = selected->data(32);
     Tache_Unitaire* t = var.value<Tache_Unitaire*>();
     _date->setMinimumDate(t->getDateDispo());
+    _date->setMaximumDate(t->getEcheance());
     _date->setDate(t->getDateDispo());
     if(t->getType() == NON_PREEMPTIVE)
     {

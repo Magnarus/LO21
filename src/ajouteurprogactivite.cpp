@@ -1,4 +1,5 @@
 #include "../headers/ajouteurprogactivite.h"
+#include<QDebug>
 Programmation* AjouteurProgActivite::construire(QMap<QString, QVariant> &params)const throw(AgendaException)
 {
     int id;
@@ -12,7 +13,7 @@ Programmation* AjouteurProgActivite::construire(QMap<QString, QVariant> &params)
         id = params["id"].toInt();
         date = params["date"].toDate();
         duree = params["duree"].toTime();
-        horaire = params["horaires"].toTime();
+        horaire = params["horaire"].toTime();
         act = params["programme"].value<Activite*>();
     }
     else throw AgendaException("les paramètres passés ne correspondent pas");

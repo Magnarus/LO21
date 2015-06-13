@@ -12,6 +12,7 @@ AddTache::AddTache(QWidget *parent) : QDialog(parent)
 
     _dateDispo=new QDateEdit(this);
     _duree = new QTimeEdit(this);
+    _duree->stepBy(1);
     _duree_l = new QLabel("Durée :",this);
     _dateDispo->setCalendarPopup(true);
     _dateDispo->setMinimumDate(QDate::currentDate());
@@ -52,7 +53,7 @@ AddTache::AddTache(QWidget *parent) : QDialog(parent)
     _vlayout->addLayout(_datetimeLayout);
     _vlayout->addLayout(_buttonLayout);
     connect(_unitaire,SIGNAL(clicked(bool)),this,SLOT(switchingTache(bool)));
-    connect(_annuler,SIGNAL(clicked()),this,SLOT(accept()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
     connect(_ajouter,SIGNAL(clicked()),this,SLOT(newTache()));
 }
 
@@ -75,6 +76,7 @@ void AddTache::newTache()
         else
             TacheManager::getInstance()->ajouterItem("COMPOSITE",params);
         QMessageBox::information(this,"ajout réussi","tâche bien ajoutée ! ");
+        done(1);
     }
     catch(AgendaException &e)
     {

@@ -38,14 +38,11 @@ signals :
     void dateChanged(QDate);
 public slots:
     void setDate(){
-        std::cout << "coucou hibou \n";
         QDate d = _calendar->selectedDate();
         emit dateChanged(d);
     }
-    void changeDockVisible(){
-        if (_dockWidget->isVisible())
-            _dockWidget->setVisible(false);
-        else _dockWidget->setVisible(true);
+    void changeDockVisible(bool b){
+        _dockWidget->setVisible(b);
     }
     void showCreateProgU(){
        _progU=new AddProgUnitaire();

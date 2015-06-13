@@ -34,7 +34,7 @@ AddProject::AddProject(QWidget *parent) : QDialog(parent)
     _vlayout->addLayout(_titreLayout);
     _vlayout->addLayout(_datesLayout);
     _vlayout->addLayout(_buttonsLayout);
-    connect(_annuler,SIGNAL(clicked()),this,SLOT(accept()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
     connect(_ajouter,SIGNAL(clicked()),this,SLOT(newProject()));
 }
 
@@ -51,6 +51,7 @@ void AddProject::newProject()
    {
        ProjetManager::getInstance()->ajouterItem("PROJET",params);
        QMessageBox::information(this,"ajout réussi","projet bien ajouté ! ");
+       done(1);
    }
    catch(AgendaException &e)
    {

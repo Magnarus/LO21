@@ -13,7 +13,6 @@ class AddProg: public QDialog
 {
     Q_OBJECT
 protected:
-    QLineEdit * _titre;
     QDateEdit * _date;
     QTimeEdit *_horaire, *_duree;
     QPushButton *_valider, *_annuler;
@@ -23,7 +22,6 @@ protected:
     QVBoxLayout * _mainLayout;
 public:
     AddProg(QWidget* parent=0);
-
 };
 
 #endif // ADDPROG_H

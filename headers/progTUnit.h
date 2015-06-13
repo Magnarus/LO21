@@ -26,5 +26,8 @@ public:
     inline void setProgramme(Tache_Unitaire* t){programme = t;}
     inline void afficher(){ std::cout << "Je suis une programmation de tâche unitaire\n";}
 };
+#include<QVariant>
+// ... ainsi que le type pointeur vers Activite
+Q_DECLARE_METATYPE(ProgTUnit*)
 
 #endif // PROGTUNIT_H

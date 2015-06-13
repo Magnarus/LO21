@@ -1,6 +1,6 @@
 #include "../headers/progActivite.h"
 ProgActivite::ProgActivite(const int id, const QDate& d, const QTime& dur, const QTime &h, Activite* p)throw(AgendaException)
-    :Programmation(id,d,h,dur),programme(p)
+    :Programmation(id,d,dur,h),programme(p)
 {
    if(p->getDate() != d)
        throw AgendaException("L'activite ne peut pas être programmée avec ces dates !");
