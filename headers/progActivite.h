@@ -2,6 +2,7 @@
 #define PROGACTIVITE_H
 #include "programmation.h"
 #include "activite.h"
+#include "activitemanager.h"
 /**
  * \class       ProgActivite progactivite.h "headers/progactivite.h"
  * \author      DELAUNAY Grégory
@@ -16,6 +17,7 @@ class ProgActivite : public Programmation
     ProgActivite(const ProgActivite&);
     ProgActivite& operator=(const ProgActivite&);
 public:
+    virtual ~ProgActivite();
     ProgActivite(const int id, const QDate& d, const QTime& dur, const QTime& h, Activite* p) throw(AgendaException);
     inline const Activite* getProgramme()const{return programme;}
     void setDate(const QDate& d)throw(AgendaException) override;

@@ -19,7 +19,10 @@ void ProgTUnit::setDate(const QDate &d)throw(AgendaException)
         throw AgendaException("Impossible de programmer une activite à une autre date que celle voulue");
     date=d;
 }
-
+ProgTUnit::~ProgTUnit()
+{
+    TacheManager::getInstance()->supprimerItem(programme->getId());
+}
 void ProgTUnit::setDuree(const QTime &d)throw(AgendaException)
 {
     if(d > this->programme->getDuree())

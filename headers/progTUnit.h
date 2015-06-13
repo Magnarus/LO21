@@ -2,6 +2,7 @@
 #define PROGTUNIT_H
 #include "programmation.h"
 #include "tache_unitaire.h"
+#include "tachemanager.h"
 /**
  * \class       ProgTUnit progtunit.h "headers/progtunit.h"
  * \author      DELAUNAY Grégory
@@ -16,6 +17,7 @@ class ProgTUnit : public Programmation
     ProgTUnit(const ProgTUnit&);
     ProgTUnit& operator=(const ProgTUnit&);
 public:
+    ~ProgTUnit();
     ProgTUnit(const int id, const QDate& d, const QTime& dur,const QTime& h, Tache_Unitaire* p)throw(AgendaException);
     void setDate(const QDate &d) throw(AgendaException) override;
     void setDuree(const QTime &d)throw(AgendaException) override;

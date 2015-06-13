@@ -1,4 +1,4 @@
-#include "../headers/progActivite.h"
+#include "../headers/progactivite.h"
 ProgActivite::ProgActivite(const int id, const QDate& d, const QTime& dur, const QTime &h, Activite* p)throw(AgendaException)
     :Programmation(id,d,h,dur),programme(p)
 {
@@ -11,6 +11,11 @@ ProgActivite::ProgActivite(const int id, const QDate& d, const QTime& dur, const
    if(d == QDate::currentDate() && h < QTime::currentTime())
        throw AgendaException("Une programmation ne peut pas commencer dans le passé !");
    setType(PROGACTIVITE);
+}
+
+ProgActivite::~ProgActivite()
+{
+    ActiviteManager::getInstance()->supprimerItem(programme->getId());
 }
 
 void ProgActivite::setDate(const QDate &d)throw(AgendaException)
