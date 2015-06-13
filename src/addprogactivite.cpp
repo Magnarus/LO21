@@ -43,8 +43,8 @@ void AddProgActivite::creation()
         p.setValue(a);
         paramsProg["programme"] = p;
         ProgManager::getInstance()->ajouterItem("ACTIVITE",paramsProg);
-        QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
         emit progAdded();
+        QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
         done(1);
     }
     catch(AgendaException &e)

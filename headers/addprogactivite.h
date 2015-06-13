@@ -9,9 +9,9 @@
 class AddProgActivite : public AddProg
 {
     Q_OBJECT
+    QLineEdit* _titreAct;
     QDateEdit* _dateAct;
     QTimeEdit* _dureeAct;
-    QLineEdit* _titreAct;
     QFormLayout* _activite;
     QGroupBox* _contour;
 public:
@@ -24,5 +24,7 @@ public slots:
     void majDate(QDate d){
         _dateAct->setDate(d);
     }
+signals:
+    void progAdded();
 };
 #endif // ADDPROGACTIVITE_H

@@ -76,5 +76,7 @@ Agenda::Agenda(Accueil* a):_a(a)
     connect(_a,SIGNAL(changeDockVisible(bool)),this,SLOT(changeDockVisible(bool)));
     connect(_addProgU,SIGNAL(triggered()),this,SLOT(showCreateProgU()));
     connect(_addProgA,SIGNAL(triggered()),this,SLOT(showCreateProgA()));
+    connect(_progU,SIGNAL(progAdded()),_a,SLOT(majEDT()));
+    connect(_progA,SIGNAL(progAdded()),_a,SLOT(majEDT()));
 }
 

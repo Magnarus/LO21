@@ -2,7 +2,6 @@
 
 AddProg::AddProg(QWidget* parent):QDialog(parent)
 {
-    _titre = new QLineEdit(this);
     _date = new QDateEdit(this);
     _date->setMinimumDate(QDate::currentDate());
     _date->setCalendarPopup(true);
@@ -13,7 +12,6 @@ AddProg::AddProg(QWidget* parent):QDialog(parent)
     _annuler = new QPushButton("annuler",this);
 
     _formLayout = new QFormLayout;
-    _formLayout->addRow("Titre : ",_titre);
     _formLayout->addRow("Date : ", _date);
     _formLayout->addRow("Heure : ",_horaire);
     _formLayout->addRow("Duree : ",_duree);

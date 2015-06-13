@@ -41,6 +41,11 @@ public slots:
     {
         _edtInterface->setDate(d);
     }
+    void majEDT()
+    {
+        qDebug() << "trigerred";
+        _edtInterface->changerProg();
+    }
 };
 
 #endif // ACCUEIL_H

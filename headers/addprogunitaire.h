@@ -18,6 +18,8 @@ public:
 public slots:
     void creation();
     void majInfo(QListWidgetItem*selected);
+signals:
+    void progAdded();
 };
 
 #endif // ADDPROGUNITAIRE_H

@@ -90,8 +90,58 @@ void EmploiDuTemps::semainePassee()
 void EmploiDuTemps::changerProg()
 {
     _edt->clearContents();
-    ProgManager::IteratorIntervale it = dynamic_cast<ProgManager*>(ProgManager::getInstance())->getIteratorIntervale(_lundi,_dimanche);
 
+    QDate dimancheAvant = _lundi.addDays(-1);
+
+    ProgManager::IteratorIntervale it = dynamic_cast<ProgManager*>(ProgManager::getInstance())->getIteratorIntervale(dimancheAvant,dimancheAvant);
+    while(it.courant() != it.end())
+    {
+        qDebug() << "j'en ai trouvé une quand même";
+        int jour;
+        int heure;
+        int duree;
+        int difference;
+        QString titre;
+        QVariant v;
+        if (it.valeur()->getType() == PROGTACHE)
+        {
+            ProgTUnit* p = dynamic_cast<ProgTUnit*>(it.valeur());
+            jour = p->getDate().dayOfWeek();
+            heure = p->getHoraire().hour();
+            duree = p->getDuree().hour();
+            titre = p->getProgramme()->getTitre();
+            v.setValue(p);
+        }
+        else
+        {
+           ProgActivite* p = dynamic_cast<ProgActivite*>(it.valeur());
+           jour = p->getDate().dayOfWeek();
+           qDebug() << "jour de la semaine : " << jour;
+           heure = p->getHoraire().hour();
+           duree = p->getDuree().hour();
+           titre = p->getProgramme()->getNom();
+           v.setValue(p);
+        }
+        difference = heure+duree;
+        qDebug() << "heure + durée = " << difference;
+        if(difference >= 24){
+           jour=1;
+           difference -=24;
+           int i=0;
+           while(i<difference)
+           {
+               QTableWidgetItem* item = new QTableWidgetItem();
+               item->setData(32,v);
+               item->setBackgroundColor(QColor("red"));
+               item->setTextColor(QColor("white"));
+               item->setText(titre);
+               _edt->setItem(i,jour-1,item);
+               i++;
+           }
+        }
+        it.next();
+    }
+    it = dynamic_cast<ProgManager*>(ProgManager::getInstance())->getIteratorIntervale(_lundi,_dimanche);
     while(it.courant() != it.end())
     {
         int jour;
