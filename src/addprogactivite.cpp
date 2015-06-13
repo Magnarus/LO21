@@ -19,7 +19,7 @@ AddProgActivite::AddProgActivite(QWidget *parent):AddProg(parent)
     _mainLayout->addWidget(_contour);
     _mainLayout->addLayout(_buttonLayout);
     connect(_valider,SIGNAL(clicked()),this,SLOT(creation()));
-    connect(_annuler,SIGNAL(clicked()),this,SLOT(close());
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
     connect(_duree,SIGNAL(timeChanged(QTime)),this,SLOT(majDuree(QTime)));
     connect(_date,SIGNAL(dateChanged(QDate)),this,SLOT(majDate(QDate)));
 
