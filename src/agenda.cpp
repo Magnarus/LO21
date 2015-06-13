@@ -1,4 +1,4 @@
-#include"../headers/agenda.h"
+#include"headers/Agenda.h"
 
 Agenda::Agenda(Accueil* a):_a(a)
 {

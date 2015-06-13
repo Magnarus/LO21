@@ -56,7 +56,11 @@ void XMLExport::exportProgrammation(const Programmation &prog){
 }
 
 void XMLExport::exportTache(const Tache &t){
-    QDomElement tache(document.createElement("programmation"));
+    taches.appendChild(exportTacheBis(t));
+}
+
+QDomElement XMLExport::exportTacheBis(const Tache &t){
+    QDomElement tache(document.createElement("tache"));
     tache.appendChild(document.createElement("id").appendChild(document.createTextNode(QString::number(t.getId()))));
     tache.appendChild(document.createElement("titre").appendChild(document.createTextNode(t.getTitre())));
     QDomElement precedence(document.createElement("precedence"));
@@ -70,21 +74,19 @@ void XMLExport::exportTache(const Tache &t){
     tache.appendChild(document.createElement("dispo").appendChild(document.createTextNode(t.getDateDispo().toString())));
     tache.appendChild(document.createElement("echeance").appendChild(document.createTextNode(t.getEcheance().toString())));
     //tache.appendChild(document.createElement("etat").appendChild())
+    tache.appendChild(document.createElement("etat").appendChild(document.createTextNode(QString::number(t.getEtat()))));
     tache.appendChild(document.createElement("type").appendChild(document.createTextNode(t.getTypeToQString())));
 
     //Si la tache est COMPOSITE, on va exporter les sous-taches
     if(t.getType()==typeTache::COMPOSITE){
-        tache.appendChild(exportSousTache(dynamic_cast<const Tache_Composite&>(t)));
+        exportSousTache(dynamic_cast<const Tache_Composite&>(t),tache);
     }
-    taches.appendChild(tache);
 }
 
-QDomElement XMLExport::exportSousTache(const Tache_Composite &t){
-    QDomElement tache;
+void XMLExport::exportSousTache(const Tache_Composite &t,QDomElement& tc){
     for(Tache_Composite::constIterator it=t.getIterator();it.courant()!=t.end();it.next()){
         if(it.valeur()->getType()==typeTache::COMPOSITE){
-            //J'ai un trou de mémoire sur ce que je voulais faire là...
+            tc.appendChild(exportTacheBis(*(it.valeur())));
         }
     }
-    return tache;
 }

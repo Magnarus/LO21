@@ -26,12 +26,12 @@ protected:
         exportMethod=me;
     }
     MethodExport* getExportMethod(){ return exportMethod;}
+        virtual QVector<U> findElements()=0;
+        virtual const QString generateFilename()=0;
+        const QString& getExportType()const{ return type;}
 public:
     TExport(const QString& t,MethodExport* e=NULL):exportMethod(e),type(t){}
-    const QString& getExportType()const{ return type;}
-    virtual const QString generateFilename()=0;
     virtual void exportData(MethodExport* e=NULL)=0;
-    virtual QVector<U> findElements()=0;
     virtual ~TExport(); //Ne jamais mettre un destructeur en final omg surtou t pour u
 };
 
