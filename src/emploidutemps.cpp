@@ -57,17 +57,13 @@ EmploiDuTemps::EmploiDuTemps(QWidget *parent) : QWidget(parent)
 }
 void EmploiDuTemps::setDate(QDate& d)
 {
-    int difference = _aujourdhui.daysTo(d);
     _aujourdhui = d;
     _dateLabel->setText(d.toString("dddd dd MMMM yyyy"));
     int passerALundi = d.dayOfWeek()-1;
     int passerADimanche = 7 - d.dayOfWeek();
     _lundi = _aujourdhui.addDays(-passerALundi);
     _dimanche = _aujourdhui.addDays(passerADimanche);
-    passerALundi *= -1;
-    //Si on change de semaine
-    if(difference < passerALundi || difference > passerADimanche)
-        changerProg();
+    changerProg();
 }
 void EmploiDuTemps::semaineSuivante()
 {
@@ -189,5 +185,6 @@ void EmploiDuTemps::changerProg()
         }
         it.next();
     }
+    emit progChanged();
 }
 

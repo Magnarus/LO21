@@ -20,6 +20,7 @@ public:
 
 signals:
     void changeDockVisible(bool);
+    void previentAgenda();
 public slots:
     void setTreeOn()
     {
@@ -43,8 +44,11 @@ public slots:
     }
     void majEDT()
     {
-        qDebug() << "trigerred";
+
         _edtInterface->changerProg();
+    }
+    void prevenirAgenda(){
+        emit previentAgenda();
     }
 };
 

@@ -36,7 +36,7 @@ public:
     void setDate(QDate& d);
     ~EmploiDuTemps(){}
 signals:
-
+    void progChanged();
 public slots:
     void semaineSuivante();
     void semainePassee();

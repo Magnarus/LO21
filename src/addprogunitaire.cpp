@@ -41,7 +41,7 @@ AddProgUnitaire::AddProgUnitaire(QWidget *parent):AddProg(parent)
     _mainLayout->addWidget(_taches);
     _mainLayout->addLayout(_buttonLayout);
     connect(_valider,SIGNAL(clicked()),this,SLOT(creation()));
-    connect(_annuler,SIGNAL(clicked()),this,SLOT(close()));
+    connect(_annuler,SIGNAL(clicked()),this,SLOT(reject()));
     connect(_taches,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(majInfo(QListWidgetItem*)));
 }
 
@@ -61,7 +61,7 @@ void AddProgUnitaire::creation()
         t->setEtat(EN_COURS);
         emit progAdded();
         QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
-        done(1);
+        accept();
     }
     catch(AgendaException &e)
     {
