@@ -22,7 +22,7 @@ protected:
     AjouteurActivite(const AjouteurActivite&);
     AjouteurActivite& operator=(const AjouteurActivite&);
 public:
-    virtual void afficher()const = 0;
+    virtual void afficher()const override {std::cout <<"j'ajoute des activités\n";}
     AjouteurActivite():Ajouteur()
     {
         types.insert("id");

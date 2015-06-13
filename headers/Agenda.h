@@ -6,9 +6,11 @@
 #include<QToolBar>
 #include<QAction>
 #include<QDockWidget>
+#include<QToolButton>
 #include "accueil.h"
 #include<iostream>
 #include"addprogunitaire.h"
+#include"addprogactivite.h"
 class Agenda : public QMainWindow
 {
     Q_OBJECT
@@ -22,10 +24,13 @@ class Agenda : public QMainWindow
     QAction* _sauvegarderFichier;
     QAction* _edtMode;
     QAction* _treeMode;
-    QAction* _addProg;
+    QAction* _addProgU;
+    QAction* _addProgA;
+    QToolButton* _programmer;
     QVBoxLayout* _sideLayout;
     QWidget* _dockWidget;
     AddProgUnitaire* _progU;
+    AddProgActivite* _progA;
 
 public :
     Agenda(Accueil* a);
@@ -42,9 +47,13 @@ public slots:
             _dockWidget->setVisible(false);
         else _dockWidget->setVisible(true);
     }
-    void showCreateProg(){
+    void showCreateProgU(){
        _progU=new AddProgUnitaire();
        _progU->exec();
+    }
+    void showCreateProgA(){
+       _progA=new AddProgActivite();
+       _progA->exec();
     }
 };
 

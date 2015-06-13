@@ -1,4 +1,4 @@
-#include"../headers/Agenda.h"
+#include"../headers/agenda.h"
 
 Agenda::Agenda(Accueil* a):_a(a)
 {
@@ -38,9 +38,22 @@ Agenda::Agenda(Accueil* a):_a(a)
     _treeMode = new QAction("&Gestion des projets",this);
     _treeMode->setShortcut(QKeySequence("CTRL+T"));
     _treeMode->setIcon(QIcon(":/res/tree.png"));
-    _addProg = new QAction("Programmer",this);
-    _addProg->setIcon(QIcon(":/res/nouveau.png"));
-    _addProg->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_P));
+    _addProgU = new QAction("Programmer tâche unitaire",this);
+    _addProgU->setIcon(QIcon(":/res/nouveau.png"));
+    _addProgU->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_U));
+    _addProgA = new QAction("Programmer activite",this);
+    _addProgA->setIcon(QIcon(":/res/nouveau.png"));
+    _addProgA->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_A));
+
+    QMenu *menu = new QMenu();
+    menu->setIcon(QIcon(":/res/nouveau.png"));
+    menu->addAction(_addProgU);
+    menu->addAction(_addProgA);
+
+    _programmer = new QToolButton(this);
+    _programmer->setMenu(menu);
+    _programmer->setPopupMode(QToolButton::InstantPopup);
+
     _menuMode->addAction(_edtMode);
     _menuMode->addAction(_treeMode);
 
@@ -52,14 +65,16 @@ Agenda::Agenda(Accueil* a):_a(a)
     _toolbar->addAction(_edtMode);
     _toolbar->addAction(_treeMode);
     _toolbar->addSeparator();
-    _toolbar->addAction(_addProg);
+    _toolbar->addWidget(_programmer);
 
     _progU = new AddProgUnitaire();
+    _progA = new AddProgActivite();
     connect(_edtMode, SIGNAL(triggered()), _a, SLOT(setPlanningOn()));
     connect(_treeMode,SIGNAL(triggered()), _a,SLOT(setTreeOn()));
     connect(_calendar,SIGNAL(selectionChanged()),this,SLOT(setDate()));
     connect(this,SIGNAL(dateChanged(QDate)),_a,SLOT(setDate(QDate)));
     connect(_a,SIGNAL(changeDockVisible()),this,SLOT(changeDockVisible()));
-    connect(_addProg,SIGNAL(triggered()),this,SLOT(showCreateProg()));
+    connect(_addProgU,SIGNAL(triggered()),this,SLOT(showCreateProgU()));
+    connect(_addProgA,SIGNAL(triggered()),this,SLOT(showCreateProgA()));
 }
 

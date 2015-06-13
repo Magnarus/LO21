@@ -35,7 +35,6 @@ HEADERS += \
     headers/edittache.h \
     headers/emploidutemps.h \
     headers/projectview.h \
-    headers/Agenda.h \
     headers/editeur.h \
     headers/addprog.h \
     headers/addprogunitaire.h \
@@ -47,7 +46,8 @@ HEADERS += \
     headers/TExport.h \
     headers/XMLExport.h \
     headers/exportexception.h \
-    headers/addprogactivite.h
+    headers/addprogactivite.h \
+    headers/agenda.h
 
 SOURCES += \
     src/ajouteur.cpp \

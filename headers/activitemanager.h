@@ -13,11 +13,11 @@
  * \details     Cette classe définit le manager de programmation
  *              Les Manager sont des singletons qui gèrent le cycle de vie et l'accès au type associé.
  */
-class TacheManager : public TManager<Activite*>
+class ActiviteManager : public TManager<Activite*>
 {
-    TacheManager(const TacheManager&);
-    TacheManager& operator=(const TacheManager&);
-    TacheManager();
+    ActiviteManager(const ActiviteManager&);
+    ActiviteManager& operator=(const ActiviteManager&);
+    ActiviteManager();
 protected:
 public:
     virtual void afficher()const {std::cout << "Je suis un manager d'activité\n";}
