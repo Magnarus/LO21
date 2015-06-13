@@ -104,7 +104,11 @@ bool Projet::estTacheRec(int id){
             }
             if(!found) it.next();
         }
-        else found=true;
+        else{
+            qDebug() << "trouvé";
+            found=true;
+        }
     }
+    qDebug() << "trouvé esttacherec? " << found;
     return found;
 }

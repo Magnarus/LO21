@@ -1,4 +1,4 @@
-#include "../headers/progactivite.h"
+#include "../headers/progActivite.h"
 ProgActivite::ProgActivite(const int id, const QDate& d, const QTime& dur, const QTime &h, Activite* p)throw(AgendaException)
     :Programmation(id,d,dur,h),programme(p)
 {

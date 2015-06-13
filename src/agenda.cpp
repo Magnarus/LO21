@@ -1,4 +1,4 @@
-#include"../headers/agenda.h"
+#include"headers/Agenda.h"
 
 Agenda::Agenda(Accueil* a):_a(a)
 {
@@ -9,11 +9,23 @@ Agenda::Agenda(Accueil* a):_a(a)
     _chargerFichier = new QAction("&Charger", this);
     _chargerFichier->setShortcut(QKeySequence("Ctrl+L"));
     _chargerFichier->setIcon(QIcon(":/res/charger.png"));
-    _sauvegarderFichier = new QAction("&Sauvegarder",this);
-    _sauvegarderFichier->setShortcut(QKeySequence("Ctrl+S"));
+   // _sauvegarderFichier = new QAction("&Sauvegarder",this);
+    _sauvegarderFichier=new QMenu("&Sauvegarder",this);
+    _saveOptions.push_back(new QMenu("&XML",this));
+    _saveOptions.push_back(new QMenu("&Fichier",this));
+    _saveData.push_back(new QAction("&Programmation de la semaine",this));
+    _saveData.push_back(new QAction("Programmation d'un projet",this));
+    _saveOptions.first()->addAction(_saveData.first());
+    _saveOptions.first()->addAction(_saveData[1]);
+    //_saveOption=new QMenu("&XML",this);
+    //_saveOption->addAction(new QAction("&Programmation de la semaine",this));
+    //_saveOption->addAction(new QAction("&Programmation d'un projet",this));
+    for(QVector<QMenu*>::iterator it=_saveOptions.begin();it!=_saveOptions.end();++it)
+        _sauvegarderFichier->addMenu(*it);
+   // _sauvegarderFichier->setShortcut(QKeySequence("Ctrl+S"));
     _sauvegarderFichier->setIcon(QIcon(":/res/sauvegarder.png"));
     _menuFichier->addAction(_chargerFichier);
-    _menuFichier->addAction(_sauvegarderFichier);
+    _menuFichier->addMenu(_sauvegarderFichier); //changed
 
      QDockWidget* dock = new QDockWidget(QLatin1String("Last filters"),this);
      dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
@@ -58,7 +70,8 @@ Agenda::Agenda(Accueil* a):_a(a)
 
     _toolbar = addToolBar("Agenda");
     _toolbar->addAction(_chargerFichier);
-    _toolbar->addAction(_sauvegarderFichier);
+    //_toolbar->addAction(_sauvegarderFichier); //changed
+
     _toolbar->addSeparator();
     _toolbar->addAction(_edtMode);
     _toolbar->addAction(_treeMode);
@@ -77,6 +90,7 @@ Agenda::Agenda(Accueil* a):_a(a)
     connect(_addProgA,SIGNAL(triggered()),this,SLOT(showCreateProgA()));
     connect(_progU,SIGNAL(accepted()),_a,SLOT(majEDT()));
     connect(_progA,SIGNAL(accepted()),_a,SLOT(majEDT()));
+    connect(_saveData.first(),SIGNAL(triggered()),this,SLOT(saveProgWeekXML()));
 }
 
 void Agenda::updateList()
@@ -113,4 +127,23 @@ void Agenda::updateList()
         }
         itType.next();
     }
+}
+
+void Agenda::saveProgWeekXML(){
+    //Récupération de la stratégie pour l'exportation
+    progexport=new ProgrammationSemaineExport("XML",_a->getEDT()->getLundi(),_a->getEDT()->getDimanche(),new XMLExport("xml"));
+    saveFile();
+    QMessageBox::information(this,"Exportation de la semaine courante","Fichier XML exporté.",QMessageBox::Ok);
+    delete progexport;
+}
+
+void Agenda::saveFile(){
+    progexport->exportData();
+}
+
+void Agenda::saveProgProjetXML(Projet *p){
+    progexport=new ProgrammationProjetExport(p,"XML",new XMLExport("xml"));
+    saveFile();
+    QMessageBox::information(this,"Exportation du projet "+p->getTitre(),"Fichier XML exporté",QMessageBox::Ok);
+    delete progexport;
 }

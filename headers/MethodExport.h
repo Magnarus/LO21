@@ -17,9 +17,10 @@
  */
 
 class MethodExport{
-    QString filename;
+    QString extension;
 public:
-    MethodExport(const QString& fn):filename(fn){}
+    MethodExport(const QString& ext):extension(ext){}
+    inline const QString& getExtension()const{ return extension; }
     virtual void exportProjet(const Projet& p)=0;
     virtual void exportTache(const Tache& t)=0;
     virtual void exportProgrammation(const Programmation& prog)=0;

@@ -17,14 +17,14 @@
  */
 
 class ProgrammationExport : public TExport<Programmation*>{
+protected:
+        virtual QVector<Programmation*> findElements()=0;
+        virtual const QString generateFilename()=0;
 public:
     ProgrammationExport(const QString& t,MethodExport* e=NULL):TExport<Programmation*>(t,e){}
-
-    virtual const QString generateFilename()=0;
     //L'exportation des données reste la même quelque soit le genre de programmation qu'on exporte
     //Une fois définie, cette méthode ne changera pas et ne devrait pas être réimplémentée par héritage, d'ou le final
     virtual void exportData(MethodExport *e=NULL) final;
-    virtual QVector<Programmation*> findElements()=0;
 };
 
 #endif //PROGRAMMATIONEXPORT_H

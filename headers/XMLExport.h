@@ -16,9 +16,9 @@
 class XMLExport : public MethodExport{
     QDomDocument document;
     QDomElement node,projets,activites,programmations,taches;
-    QDomElement exportSousTache(const Tache_Composite& t);
+    void exportSousTache(const Tache_Composite& t,QDomElement& tc);
 public:
-    XMLExport(const QString& fn):MethodExport(fn),document(fn),node(document.createElement("export")),
+    XMLExport(const QString& fn):MethodExport(fn),document(),node(document.createElement("export")),
     projets(document.createElement("projets")),activites(document.createElement("activites")),
       programmations(document.createElement("programmations")),taches(document.createElement("taches")){
         document.appendChild(node);
@@ -29,6 +29,7 @@ public:
     }
     void exportProjet(const Projet& p);
     void exportTache(const Tache& t);
+    QDomElement exportTacheBis(const Tache& t);
     void exportProgrammation(const Programmation& prog);
     void exportActivite(const Activite& a);
     const QString sendExport(){ return document.toString(); }
