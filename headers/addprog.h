@@ -9,6 +9,16 @@
 #include<QVBoxLayout>
 #include<QLineEdit>
 #include<QPushButton>
+/**
+ * \class AddProg addprog.h "headers/addprog.h"
+ * \author      DELAUNAY Grégory
+ * \version     1.0
+ * \date        08 juin 2015
+ * \brief       Implémente la classe addprog
+ *
+ * \details    widget générique boite de dialogue qui permet de gérer la création
+ * de programmations
+ */
 class AddProg: public QDialog
 {
     Q_OBJECT

@@ -7,7 +7,17 @@
 #include <QVBoxLayout>
 #include "emploidutemps.h"
 #include "projectview.h"
-
+/**
+ * \class Accueil accueil.h "headers/accueil.h"
+ * \author      DELAUNAY Grégory et NEVEUX Anaïs
+ * \version     1.0
+ * \date        08 juin 2015
+ * \brief       Implémente la classe accueil
+ *
+ * \details    Cette classe est le widget qui constitue le widget principal de l'application
+ * il permet d'alterner entre le calendrier qui permet de gérer les programmations
+ * et la treeview qui gère les projets et la dépendance avec les tâches
+ */
 class Accueil : public QWidget
 {
     Q_OBJECT

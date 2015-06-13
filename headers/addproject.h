@@ -12,6 +12,15 @@
 #include<QMap>
 #include "projetmanager.h"
 #include<QMessageBox>
+/**
+ * \class AddProgUnitaire addprogunitaire.h "headers/addprogunitaire.h"
+ * \author      DELAUNAY Grégory et NEVEUX Anaïs
+ * \version     1.0
+ * \date        08 juin 2015
+ * \brief       Implémente la classe AddProject
+ * \details    widget boite de dialogue qui permet de gérer la création
+ * de projets.
+ */
 class AddProject : public QDialog
 {
     Q_OBJECT
