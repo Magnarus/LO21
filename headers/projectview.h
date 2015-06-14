@@ -12,6 +12,11 @@
 #include "editproject.h"
 #include "edittache.h"
 #include "tache_composite.h"
+#include "ProgrammationExport.h"
+#include "MethodExport.h"
+#include "XMLExport.h"
+#include "SimpleFileExport.h"
+#include "ProgrammationProjetExport.h"
 class ProjectView : public QWidget
 {
     Q_OBJECT
@@ -25,6 +30,9 @@ class ProjectView : public QWidget
     QTreeWidgetItem* _noeudClic;
     QAction* _ajout;
     QAction* _suppr;
+    QMenu* _export;
+    QMenu* _exportProgProj;
+    QAction* _exportProgProjXML;
     Editeur* _edit;
 
     void supprimerValeurAssocieeQVariant(QVariant& varsupp);
@@ -48,11 +56,11 @@ public slots:
         _ajouterProjet->exec();
         actualiser();
     }
-    void showCreateTache(){
+    int showCreateTache(){
         delete _ajouterTache;
-       _ajouterTache=new AddTache();
-       connect(_ajouterTache,SIGNAL(accepted()),this,SLOT(prevenirAccueil()));
-       _ajouterTache->exec();
+        _ajouterTache=new AddTache();
+        connect(_ajouterTache,SIGNAL(accepted()),this,SLOT(prevenirAccueil()));
+        return _ajouterTache->exec();
     }
     void actualiser(){
         _lesProjets->clear();
@@ -61,6 +69,7 @@ public slots:
     void clicDroit(QPoint pos);
     void slotAjouterTache();
     void suppressionNoeud();
+    void exporterProgProjetXML();
     void lancerEdit(QTreeWidgetItem* item, int column);
     void prevenirAccueil(){
         emit previentAccueil();

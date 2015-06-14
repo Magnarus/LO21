@@ -25,7 +25,8 @@ public:
     inline void setProgramme(Activite* t){programme = t;}
     inline void afficher(){ std::cout << "Je suis une programmation d'activité \n";}
 };
-#endif // PROGACTIVITE_H
 #include<QVariant>
 // ... ainsi que le type pointeur vers Activite
 Q_DECLARE_METATYPE(ProgActivite*)
+#endif // PROGACTIVITE_H
+

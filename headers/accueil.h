@@ -45,7 +45,7 @@ public slots:
     }
     void majEDT()
     {
-
+        qDebug() << "je passe ici";
         _edtInterface->changerProg();
     }
     void prevenirAgenda(){

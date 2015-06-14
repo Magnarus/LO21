@@ -91,6 +91,7 @@ Agenda::Agenda(Accueil* a):_a(a)
     connect(_progU,SIGNAL(accepted()),_a,SLOT(majEDT()));
     connect(_progA,SIGNAL(accepted()),_a,SLOT(majEDT()));
     connect(_saveData.first(),SIGNAL(triggered()),this,SLOT(saveProgWeekXML()));
+    connect(_progA,SIGNAL(accepted()),this,SLOT(testAffichage()));
 }
 
 void Agenda::updateList()

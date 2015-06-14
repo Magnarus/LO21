@@ -1,17 +1,17 @@
 #include <QApplication>
-#include "../headers/addprog.h"
-#include "../headers/addprogunitaire.h"
-#include "../headers/accueil.h"
-#include "../headers/addproject.h"
-#include "../headers/addtache.h"
-#include "../headers/edittache.h"
-#include "../headers/editproject.h"
+//#include "../headers/addprog.h"
+//#include "../headers/addprogunitaire.h"
+//#include "../headers/accueil.h"
+//#include "../headers/addproject.h"
+//#include "../headers/addtache.h"
+//#include "../headers/edittache.h"
+//#include "../headers/editproject.h"
 #include "../headers/Agenda.h"
 
-#include "headers/tachepreemptive.h"
-#include "headers/ProgrammationProjetExport.h"
-#include "headers/XMLExport.h"
-#include "headers/tache_unitaire.h"
+//#include "headers/tachepreemptive.h"
+//#include "headers/ProgrammationProjetExport.h"
+//#include "headers/XMLExport.h"
+//#include "headers/tache_unitaire.h"
 #include <QDebug>
 int main(int argc, char *argv[])
 {

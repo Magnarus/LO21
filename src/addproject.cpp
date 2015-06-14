@@ -40,21 +40,25 @@ AddProject::AddProject(QWidget *parent) : QDialog(parent)
 
 void AddProject::newProject()
 {
-   QDate dd = _dateDispo->date();
-   QDate de = _dateEcheance->date();
-   QString titre =_titre->text();
-   QMap<QString,QVariant> params;
-   params["dispo"] = QVariant(dd);
-   params["echeance"] = QVariant(de);
-   params["titre"] = QVariant(titre);
-   try
-   {
-       ProjetManager::getInstance()->ajouterItem("PROJET",params);
-       QMessageBox::information(this,"ajout réussi","projet bien ajouté ! ");
-       done(1);
-   }
-   catch(AgendaException &e)
-   {
-       QMessageBox::critical(this,"Erreur ajout",e.getInfo());
-   }
+    QDate dd = _dateDispo->date();
+    QDate de = _dateEcheance->date();
+    QString titre =_titre->text();
+    QMap<QString,QVariant> params;
+    params["dispo"] = QVariant(dd);
+    params["echeance"] = QVariant(de);
+    params["titre"] = QVariant(titre);
+    if(titre.isEmpty()){
+        QMessageBox::warning(this,"Attention","Le projet doit avoir un nom.");
+    }else{
+        try
+        {
+            ProjetManager::getInstance()->ajouterItem("PROJET",params);
+            QMessageBox::information(this,"ajout réussi","projet bien ajouté ! ");
+            done(1);
+        }
+        catch(AgendaException &e)
+        {
+            QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+        }
+    }
 }

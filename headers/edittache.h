@@ -29,6 +29,7 @@ class EditTache : public Editeur
 public:
     EditTache(Tache* t=0,QWidget *parent=0);
     void setTache(Tache* t){tacheEdit = t;}
+    const Tache* getTache()const{ return tacheEdit;}
     virtual void initChamps();
 public slots:
     void notifie();

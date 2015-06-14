@@ -52,20 +52,24 @@ void AddProgUnitaire::creation()
     params["duree"]= QVariant(_duree->time());
     params["horaire"] = QVariant(_horaire->time());
     qDebug() << _taches->selectedItems().size();
-    QVariant p = _taches->selectedItems().at(0)->data(32);
-    Tache_Unitaire* t = p.value<Tache_Unitaire*>();
-    params["programme"] = p;
-    try
-    {
-        ProgManager::getInstance()->ajouterItem("UNITAIRE",params);
-        t->setEtat(EN_COURS);
-        emit progAdded();
-        QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
-        accept();
-    }
-    catch(AgendaException &e)
-    {
-        QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+    if(_taches->selectedItems().size()==0){ //Si on a pas choisi de tache, on ne peut pas faire l'ajout
+        QMessageBox::critical(this,"Erreur ajout","Aucune tache sélectionnée!");
+    }else{
+        QVariant p = _taches->selectedItems().at(0)->data(32);
+        Tache_Unitaire* t = p.value<Tache_Unitaire*>();
+        params["programme"] = p;
+        try
+        {
+            ProgManager::getInstance()->ajouterItem("UNITAIRE",params);
+            t->setEtat(EN_COURS);
+            emit progAdded();
+            QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
+            accept();
+        }
+        catch(AgendaException &e)
+        {
+            QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+        }
     }
 
 }

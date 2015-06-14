@@ -21,7 +21,6 @@ HEADERS += \
     headers/ajouteurprogactivite.h \
     headers/progmanager.h \
     headers/progactivite.h \
-    headers/progtunit.h \
     headers/tachepreemptive.h \
     headers/tachenonpreemptive.h \
     headers/ajouteurtachepreemptive.h \
@@ -50,7 +49,9 @@ HEADERS += \
     headers/Agenda.h \
     headers/ProgrammationSemaineExport.h \
     headers/ProgrammationProjetExport.h \
-    headers/exportView.h
+    headers/exportView.h \
+    headers/progTUnit.h \
+    headers/progActivite.h
 
 SOURCES += \
     src/ajouteur.cpp \

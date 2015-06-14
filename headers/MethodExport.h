@@ -6,6 +6,8 @@
 #include "headers/tache.h"
 #include "headers/activite.h"
 #include "headers/programmation.h"
+#include "headers/progTUnit.h"
+#include "headers/progActivite.h"
 
 /**
  * \class       MethodExport MethodExport.h "headers/MethodExport.h"

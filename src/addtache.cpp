@@ -63,24 +63,27 @@ void AddTache::newTache()
     params["dispo"]= QVariant(_dateDispo->date());
     params["deadline"] = QVariant(_dateEcheance->date());
     params["titre"] = QVariant(_titre->text());
-    try
-    {
-        if(_unitaire->isChecked())
+    if(_titre->text().isEmpty()) QMessageBox::warning(this,"Attention","La tache n'a pas de nom!");
+    else{
+        try
         {
-            params["dur"] = QVariant(_duree->time());
-            if(_preemptive->isChecked())
-                TacheManager::getInstance()->ajouterItem("PREEMPTIVE",params);
+            if(_unitaire->isChecked())
+            {
+                params["dur"] = QVariant(_duree->time());
+                if(_preemptive->isChecked())
+                    TacheManager::getInstance()->ajouterItem("PREEMPTIVE",params);
+                else
+                    TacheManager::getInstance()->ajouterItem("NON_PREEMPTIVE",params);
+            }
             else
-                TacheManager::getInstance()->ajouterItem("NON_PREEMPTIVE",params);
-        }
-        else
-            TacheManager::getInstance()->ajouterItem("COMPOSITE",params);
+                TacheManager::getInstance()->ajouterItem("COMPOSITE",params);
             QMessageBox::information(this,"ajout réussi","tâche bien ajoutée ! ");
-        accept();
-    }
-    catch(AgendaException &e)
-    {
-        QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+            accept();
+        }
+        catch(AgendaException &e)
+        {
+            QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+        }
     }
 
 }

@@ -6,7 +6,7 @@ Programmation* AjouteurProgActivite::construire(QMap<QString, QVariant> &params)
     QDate date;
     QTime duree,horaire;
     Activite* act;
-    //On vérifie que les paramètres passés correspondent bien à une tache composite
+    //On vérifie que les paramètres passés correspondent bien à une activite
     if(verifTypes(params.keys()))
     {
         //On récup les param de la prog

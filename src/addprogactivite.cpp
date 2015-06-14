@@ -17,6 +17,7 @@ AddProgActivite::AddProgActivite(QWidget *parent):AddProg(parent)
     _contour = new QGroupBox("Nouvelle Activite");
     _contour->setLayout(_activite);
     _mainLayout->addWidget(_contour);
+    _mainLayout->addLayout(_buttonLayout);
     //_mainLayout->addLayout(_buttonLayout);
     connect(_valider,SIGNAL(clicked()),this,SLOT(creation()));
     connect(_annuler,SIGNAL(clicked()),this,SLOT(reject()));
@@ -31,24 +32,27 @@ void AddProgActivite::creation()
     params["date"] = QVariant(_dateAct->date());
     params["duree"] = QVariant(_dureeAct->time());
     params["nom"] = QVariant(_titreAct->text());
-    try
-    {
-        ActiviteManager::getInstance()->ajouterItem("ACTIVITE",params);
-        QMap<QString,QVariant> paramsProg;
-        paramsProg["date"] = QVariant(_date->date());
-        paramsProg["duree"]= QVariant(_duree->time());
-        paramsProg["horaire"] = QVariant(_horaire->time());
-        Activite* a = ActiviteManager::getInstance()->getDernierItem();
-        QVariant p;
-        p.setValue(a);
-        paramsProg["programme"] = p;
-        ProgManager::getInstance()->ajouterItem("ACTIVITE",paramsProg);
-        accept();
-        QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
-
-    }
-    catch(AgendaException &e)
-    {
-        QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+    if(_titreAct->text().isEmpty()) QMessageBox::warning(this,"Attention","Une activité doit avoir un titre");
+    else{
+        try
+        {
+            ActiviteManager::getInstance()->ajouterItem("ACTIVITE",params);
+            QMap<QString,QVariant> paramsProg;
+            paramsProg["date"] = QVariant(_date->date());
+            paramsProg["duree"]= QVariant(_duree->time());
+            paramsProg["horaire"] = QVariant(_horaire->time());
+            Activite* a = ActiviteManager::getInstance()->getDernierItem();
+            QVariant p;
+            p.setValue(a);
+            paramsProg["programme"] = p;
+            ProgManager::getInstance()->ajouterItem("ACTIVITE",paramsProg);
+            accept();
+            qDebug() << "avant emission";
+            QMessageBox::information(this,"ajout réussi","programmation bien ajoutée !");
+        }
+        catch(AgendaException &e)
+        {
+            QMessageBox::critical(this,"Erreur ajout",e.getInfo());
+        }
     }
 }

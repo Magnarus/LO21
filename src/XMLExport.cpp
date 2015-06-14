@@ -92,6 +92,13 @@ void XMLExport::exportProgrammation(const Programmation &prog){
     tmp.appendChild(document.createTextNode(QString::number(prog.getType())));
     programmation.appendChild(tmp);
     qDebug() << "type" << prog.getType();
+    tmp=document.createElement("element");
+    if(prog.getType()==typeProg::PROGTACHE){
+        tmp.appendChild(document.createTextNode(QString::number(dynamic_cast<const ProgTUnit*>(&prog)->getProgramme()->getId())));
+    }else{
+        tmp.appendChild(document.createTextNode(QString::number(dynamic_cast<const ProgActivite*>(&prog)->getProgramme()->getId())));
+    }
+    programmation.appendChild(tmp);
     programmations.appendChild(programmation);
 }
 

@@ -23,6 +23,7 @@ class EditProject : public Editeur
 public:
     EditProject(Projet* p=0, QWidget* parent=0);
     void setProjet(Projet* p){projetEdit=p;}
+    const Projet* getProjet()const{ return projetEdit;}
     virtual void initChamps();
 public slots:
     void notifie();

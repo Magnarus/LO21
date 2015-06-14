@@ -15,6 +15,13 @@ ProjectView::ProjectView(QWidget *parent) : QWidget(parent)
     _suppr = new QAction(QIcon(":/res/sauvegarder.png"),tr("Supprimer"),this);
     connect(_suppr,SIGNAL(triggered()),this,SLOT(suppressionNoeud()));
 
+    _export= new QMenu(tr("Exporter"),this);
+    _exportProgProj=new QMenu(tr("Programmations liées"),this);
+    _exportProgProjXML=new QAction(tr("XML"),this);
+    _exportProgProj->addAction(_exportProgProjXML);
+    _export->addMenu(_exportProgProj);
+    connect(_exportProgProjXML,SIGNAL(triggered()),this,SLOT(exporterProgProjetXML()));
+
     _leftLayout = new QVBoxLayout;
     _leftLayout->addWidget(_lesProjets);
     _leftLayout->addWidget(_creerProjet);
@@ -71,8 +78,8 @@ void ProjectView::ajouterTache(Tache* t, QTreeWidgetItem* parent)
         Tache_Composite::Iterator it = tc->getIterator();
         while(it.courant() != tc->end())
         {
-              ajouterTache(it.valeur(),nouvParent);
-              it.next();
+            ajouterTache(it.valeur(),nouvParent);
+            it.next();
         }
     }
 }
@@ -93,8 +100,8 @@ void ProjectView::init()
         int i = p->getNbTaches();
         for(int j = 0; j<i;j++)
         {
-           Tache* t = p->getTacheParCompteur(j);
-           ajouterTache(t,itemCourant);
+            Tache* t = p->getTacheParCompteur(j);
+            ajouterTache(t,itemCourant);
         }
         it.next();
     }
@@ -103,7 +110,7 @@ void ProjectView::init()
 void ProjectView::clicDroit(QPoint pos)
 {
     //On récupère le noeud de la treeview cliqué
-     _noeudClic = _lesProjets->itemAt(pos);
+    _noeudClic = _lesProjets->itemAt(pos);
 
     //On check qu'il y en a bien un
     if(_noeudClic)
@@ -112,6 +119,9 @@ void ProjectView::clicDroit(QPoint pos)
         QMenu menu(this);
         menu.addAction(_ajout);
         menu.addAction(_suppr);
+        if(_noeudClic->data(0,32).canConvert<Projet*>()){
+            menu.addMenu(_export);
+        }
         menu.exec( _lesProjets->mapToGlobal(pos));
     }
 }
@@ -125,23 +135,25 @@ void ProjectView::slotAjouterTache()
     if(donnees.canConvert<Projet*>() || donnees.canConvert<Tache_Composite*>())
     {
         //On affiche la fenêtre pour créer une tâche
-        showCreateTache();
-        //On la récupère
-        t = TacheManager::getInstance()->getDernierItem();
-        if (donnees.canConvert<Projet*>())
-        {
-            try
+        if(showCreateTache()==QDialog::Accepted && !_ajouterTache->getTitre().isEmpty()){
+            //On la récupère
+            t = TacheManager::getInstance()->getDernierItem();
+            qDebug() << "4";
+            if (donnees.canConvert<Projet*>())
             {
-                Projet* p = donnees.value<Projet*>();
-                p->ajouterTache(t);
+                try
+                {
+                    Projet* p = donnees.value<Projet*>();
+                    p->ajouterTache(t);
+                    ajouterTache(t,_noeudClic);
+                }catch(AgendaException e){QMessageBox::critical(this,"erreur ajout",e.getInfo());}
+            }
+            else
+            {
+                Tache_Composite* tc = donnees.value<Tache_Composite*>();
+                tc->ajouterSousTache(t);
                 ajouterTache(t,_noeudClic);
-            }catch(AgendaException e){QMessageBox::critical(this,"erreur ajout",e.getInfo());}
-        }
-        else
-        {
-             Tache_Composite* tc = donnees.value<Tache_Composite*>();
-             tc->ajouterSousTache(t);
-             ajouterTache(t,_noeudClic);
+            }
         }
     }
     else QMessageBox::warning(this,"erreur noeud","une tache unitaire ne peut pas avoir de sous tâche");
@@ -151,6 +163,7 @@ void ProjectView::suppressionNoeud()
 {
     QTreeWidgetItem* supp=nullptr;
     int nb=_noeudClic->childCount();
+
     for(int i=0;i<nb;i++)
     {
         supp=_noeudClic->child(i);
@@ -174,6 +187,11 @@ void ProjectView::supprimerValeurAssocieeQVariant(QVariant& varsupp)
     {
         Projet* projetsupp = varsupp.value<Projet*>();
         ProjetManager::getInstance()->supprimerItem(projetsupp->getId());
+        EditProject* e=dynamic_cast<EditProject*>(_edit);
+        if(e!=NULL && e->getProjet()->getId()==projetsupp->getId()){
+            _edit->hide();
+            _mainLayout->removeWidget(_edit);
+        }
     }
     else if (varsupp.canConvert<Tache_Unitaire*>() || varsupp.canConvert<Tache_Composite*>())
     {
@@ -185,6 +203,11 @@ void ProjectView::supprimerValeurAssocieeQVariant(QVariant& varsupp)
         supprimerLienProjet(tachesupp);
         supprimerLienTacheComposite(tachesupp);
         TacheManager::getInstance()->supprimerItem(tachesupp->getId());
+        EditTache* t=dynamic_cast<EditTache*>(_edit);
+        if(t!=NULL && t->getTache()->getId()==tachesupp->getId()){
+            _edit->hide();
+            _mainLayout->removeWidget(_edit);
+        }
     }
 }
 
@@ -237,4 +260,21 @@ void ProjectView::lancerEdit(QTreeWidgetItem *item, int column)
         _edit->initChamps();
     }
     connect(_edit,SIGNAL(modifie()),this,SLOT(actualiser()));
+}
+
+void ProjectView::exporterProgProjetXML(){
+    Tache* t;
+    QVariant tvar;
+    QString desc="";
+    QVariant donnees =_noeudClic->data(0,32);
+    if(donnees.canConvert<Projet*>())
+    {
+     XMLExport* xmlexport=new XMLExport("xml");
+     ProgrammationProjetExport* p=new ProgrammationProjetExport(donnees.value<Projet*>(),"xml",xmlexport);
+     p->exportData();
+     QMessageBox::information(this,"Exportation","Projet exporté au format XML.");
+     //delete xmlexport;
+     delete p;
+    }
+    else QMessageBox::warning(this,"Erreur","L'objet à exporter ne désigne pas un projet");
 }

@@ -31,6 +31,7 @@ protected:
     void setAjouterTitle(const QString& title){ _ajouter->setText(title);}
 public:
     explicit AddTache(QWidget *parent = 0);
+    inline const QString& getTitre()const{ return _titre->text();}
     virtual ~AddTache(){}
 protected:
 signals:

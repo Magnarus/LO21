@@ -57,15 +57,22 @@ public slots:
     }
     void showCreateProgU(){
        _progU=new AddProgUnitaire();
-       _progU->exec();
+       //_progU->exec();
+       if(_progU->exec()==QDialog::Accepted){
+           _a->majEDT();
+       }
     }
     void showCreateProgA(){
        _progA=new AddProgActivite();
-       _progA->exec();
+       //_progA->exec();
+        if(_progA->exec()==QDialog::Accepted){
+            _a->majEDT();
+        }
     }
     void updateList();
     void saveProgWeekXML();
     void saveProgProjetXML(Projet* p);
+    void testAffichage(){ qDebug() << "test";}
 };
 
 #endif // AGENDA_H
