@@ -1,3 +1,9 @@
 \clanguage
 
-\chapter{Evolution et facilité d'évolution lié à nos choix}
+\chapter{Association avec Qt}
+Afin que l’utilisateur puisse utiliser l’application de manière intuitive et ergonomique, nous avons dû penser à intégrer ce modèle au sein d’une application Qt. 
+Nous avons donc une QMainWindow qui sert comme son nom l’indique de fenêtre principale regroupant l’ensemble des widget utiles aux interactions. La QMainWindow offre la possibilité d’avoir une barre d’outils permettant de lancer rapidement les actions d’import, d’export, de création d’évènement et de changement de menu. On peut également associer à ses actions des raccourcis afin d’aller plus vite. 
+Le widget principal de cette fenêtre variera entre le planning et l’arborescence. Le planning a été créé à partir d’un tableau séparés en tranches d’une heure, et on colorie les cellules associées aux programmations. On a également un calendrier permettant de naviguer aisément dans le temps.
+L’arborescence est un QTreeWidget, qui sert justement d’arborescence. Nous pouvons créer dynamiquement des nœuds à l’aide de menus contextuels, et les pages d’éditions de tâches et de projets sont directement intégrés au widget. 
+Pour les interactions, il a fallu utiliser la puissance des signaux et des slots de Qt, qui permettent de réagir à des évènements donnés mais aussi configurables. Cela permet d’une certaine manière d’avoir des observeurs et des observables. 
+Tout ceci sera expliqué plus en détails dans la vidéo, mais je tenais à souligner l’importance et la réflexion quant à l’ergonomie et la facilité d’utilisation lors de la création de l’interface. 
