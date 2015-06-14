@@ -5,7 +5,7 @@
 
 /**
  * \class       SimpleFileExport SimpleFileExport.h "headers/SimpleFileExport.h"
- * \author      NEVEUX Anais
+ * \author      NEVEUX Anais et DELAUNAY Gregory
  * \version     1.0
  * \date        12 juin 2015
  * \brief       Implémente la classe SimpleFileExport

@@ -6,12 +6,11 @@
 #include <QString>
 #include <QDate>
 /**
- * \class       AjouteurTachePreemptive ajouteurtachepreemptive.h "headers/ajouteurtachepreemptive.h"
- * \author      DELAUNAY Grégory
+ * \class       AjouteurTacheUnitaire ajouteurtacheunitaire.h "headers/ajouteurtacheunitaire.h"
+ * \author      DELAUNAY Grégory et NEVEUX Anaïs
  * \version     1.0
  * \date        04 juin 2015
- * \brief       Implémente la classe AjouteurTachePreemptive
- * \extends     AjouteurTacheUnitaire
+ * \brief       Implémente la classe AjouteurTacheUnitaire
  * \details     Cette classe définit les ajouteurs de programmation de tâche unitaire
  *              Les ajouteurs sont des objets qui servent à construire des objets d'un type données.
  *              Ils sont utiles pour que les managers puissent gérer de nouveaux types d'objets sans
@@ -25,6 +24,9 @@ protected:
     AjouteurTacheUnitaire& operator=(const AjouteurTacheUnitaire&);
 public:
     virtual void afficher()const =0;
+    /**
+     * \brief AjouteurTacheUnitaire  constructeur qui donne les paramètres qui doivent être renseignés
+     */
     AjouteurTacheUnitaire():AjouteurTache()
     {
         types.insert("dur");

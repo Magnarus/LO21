@@ -8,7 +8,7 @@
 #include "agendaexception.h"
 /**
  * \class Ajouteur ajouteur.h "headers/ajouteur.h"
- * \author      DELAUNAY Grégory
+ * \author      DELAUNAY Grégory et NEVEUX Anaïs
  * \version     1.0
  * \date        04 juin 2015
  * \brief       Implémente la classe ajouteur
@@ -23,12 +23,26 @@ class Ajouteur
 {
     friend class TManager<U>; // Pour que seuls les manager puissent créer des objets (principe du Manager ! )
 protected:
-    QSet<QString> types; //Sert à indiquer les champs requis dans l'ajouteur
+    QSet<QString> types; /** Sert à indiquer les champs requis dans l'ajouteur */
+
+    /**
+     * \brief construire fonction qui crée l'objet du type correspondant et le retourne
+     * \param params la liste des paramètres correspondant à l'objet qui doit être construit.
+     * \return l'objet créé
+     */
     virtual U construire(QMap<QString,QVariant>& params)const = 0;
+
+    /**
+     * \brief verifTypes fonction qui vérifie que l'utilisateur rentre les bons paramètres dans la fonction construire
+     * \return \e booléen vrai si correspondance, faux sinon
+     */
     virtual bool verifTypes(QList<QString>)const;
     Ajouteur(const Ajouteur&);
     Ajouteur& operator=(const Ajouteur&);
 public:
+    /**
+     * \brief afficher fonction de service pour générer l'abstraction de la classe
+     */
     virtual void afficher()const = 0;
     Ajouteur(){}
 };

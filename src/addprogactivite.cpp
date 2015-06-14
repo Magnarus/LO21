@@ -18,7 +18,6 @@ AddProgActivite::AddProgActivite(QWidget *parent):AddProg(parent)
     _contour->setLayout(_activite);
     _mainLayout->addWidget(_contour);
     _mainLayout->addLayout(_buttonLayout);
-    //_mainLayout->addLayout(_buttonLayout);
     connect(_valider,SIGNAL(clicked()),this,SLOT(creation()));
     connect(_annuler,SIGNAL(clicked()),this,SLOT(reject()));
     connect(_duree,SIGNAL(timeChanged(QTime)),this,SLOT(majDuree(QTime)));

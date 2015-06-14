@@ -263,9 +263,6 @@ void ProjectView::lancerEdit(QTreeWidgetItem *item, int column)
 }
 
 void ProjectView::exporterProgProjetXML(){
-    Tache* t;
-    QVariant tvar;
-    QString desc="";
     QVariant donnees =_noeudClic->data(0,32);
     if(donnees.canConvert<Projet*>())
     {

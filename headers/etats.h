@@ -1,5 +1,10 @@
 #ifndef ETATS_H
 #define ETATS_H
+/**
+ * \enum Etats
+ *
+ * etats possibles pour une tâche
+ */
 enum Etats
 {
     PAUSE,
@@ -7,6 +12,11 @@ enum Etats
     TERMINEE
 };
 
+/**
+ * \enum typeTache
+ *
+ * différents types de tâches possibles
+ */
 enum typeTache
 {
     TACHE,
@@ -15,7 +25,11 @@ enum typeTache
     PREEMPTIVE,
     NON_PREEMPTIVE
 };
-
+/**
+ * \enum typeProg
+ *
+ * différents types de programmations possibles
+ */
 enum typeProg
 {
     PROGTACHE,

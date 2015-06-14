@@ -8,11 +8,10 @@
 
 /**
  * \class       ProgrammationExport ProgrammationExport.h "headers/ProgrammationExport.h"
- * \author      NEVEUX Anais
+ * \author      NEVEUX Anais et DELAUNAY Gregory
  * \version     1.0
  * \date        12 juin 2015
  * \brief       Implémente la classe ProgrammationExport
- * \extends     TExport<Programmation*>
  * \details     Classe abstraite permettant de gérer les exportations qui concernent des programmations
  */
 
@@ -22,8 +21,13 @@ protected:
         virtual const QString generateFilename()=0;
 public:
     ProgrammationExport(const QString& t,MethodExport* e=NULL):TExport<Programmation*>(t,e){}
-    //L'exportation des données reste la même quelque soit le genre de programmation qu'on exporte
-    //Une fois définie, cette méthode ne changera pas et ne devrait pas être réimplémentée par héritage, d'ou le final
+    /**
+     * \brief exportData
+     * Fonction principale d'exportation, ici finale car la fonction reste la même pour toutes les filles, seuls la recherche des programmations
+     * et la génération du nom du fichier change.
+     * \param e
+     * Permet un changement de méthode d'exportation
+     */
     virtual void exportData(MethodExport *e=NULL) final;
 };
 

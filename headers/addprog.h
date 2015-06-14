@@ -9,18 +9,34 @@
 #include<QVBoxLayout>
 #include<QLineEdit>
 #include<QPushButton>
+/**
+ * \class AddProg addprog.h "headers/addprog.h"
+ * \author      DELAUNAY Grégory et NEVEUX Anaïs
+ * \version     1.0
+ * \date        08 juin 2015
+ * \brief       Implémente la classe addprog
+ *
+ * \details    widget générique boite de dialogue qui permet de gérer la création
+ * de programmations
+ */
 class AddProg: public QDialog
 {
     Q_OBJECT
 protected:
-    QDateEdit * _date;
-    QTimeEdit *_horaire, *_duree;
-    QPushButton *_valider, *_annuler;
+    QDateEdit * _date;/** modificateur de date */
+    QTimeEdit *_horaire;/** modificateur d'horaires */
+    QTimeEdit *_duree;/** modificateur de durée */
+    QPushButton *_valider;/** bouton de validation */
+    QPushButton *_annuler;/** bouton de rétractation */
 
-    QFormLayout *_formLayout;
-    QHBoxLayout *_buttonLayout;
-    QVBoxLayout * _mainLayout;
+    QFormLayout *_formLayout; /** layout du formulaire */
+    QHBoxLayout *_buttonLayout;/** layout pour les boutons */
+    QVBoxLayout * _mainLayout; /** layout principal */
 public:
+    /**
+     * \brief       constructeur d'AddProg
+     * param \e QWidget parent qui correspond au widget parent s'il y en a un
+     */
     AddProg(QWidget* parent=0);
 };
 

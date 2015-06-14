@@ -4,12 +4,11 @@
 #include "tachenonpreemptive.h"
 /**
  * \class       AjouteurTacheNonPreemptive ajouteurtachenonpreemptive.h "headers/ajouteurtachenonpreemptive.h"
- * \author      DELAUNAY Grégory
+ * \author      DELAUNAY Grégory et NEVEUX Anaïs
  * \version     1.0
  * \date        04 juin 2015
  * \brief       Implémente la classe AjouteurTacheNonPreemptive
- * \extends     AjouteurTache
- * \details     Cette classe définit les ajouteurs de Tache_Composite
+ * \details     Cette classe définit les ajouteurs de TacheNonPreemptive
  *              Les ajouteurs sont des objets qui servent à construire des objets d'un type données.
  *              Ils sont utiles pour que les managers puissent gérer de nouveaux types d'objets sans
  *              avoir à tout recompiler.
