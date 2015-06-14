@@ -12,9 +12,18 @@
 #include<QString>
 class AgendaException{
 public:
+    /**
+     * \brief AgendaException constructeur
+     * \param message
+     */
     AgendaException(const QString& message):info(message){}
+
+    /**
+     * \brief getInfo
+     * \return \e QString le message à afficher
+     */
     QString getInfo() const { return info; }
 private:
-    QString info;
+    QString info; /** le message à afficher */
 };
 #endif // AGENDAEXCEPTION_H

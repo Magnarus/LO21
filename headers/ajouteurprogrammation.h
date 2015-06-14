@@ -8,7 +8,6 @@
  * \version     1.0
  * \date        04 juin 2015
  * \brief       Implémente la classe AjouteurProgrammation
- * \extends     Ajouteur<Programmation*>
  * \details    Cette classe définit les ajouteurs de programmation
  *             Les ajouteurs sont des objets qui servent à construire des objets d'un type données.
  *             Ils sont utiles pour que les managers puissent gérer de nouveaux types d'objets sans
@@ -22,6 +21,9 @@ protected:
     AjouteurProgrammation& operator=(const AjouteurProgrammation&);
 public:
     virtual void afficher()const = 0;
+    /**
+     * \brief AjouteurProgrammation constructeur qui donne les paramètres qui doivent être renseignés
+     */
     AjouteurProgrammation():Ajouteur()
     {
         types.insert("id");

@@ -15,7 +15,6 @@
  * \version     1.0
  * \date        08 juin 2015
  * \brief       Implémente la classe AddProgActivite
- * \extends AddProg
  * \details    widget boite de dialogue qui permet de gérer la création
  * de programmations de tâches unitaires.
  * Il sert à créer une activité en même temps,
@@ -24,13 +23,27 @@
 class AddProgUnitaire : public AddProg
 {
     Q_OBJECT
-    QListWidget *_taches;
+    QListWidget *_taches;/** listes des tâches programmables */
 public:
+    /**
+     * \brief constructeur AddProgUnitaire
+     * \param parent s'il y en a un
+     */
     AddProgUnitaire(QWidget* parent=0);
 public slots:
+    /**
+     * \brief creation gère la création de la programmation associée à la tâche
+     */
     void creation();
+    /**
+     * \brief majInfo met à jour les champs d'éditions pour correspondre avec la tâche choisie
+     * \param selected qui correspond à la tâche choisie.
+     */
     void majInfo(QListWidgetItem*selected);
 signals:
+    /**
+     * \brief progAdded signal de fin d'ajout
+     */
     void progAdded();
 };
 

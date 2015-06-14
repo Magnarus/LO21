@@ -12,7 +12,7 @@ template<typename U>
 class Ajouteur;
 template<typename T>
 /**
- * \class       TManager manager.h "headers/manager.h"
+ * \class       TManager tmanager.h "headers/tmanager.h"
  * \author      DELAUNAY Grégory
  * \version     1.0
  * \date        04 juin 2015
@@ -25,12 +25,32 @@ class TManager
 {
 
 protected:
-    QVector<T> managable; //L'ensemble des objets du Manager
-    QMap<QString, Ajouteur<T>*> ajouteurs; //Les ajouteurs : ressemble au design pattern Factory !
-    QSet<QString> cles;
-    int idDispo;
+    QVector<T> managable; /** L'ensemble des objets du Manager*/
+    QMap<QString, Ajouteur<T>*> ajouteurs; /** objets permettant de construire les objets stockés dans le manager */
+    QSet<QString> cles; /** types d'ajouteurs autorisés */
+    int idDispo; /** prochain id disponible pour construction */
+
+    /**
+     * \brief addItem
+     * ajoute un item
+     * \param i
+     * objet à ajouter
+     */
     const void addItem(T i){managable.push_back(i); idDispo++;}
+
+    /**
+     * \brief TManager
+     * constructeur de recopie interdit
+     * \param t
+     */
     TManager(TManager* t);
+
+    /**
+     * \brief operator =
+     * recopie par opérateur interdite
+     * \param t
+     * \return
+     */
     TManager& operator=(TManager* t);
     TManager(size_t capacity=0):idDispo(1)
     {
@@ -38,15 +58,35 @@ protected:
     }
     TManager(const TManager&);
     TManager& operator=(const TManager&);
+    /**
+     * \struct      HandlerTM tmanager.h "headers/tmanager.h"
+     * \author      DELAUNAY Grégory
+     * \version     1.0
+     * \date        04 juin 2015
+     * \brief       Implémente l'handler
+     *
+     * \details     cette structure permet de faire en sorte que les manager soient des singletons
+     */
     struct HandlerTM{
-            TManager<T>* instance;
+            TManager<T>* instance; /** l'instance singleton*/
+            /**
+             * \brief HandlerTM
+             * constructeur
+             */
             HandlerTM():instance(0){}
             // destructeur appelé à la fin du programme
             ~HandlerTM(){ if (instance) delete instance; }
     };
-    static HandlerTM handler;
+    static HandlerTM handler; /** instance de l'handler */
 
 public:
+    /**
+     * \brief getItem
+     * accesseur sur l'item stocké
+     * \param id
+     * id de l'item à récupérer
+     * \return référence sur l'item
+     */
     T& getItem(const int id)
     {
         typename QVector<T>::iterator it = managable.begin();
@@ -54,6 +94,14 @@ public:
             ++it;
         return *it;
     }
+
+    /**
+     * \brief getItem
+     * accesseur sur l'item stocké
+     * \param id
+     * id de l'item à récupérer
+     * \return référence constante sur l'item
+     */
     const T& getItem(const int id) const
     {
             typename QVector<T>::const_iterator it = managable.cbegin();
@@ -61,14 +109,49 @@ public:
                 ++it;
             return *it;
     }
+    /**
+     * \brief getDernierItem
+     * \return le dernier item ajouté
+     */
     T getDernierItem()const {return managable.last();}
-    //const T getDernierItem()const {return managable.last();}
+
+    /**
+     * \brief afficher
+     * fonction de service pour générer l'abstraction
+     */
     virtual void afficher()const = 0;
-    //static TManager* getInstance();
+
+    /**
+     * \brief libererInstance
+     */
     static void libererInstance();
+
+    /**
+     * \brief getIdDispo
+     * \return l'id disponible
+     */
     const int getIdDispo()const {return idDispo;}
+    /**
+     * \brief nbItem
+     * \return le nombre d'item stocké
+     */
     inline int nbItem()const {return managable.size();}
+
+    /**
+     * \brief nbAjouteurs
+     * \return le nombre d'ajouteurs
+     */
     inline int nbAjouteurs()const {return ajouteurs.size();}
+
+    /**
+     * \brief ajouterItem
+     * ajoute un item
+     * \param AjouteurType
+     * type d'ajouteur à utiliser
+     * \param params
+     * liste des paramètres
+     * \return l'id du nouvel item
+     */
     inline int ajouterItem(const QString& AjouteurType, QMap<QString,QVariant>& params)
     {
         if(cles.find(AjouteurType) == cles.end()) throw AgendaException("Impossible d'utiliser cet ajouteur : il n'existe pas");
@@ -76,11 +159,28 @@ public:
         this->addItem(ajouteurs[AjouteurType]->construire(params));
         return idDispo-1;
     }
+
+    /**
+     * \brief ajouterAjouteur
+     * ajoute un ajouteur
+     * \param ajouteurType
+     * type du nouvel ajouteur
+     * \param a
+     * ajouteur à ajouter
+     */
     inline void ajouterAjouteur(const QString ajouteurType, Ajouteur<T>* a)
     {
         ajouteurs[ajouteurType] = a;
         cles.insert(ajouteurType);
     }
+
+    /**
+     * \brief supprimerItem
+     * supprime l'item d'id passé
+     * \param id
+     * id de l'item à supprimer
+     * \return vrai si réussi, faux sinon
+     */
     inline bool supprimerItem(int id)
     {
         typename QVector<T>::iterator it = managable.begin();
@@ -96,26 +196,81 @@ public:
         return true;
     }
 
+    /**
+     * \class       Iterator tmanager.h "headers/tmanager.h"
+     * \author      DELAUNAY Grégory
+     * \version     1.0
+     * \date        04 juin 2015
+     * \brief       Implémente la classe Iterator
+     * \details     permet de parcourir l'ensemble des tâches liées à un projet
+     */
     class Iterator
     {
-        typename QVector<T>::iterator itCour;
+        typename QVector<T>::iterator itCour; /** itérateur courant */
     public:
+        /**
+         * \brief Iterator
+         * constructeur
+         * \param i
+         * début d'itération
+         */
         Iterator(typename QVector<T>::iterator i){itCour = i;}
+
+        /**
+         * \brief valeur
+         * \return valeur de l'itérateur
+         */
         T valeur(){return *itCour;}
+
+        /**
+         * \brief courant
+         * \return l'itérateur
+         */
         typename QVector<T>::iterator& courant(){return itCour;}
+
+        /**
+         * \brief next
+         * fais avancer l'itérateur
+         */
         void next(){++itCour;}
     };
+
+    /**
+     * \brief getIterator
+     * \return l'itérateur construit
+     */
     Iterator getIterator(){return Iterator(managable.begin());}
+
+    /**
+     * \brief end
+     * \return l'itérateur de fin
+     */
     typename QVector<T>::iterator end(){return managable.end();}
 
-
+    /**
+     * \class       IteratorDate tmanager.h "headers/tmanager.h"
+     * \author      DELAUNAY Grégory
+     * \version     1.0
+     * \date        04 juin 2015
+     * \brief       Implémente la classe IteratorDate
+     * \details     permet de parcourir l'ensemble des tâches liées à un tmanager sur un interval
+     * de temps donné.
+     */
     class IteratorDate
     {
-        QVector<T> resultats;
-        typename QVector<T>::iterator itRes;
-        QDate dispo;
-        QDate echeance;
+        QVector<T> resultats; /** resultats */
+        typename QVector<T>::iterator itRes; /** itérateur sur les résultats */
+        QDate dispo; /** date de début */
+        QDate echeance; /** date de fin */
     public:
+        /**
+         * \brief IteratorDate
+         * constructeur
+         * \param d
+         * date de début
+         * \param e
+         * date de fin
+         */
         IteratorDate(QDate& d, QDate& e = QDate()):dispo(d),echeance(e)
         {
            typename QVector<T>::iterator it = managable.begin();
@@ -141,11 +296,39 @@ public:
             itRes = resultats.begin();
         }
     public:
+        /**
+         * \brief valeur
+         * \return la valeur de l'itérateur
+         */
         T valeur(){return *itRes;}
+
+        /**
+         * \brief courant
+         * \return l'itérateur courant
+         */
         typename QVector<T>::iterator& courant(){return itRes;}
+
+        /**
+         * \brief end
+         * \return l'itérateur de fin
+         */
         typename QVector<T>::iterator& end(){return resultats.end();}
+
+        /**
+         * \brief next
+         * Fais avancer l'itérateur
+         */
         void next() { ++itRes;}
     };
+
+    /**
+     * \brief getIteratorDate
+     * \param d
+     * date de début
+     * \param e
+     * date de fin
+     * \return l'itérateur construit
+     */
     IteratorDate getIteratorDate(QDate& d, QDate &e = QDate()){return IteratorDate(d,e);}
 };
 

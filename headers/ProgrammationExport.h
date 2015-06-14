@@ -12,7 +12,6 @@
  * \version     1.0
  * \date        12 juin 2015
  * \brief       Implémente la classe ProgrammationExport
- * \extends     TExport<Programmation*>
  * \details     Classe abstraite permettant de gérer les exportations qui concernent des programmations
  */
 

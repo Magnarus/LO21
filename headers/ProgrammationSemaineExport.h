@@ -10,7 +10,6 @@
  * \version     1.0
  * \date        13 juin 2015
  * \brief       Implémente la classe ProgrammationSemaineExport
- * \extends     ProgrammationExport
  * \details     Classe concrète permettant de gérer les exportations qui concernent les programmations d'une semaine particulière. Il est impossible
  * d'en hériter.
  */

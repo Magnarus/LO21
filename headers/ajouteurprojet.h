@@ -8,7 +8,6 @@
  * \version     1.0
  * \date        04 juin 2015
  * \brief       Implémente la classe AjouteurProjet
- * \extends     Ajouteur<Projet*>
  * \details    Cette classe définit les ajouteurs de projet
  *             Les ajouteurs sont des objets qui servent à construire des objets d'un type données.
  *             Ils sont utiles pour que les managers puissent gérer de nouveaux types d'objets sans
@@ -22,6 +21,9 @@ protected:
     AjouteurProjet& operator=(const AjouteurProjet&);
 public:
     virtual void afficher()const override {std::cout << "je suis un ajouteur de projet\n";}
+    /**
+     * \brief AjouteurProjet constructeur qui donne les paramètres qui doivent être renseignés
+     */
     AjouteurProjet():Ajouteur()
     {
         types.insert("id");
