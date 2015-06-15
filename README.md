@@ -1,10 +1,3 @@
 # LO21
 projectCalendar
-TODO LIST : 
-VUE/CONTROLLER
-	Tout o/
-	
-AUTRE 
-	Parser XML
-	Rapport
-	Video
+Permet de planifier des tâches liées à des projets ainsi que des évènements
